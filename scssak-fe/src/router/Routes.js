@@ -4,3 +4,5 @@ export const notFountRoute = '/404';
 
 export const loginRoute = '/login';
 export const mainRoute = '/main';
+export const boardRoute = '/board';
+export const writeRoute = '/board/write';
