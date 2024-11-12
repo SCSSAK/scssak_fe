@@ -1,0 +1,166 @@
+/* 공통 스타일 */
+.article-write-page {
+  padding: 16px;
+  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
+  margin: 0 auto;
+  position: relative;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.back-button,
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form {
+  margin-top: 10px;
+  height: 100%;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.text-group {
+  display: flex;
+  height: 50%;
+}
+
+input[type='text'],
+textarea {
+  width: 100%;
+  padding: 1px;
+  border: none;
+  border-radius: 4px;
+  font-size: large;
+}
+
+input:focus {
+  outline: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+textarea {
+  /* height: 100px;
+  resize: none; */
+  flex-grow: 1;
+}
+
+.picture-group {
+  display: flex;
+  justify-content: left;
+}
+
+.photo-add-button {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.preview-image {
+  margin-top: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.select-board {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* 구분선 */
+hr {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin: 15px 0;
+}
+
+.visibility-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 라디오 버튼과 공개범위 라벨을 같은 줄에 위치 */
+.visibility-label {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.visibility-options {
+  display: inline-flex; /* 라디오 버튼 두 개가 한 줄에 정렬되도록 수정 */
+  gap: 30px;
+  vertical-align: middle;
+  margin-right: 15%;
+}
+
+.visibility-options label {
+  display: flex;
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+  z-index: 10;
+  width: 100%;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+/* 라디오박스 스타일 수정: 회색 정사각형, 선택 시 파란색 */
+input[type='radio'] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+input[type='radio']:checked {
+  background-color: #007bff;
+  border: none;
+}
