@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const ArticleList = ({
-  articleType = '',  // 게시글 타입 필터
-  semester = '',       // 사용자 기수
-  keyword = '',      // 검색 키워드 (제목)
-  writerId = '',     // 특정 작성자 ID
-  pageSize = 10,     // 페이지당 게시글 개수
+  articleType = '',  // 게시글 타입 필터 (optional)
+  openType = 1,      // 공개 범위 필터 (1: 전체 공개, 2: 기수 공개, 3: 둘 다)
+  keyword = '',      // 검색 키워드 (optional)
+  writerId = '',     // 특정 작성자 ID (optional)
+  currentPage = 1,   // 현재 페이지 (기본값: 1)
 }) => {
   const [articles, setArticles] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [error, setError] = useState(null);
 
@@ -19,20 +18,42 @@ const ArticleList = ({
 
       // 동적 파라미터 설정
       const params = {
-        page_size: pageSize,
+        open_type: openType,
         current_page: currentPage,
       };
       if (articleType) params.article_type = articleType;
-      if (semester) params.semester = semester;
       if (keyword) params.keyword = keyword;
       if (writerId) params.writer_id = writerId;
 
-      const response = await axios.get(`/api/v1/article`, { params });
+      // const response = await axios.get(`/api/v1/article`, { params });
 
-      if (response.status === 200) {
-        setArticles(response.data);
-        setTotalPages(5);  // 예시로 페이지 수를 설정. 실제로는 API에서 전달하는 값을 사용할 수 있음.
-      }
+      // if (response.status === 200) {
+      //   setArticles(response.data.article_list);
+      //   setTotalPages(response.data.total_page || 1); // 최소 1 페이지
+      // }
+
+      setArticles([
+        {
+          "article_title": "대예지",
+          "article_content": "찬양",
+          "article_user_name": "23기 조예지",
+          "article_created_at": "2024-11-11",
+          "article_like_count": 1,
+          "article_comment_count": 1,
+          "article_thumbnail": ""    // 없는 경우 빈 문자열
+        },
+        {
+          "article_title": "게시글 제목",
+          "article_content": "게시글 내용",
+          "article_user_name": "23기 조예지",
+          "article_created_at": "2024-11-11",
+          "article_like_count": 1,
+          "article_comment_count": 1,
+          "article_thumbnail": ""
+        }
+      ]);
+      setTotalPages(3);
+
     } catch (err) {
       if (err.response) {
         switch (err.response.status) {
@@ -40,7 +61,7 @@ const ArticleList = ({
             setError("요청한 페이지가 범위를 벗어났습니다.");
             break;
           case 401:
-            setError("권한이 없습니다.");
+            setError("권한이 없습니다. 로그인 후 시도하세요.");
             break;
           case 404:
             setError("없는 게시글 타입입니다.");
@@ -60,7 +81,7 @@ const ArticleList = ({
   // 검색 조건이 변경될 때마다 데이터 요청
   useEffect(() => {
     fetchArticles();
-  }, [articleType, cohort, keyword, writerId, currentPage]);
+  }, [articleType, openType, keyword, writerId, currentPage]);
 
   return (
     <div>
@@ -82,6 +103,7 @@ const ArticleList = ({
         ))}
       </ul>
       <div>
+        {/* 페이지 네비게이션 */}
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
