@@ -1,5 +1,9 @@
 import '../assets/styles/ArticleWritePage.css';
 import React, {useState, useRef} from 'react';
+import go_back_arrow from '../assets/images/go_back_arrow.png';
+import dropdown_arrow_down from '../assets/images/dropdown_arrow_down.png';
+import dropdown_arrow_up from '../assets/images/dropdown_arrow_up.png';
+import picture_button from '../assets/images/picture_button.png';
 
 const ArticleWritePage = () => {
   const [selectedBoard, setSelectedBoard] = useState('');
@@ -43,18 +47,35 @@ const ArticleWritePage = () => {
   return (
     <div className="article-write-page">
       <header className="header">
-        <button className="back-button">뒤로</button>
+        <div className="form-group back-button-group">
+          <button className="back-button">
+            <img src={go_back_arrow} alt="<-"></img>
+          </button>
+          <div>글쓰기</div>
+        </div>
         <button className="submit-button" onClick={handleSubmit}>
           등록
         </button>
       </header>
       <div className="form">
-        <div className="form-group">
+        <div className="form-group select-board-group">
           <div
             className="select-board"
             ref={boardRef}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
             {selectedBoard || '게시판을 선택하세요'}
+            {!isDropdownOpen && (
+              <img
+                src={dropdown_arrow_down}
+                alt="▼"
+                className="dropdown-arrow-image"></img>
+            )}
+            {isDropdownOpen && (
+              <img
+                src={dropdown_arrow_up}
+                alt="▲"
+                className="dropdown-arrow-image"></img>
+            )}
           </div>
           {isDropdownOpen && (
             <div
@@ -121,7 +142,7 @@ const ArticleWritePage = () => {
             onChange={handleImageUpload}
           />
           <label htmlFor="image-upload" className="photo-add-button">
-            사진 추가하기
+            <img src={picture_button} alt="사진 추가하기"></img>
           </label>
           {selectedImage && (
             <img src={selectedImage} alt="selected" className="preview-image" />

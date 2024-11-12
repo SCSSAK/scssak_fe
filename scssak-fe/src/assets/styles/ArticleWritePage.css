@@ -7,6 +7,10 @@
   height: 100vh;
 }
 
+.img {
+  object-fit: contain;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -14,14 +18,34 @@
   padding: 16px 0;
 }
 
-.back-button,
+.back-button-group {
+  display: flex;
+  justify-content: left;
+  gap: 7%;
+  margin-left: 3%;
+  color: rgb(118, 118, 118);
+  font-weight: bold;
+}
+
+.back-button {
+  color: white;
+  background-color: white;
+  border: none;
+  width: 20%;
+}
+
+.back-button img {
+  width: 100%;
+}
+
 .submit-button {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;
   cursor: pointer;
+  font-size: medium;
 }
 
 .form {
@@ -29,9 +53,9 @@
   height: 100%;
 }
 
-.form-group {
+/* .form-group {
   margin-bottom: 10px;
-}
+} */
 
 .text-group {
   display: flex;
@@ -44,7 +68,8 @@ textarea {
   padding: 1px;
   border: none;
   border-radius: 4px;
-  font-size: large;
+  font-size: medium;
+  margin-left: 3%;
 }
 
 input:focus {
@@ -59,21 +84,25 @@ textarea {
   /* height: 100px;
   resize: none; */
   flex-grow: 1;
+  margin-left: 3%;
 }
 
 .picture-group {
   display: flex;
   justify-content: left;
+  margin-bottom: -15px;
 }
 
 .photo-add-button {
-  background-color: #6c757d;
-  color: white;
-  padding: 10px 20px;
+  width: 40%;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   display: inline-block;
+}
+
+.photo-add-button img {
+  width: 100%;
 }
 
 .preview-image {
@@ -84,19 +113,25 @@ textarea {
   border-radius: 8px;
 }
 
+.select-board-group {
+  margin-bottom: -10px;
+}
+
 .select-board {
-  padding: 10px;
+  padding: 0px;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   text-align: left;
+  margin-left: 3%;
+  justify-content: space-between;
+  display: flex;
 }
 
 /* 구분선 */
 hr {
   border: none;
   border-bottom: 1px solid #ccc;
-  margin: 15px 0;
+  margin: 20px 0 20px 0;
 }
 
 .visibility-group {
@@ -108,14 +143,15 @@ hr {
 .visibility-label {
   display: inline-block;
   vertical-align: middle;
-  margin-right: 10px;
+  margin-left: 3%;
+  color: rgb(118, 118, 118);
 }
 
 .visibility-options {
   display: inline-flex; /* 라디오 버튼 두 개가 한 줄에 정렬되도록 수정 */
-  gap: 30px;
+  gap: 20px;
   vertical-align: middle;
-  margin-right: 15%;
+  margin-right: 10%;
 }
 
 .visibility-options label {
@@ -125,19 +161,28 @@ hr {
 /* 드롭다운 메뉴 스타일 */
 .dropdown-menu {
   position: absolute;
-  left: 0;
+  left: 16px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-top: 5px;
   z-index: 10;
   width: 100%;
+  margin-left: 1.5%;
+}
+
+.dropdown-arrow-image {
+  width: 7%;
+  object-fit: contain;
+  margin-right: 5%;
 }
 
 .dropdown-item {
   padding: 10px;
   cursor: pointer;
   border-bottom: 1px solid #ddd;
+  text-align: left;
+  color: rgb(80, 80, 80);
 }
 
 .dropdown-item:hover {
