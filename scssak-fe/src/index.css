@@ -16,6 +16,11 @@
   src: url('./assets/fonts/GmarketSansTTFLight.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'YeongdeokSea';
+  src: url('./assets/fonts/Yeongdeok\ Sea.ttf') format('truetype');
+}
+
 body {
   margin: 0;
   font-family:
