@@ -6,8 +6,8 @@ export const loginRoute = '/login';
 export const mainRoute = '/main';
 
 export const boardRoute = '/board';
-export const writeRoute = '/board/write';
-export const editRoute = '/board/edit';
+export const articleWriteRoute = '/board/write';
+export const articleEditRoute = '/board/edit';
 
 export const mailboxListRoute = '/mail/box';
 export const mailboxRoute = '/mail/box/:receiver_id';
