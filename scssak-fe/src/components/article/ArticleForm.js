@@ -158,7 +158,7 @@ const ArticleForm = ({
         </div>
         <hr /> {/* 구분선 */}
         {/* 제목 입력 */}
-        <div className="form-group">
+        <div className="form-group title-group">
           <input
             type="text"
             placeholder="제목"

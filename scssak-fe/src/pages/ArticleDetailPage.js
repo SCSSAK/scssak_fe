@@ -7,28 +7,10 @@ const ArticleDetailPage = () => {
   const {articleId} = useParams(); // URL에서 articleId 추출
   const [article, setArticle] = useState(null); // 게시글 정보
   const [error, setError] = useState(null); // 오류 상태
-  // const [loading, setLoading] = useState(true); // 로딩 상태
   const [loading, setLoading] = useState(false); // 로딩 상태
 
   useEffect(() => {
-    // API에서 게시글 정보 가져오기
-    // const fetchArticle = async () => {
-    //   try {
-    //     const response = await fetch(`/api/v1/article/${articleId}`);
-    //     if (!response.ok) {
-    //       if (response.status === 404) throw new Error('404: 게시글을 찾을 수 없습니다.');
-    //       if (response.status === 401) throw new Error('401: 로그인 해주세요.');
-    //       if (response.status === 500) throw new Error('500: 서버에 문제가 발생했습니다.');
-    //     }
-    //     const data = await response.json();
-    //     setArticle(data); // 게시글 데이터 설정
-    //   } catch (err) {
-    //     setError(err.message);
-    //   } finally {
-    //     setLoading(false); // 로딩 완료
-    //   }
-    // };
-    // fetchArticle();
+    // 데이터를 서버로부터 가져오는 로직 (API 통신 대신 하드코딩)
     const data = {
       article_user_id: 'scsa23008',
       article_user_name: '23기 조예지',
@@ -78,20 +60,7 @@ const ArticleDetailPage = () => {
           <h2 className="article-title">{article.article_title}</h2>
           <div className="article-info">
             <span>{article.article_user_name}</span>
-            <span className="article-date">
-              {article.article_created_at} | 조회수 {article.view_count}
-            </span>
-          </div>
-
-          <div className="article-images">
-            {article.article_image_urls.map((url, index) => (
-              <img
-                key={index}
-                src={url}
-                alt={`게시글 이미지 ${index + 1}`}
-                className="article-image"
-              />
-            ))}
+            <span>{article.article_created_at} | 조회수 120</span>
           </div>
 
           <div className="article-content">
@@ -111,8 +80,14 @@ const ArticleDetailPage = () => {
           <div className="comments-section">
             {article.comments.map((comment, index) => (
               <div className="comment" key={index}>
-                <div className="comment-user">{comment.comment_user_name}</div>
-                <div className="comment-date">{comment.comment_created_at}</div>
+                <div className="comment-info">
+                  <span className="comment-user">
+                    {comment.comment_user_name}
+                  </span>
+                  <span className="comment-date">
+                    {comment.comment_created_at}
+                  </span>
+                </div>
                 <div className="comment-content">{comment.comment_content}</div>
               </div>
             ))}
