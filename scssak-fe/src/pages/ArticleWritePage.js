@@ -1,5 +1,7 @@
 import '../assets/styles/ArticleWritePage.css';
 import React, {useState, useRef} from 'react';
+
+import ConfirmModal from '../components/common/ConfirmModal';
 import go_back_arrow from '../assets/images/go_back_arrow.png';
 import dropdown_arrow_down from '../assets/images/dropdown_arrow_down.png';
 import dropdown_arrow_up from '../assets/images/dropdown_arrow_up.png';
@@ -12,6 +14,7 @@ const ArticleWritePage = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const boards = [
     '자유 게시판',
@@ -42,6 +45,19 @@ const ArticleWritePage = () => {
       content,
       image: selectedImage,
     });
+    setIsModalOpen(true);
+  };
+
+  const handleConfirm = () => {
+    // 확인 버튼 클릭 시 호출할 API나 URL
+    console.log('확인 버튼 클릭됨');
+    setIsModalOpen(false); // 모달 닫기
+  };
+
+  const handleCancel = () => {
+    // 취소 버튼 클릭 시 실행할 동작
+    console.log('취소 버튼 클릭됨');
+    setIsModalOpen(false); // 모달 닫기
   };
 
   return (
@@ -56,6 +72,13 @@ const ArticleWritePage = () => {
         <button className="submit-button" onClick={handleSubmit}>
           등록
         </button>
+        {isModalOpen && (
+          <ConfirmModal
+            message="게시글을 등록하시겠습니까?"
+            onConfirm={handleConfirm}
+            onCancel={handleCancel}
+          />
+        )}
       </header>
       <div className="form">
         <div className="form-group select-board-group">
