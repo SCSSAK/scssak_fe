@@ -3,7 +3,7 @@
 ## commit convention
 
 - template
-  - [type]: [subject]
+  - `[type]: [subject]`
   - ex) feat: 리액트 프로젝트 생성
 - type 종류
   - feat: 새로운 기능 추가
