@@ -15,13 +15,13 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="nav-item" onClick={() => navigate('/home')}>
+      <div className="nav-item" onClick={() => navigate('/main')}>
         <img src={homeIconActive} alt="Home" className="active" />
       </div>
-      <div className="nav-item" onClick={() => navigate('/community')}>
+      <div className="nav-item" onClick={() => navigate('/board')}>
         <img src={communityIconActive} alt="Community" />
       </div>
-      <div className="nav-item" onClick={() => navigate('/mailbox')}>
+      <div className="nav-item" onClick={() => navigate('/mail/box')}>
         <img src={mailboxIconActive} alt="Mailbox" />
       </div>
       <div className="nav-item" onClick={() => navigate('/my')}>

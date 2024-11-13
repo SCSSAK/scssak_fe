@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom'; // URL 파라미터를 사용하기 위함
-import Navbar from '../components/common/Navbar'; // 하단 네비게이션 컴포넌트
+import {useParams} from 'react-router-dom';
+import Navbar from '../components/common/Navbar';
+import ConfirmModal from '../components/common/ConfirmModal'; // ConfirmModal 컴포넌트 임포트
 import '../styles/pages/ArticleDetailPage.css';
 
 const ArticleDetailPage = () => {
-  const {articleId} = useParams(); // URL에서 articleId 추출
-  const [article, setArticle] = useState(null); // 게시글 정보
-  const [error, setError] = useState(null); // 오류 상태
-  const [loading, setLoading] = useState(false); // 로딩 상태
+  const {articleId} = useParams();
+  const [article, setArticle] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false); // 모달 상태
 
   useEffect(() => {
     // 데이터를 서버로부터 가져오는 로직 (API 통신 대신 하드코딩)
@@ -18,7 +20,7 @@ const ArticleDetailPage = () => {
       article_content: '게시글 내용',
       article_created_at: '2024-11-11',
       article_like_count: 1,
-      article_is_liked: false, // 요청 보낸 사용자가 좋아요를 눌렀는지 여부
+      article_is_liked: false,
       article_image_urls: [],
       comments: [
         {
@@ -38,12 +40,27 @@ const ArticleDetailPage = () => {
     setArticle(data);
   }, [articleId]);
 
-  // 로딩 중일 때
+  // 댓글 등록 버튼 클릭 핸들러
+  const handleCommentSubmit = () => {
+    setShowModal(true); // 모달 열기
+  };
+
+  // ConfirmModal에서 확인 버튼 클릭 시 처리할 함수
+  const handleConfirm = () => {
+    setShowModal(false); // 모달 닫기
+    // 여기에서 실제 댓글 등록 작업을 수행
+    console.log('댓글이 등록되었습니다.');
+  };
+
+  // ConfirmModal에서 취소 버튼 클릭 시 처리할 함수
+  const handleCancel = () => {
+    setShowModal(false); // 모달 닫기
+  };
+
   if (loading) {
     return <div>로딩 중...</div>;
   }
 
-  // 오류 발생 시
   if (error) {
     return <div>{error}</div>;
   }
@@ -95,11 +112,20 @@ const ArticleDetailPage = () => {
 
           <div className="comment-input-section">
             <input type="text" placeholder="댓글을 입력해주세요." />
-            <button>댓글 등록</button>
+            <button onClick={handleCommentSubmit}>댓글 등록</button>
           </div>
         </div>
       )}
-      <Navbar /> {/* 하단 네비게이션 바 컴포넌트 */}
+      <Navbar />
+
+      {/* ConfirmModal 컴포넌트 */}
+      {showModal && (
+        <ConfirmModal
+          message="댓글을 등록하시겠습니까?"
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
+      )}
     </div>
   );
 };
