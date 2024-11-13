@@ -1,0 +1,58 @@
+.container {
+  margin-top: 42px;
+}
+
+.containerTitle {
+  padding: 8px;
+
+  background-color: #3d5fe7;
+  opacity: 0.8;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow:
+    0 4px 4px rgba(0, 0, 0, 0.2),
+    0 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.imgSiren {
+  width: 14px;
+  padding: 0 8px 0;
+}
+
+.textTitle {
+  color: #ffffff;
+  font-family: 'GmarketSans';
+  font-weight: 400;
+  font-size: 13.5px;
+
+  margin-top: 4px;
+}
+
+.containerNoticeList {
+  height: 180px;
+
+  background-color: #ffffff;
+  opacity: 0.4;
+  border-radius: 12px;
+
+  box-shadow:
+    0 4px 4px rgba(0, 0, 0, 0.1),
+    0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.itemNotice {
+  width: 95%;
+  height: 100%;
+
+  margin: 0;
+  padding: 16px;
+
+  text-align: start;
+
+  word-break: break-all;
+  white-space: normal;
+}

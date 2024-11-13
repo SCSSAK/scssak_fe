@@ -1,0 +1,28 @@
+.container {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  background: none;
+  border: none;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container:hover {
+  cursor: pointer;
+}
+
+.imgCheck {
+  width: 90px;
+}
+
+.textGray {
+  color: #868893;
+  font-family: 'YeongdeokSea';
+  font-weight: 300;
+  font-size: 15px;
+}

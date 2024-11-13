@@ -3,6 +3,9 @@ export {default as logoImg} from './logo.png';
 export {default as loginImg} from './login_illustration.png';
 export {default as backgroundSeaImg} from './background_sea.png';
 
+export {default as buttonCheckImg} from './button_check.png';
+export {default as iconSirenImg} from './icon_siren.png';
+
 export {default as mailbox01Img} from './mailbox/mailbox_01.png';
 export {default as mailbox02Img} from './mailbox/mailbox_02.png';
 export {default as mailbox03Img} from './mailbox/mailbox_03.png';
