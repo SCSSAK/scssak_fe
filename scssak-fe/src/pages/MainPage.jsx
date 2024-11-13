@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import {logoImg} from '../assets/images';
@@ -5,7 +6,6 @@ import AttendanceButton from '../components/main/AttendanceButton';
 import TardyList from '../components/main/TardyList';
 import NoticeList from '../components/main/NoticeList';
 import {BASE_URL} from '../router/Routes';
-import {useState, useEffect} from 'react';
 
 export default function MainPage() {
   const [data, setData] = useState({

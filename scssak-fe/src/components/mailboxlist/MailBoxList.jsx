@@ -1,3 +1,5 @@
+import {useNavigate} from 'react-router-dom';
+
 import {
   mailbox01Img,
   mailbox02Img,
@@ -27,13 +29,16 @@ const mailboxWithNotificationImgList = [
 ];
 
 export default function MailboxList({data}) {
+  // page 이동
+  const navigate = useNavigate();
+
   return (
     <div id="mailbox-list-container">
       {data.map((user, idx) => {
         const imgIdx = idx % mailboxImgList.length;
 
         return (
-          <div>
+          <div key={idx} onClick={() => navigate(`/mail/box/${user.user_id}`)}>
             <img
               src={
                 user.has_new_mail
