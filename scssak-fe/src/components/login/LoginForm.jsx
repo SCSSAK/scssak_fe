@@ -2,6 +2,8 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
+import styles from '../../styles/components/login/LoginForm.module.css';
+
 import {BASE_URL, mainRoute} from '../../router/Routes';
 
 export default function LoginForm() {
@@ -31,21 +33,25 @@ export default function LoginForm() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <input
         type="text"
         placeholder="아이디"
         onChange={e => {
           setId(e.target.value);
-        }}></input>
+        }}
+      />
       <input
         type="password"
         placeholder="비밀번호"
         onChange={e => {
           setPwd(e.target.value);
-        }}></input>
+        }}
+      />
 
-      <button onClick={handleClickLoginButton}>로그인</button>
+      <button className={styles.loginButton} onClick={handleClickLoginButton}>
+        로그인
+      </button>
     </div>
   );
 }
