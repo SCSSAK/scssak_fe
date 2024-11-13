@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../../assets/styles/ArticleList.css';
+import '../../styles/components/article/ArticleList.css';
 import defaultThumbnail from '../../assets/images/default_thumbnail.png';
 
 const ArticleList = () => {

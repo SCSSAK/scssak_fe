@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../assets/styles/ConfirmModal.css';
+import '../../styles/components/common/ConfirmModal.css';
 
 const ConfirmModal = ({message, onConfirm, onCancel}) => {
   return (
