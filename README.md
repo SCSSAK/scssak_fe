@@ -3,8 +3,8 @@
 ## commit convention
 
 - template
-  - `[type]: [subject]`
-  - ex) feat: 리액트 프로젝트 생성
+  - `[type]: [subject] [date] [time]`
+  - ex) feat: 리액트 프로젝트 생성 241112 1730
 - type 종류
   - feat: 새로운 기능 추가
   - fix: 버그 수정

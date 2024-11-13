@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../assets/styles/ArticleBoardPage.css';
+import '../styles/pages/ArticleBoardPage.css';
 import ArticleList from '../components/article/ArticleList';
 
 const ArticleBoardPage = () => {

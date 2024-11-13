@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import '../../assets/styles/ArticleForm.css';
+import '../../styles/components/article/ArticleForm.css';
 import ConfirmModal from '../common/ConfirmModal';
 import go_back_arrow from '../../assets/images/go_back_arrow.png';
 import dropdown_arrow_down from '../../assets/images/dropdown_arrow_down.png';
