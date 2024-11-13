@@ -1,8 +1,16 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
-import {loginRoute, mainRoute, mailboxListRoute} from './Routes';
+import {
+  loginRoute,
+  mainRoute,
+  boardRoute,
+  writeRoute,
+  mailboxListRoute,
+} from './Routes';
 
 import LoginPage from '../pages/LoginPage';
+import ArticleBoardPage from '../pages/ArticleBoardPage';
+import ArticleWritePage from '../pages/ArticleWritePage';
 import MainPage from '../pages/MainPage';
 import MailboxListPage from '../pages/MailboxListPage';
 
@@ -11,6 +19,8 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route path={loginRoute} element={<LoginPage />} />
+        <Route path={boardRoute} element={<ArticleBoardPage />} />
+        <Route path={writeRoute} element={<ArticleWritePage />} />
         <Route path={mainRoute} element={<MainPage />} />
         <Route path={mailboxListRoute} element={<MailboxListPage />} />
       </Routes>

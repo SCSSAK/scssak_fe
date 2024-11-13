@@ -1,0 +1,66 @@
+.board-page {
+  padding: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.board-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.search-bar {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+}
+
+.type-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.type-button {
+  padding: 6px 12px;
+  border-radius: 16px;
+  background-color: #f0f0f0;
+  border: none;
+}
+
+.type-button.active {
+  background-color: #0066ff;
+  color: #fff;
+}
+
+.open-type {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.open-type-item.active {
+  font-weight: bold;
+  color: #0066ff;
+}
+
+.notice-bar {
+  background-color: #e0f7fa;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+}
