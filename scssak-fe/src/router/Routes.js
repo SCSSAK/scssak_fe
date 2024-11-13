@@ -4,5 +4,10 @@ export const notFountRoute = '/404';
 
 export const loginRoute = '/login';
 export const mainRoute = '/main';
+
 export const boardRoute = '/board';
 export const writeRoute = '/board/write';
+
+export const mailboxListRoute = '/mail/box';
+export const mailboxRoute = '/mail/box/:receiver_id';
+export const mailWriteRoute = '/mail/box/:receiver_id/write';
