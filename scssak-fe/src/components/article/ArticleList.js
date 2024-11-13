@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import '../../assets/styles/ArticleList.css';
+import defaultThumbnail from '../../assets/images/default_thumbnail.png';
 
 const ArticleList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,7 +13,7 @@ const ArticleList = () => {
     date: '23.10.30',
     likeCount: 10,
     commentCount: 23,
-    thumbnail: '', // 썸네일 URL이 없을 경우 빈 문자열
+    thumbnail: defaultThumbnail, // 썸네일 URL이 없을 경우 빈 문자열
   }));
 
   return (

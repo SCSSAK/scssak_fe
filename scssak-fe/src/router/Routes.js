@@ -6,3 +6,4 @@ export const loginRoute = '/login';
 export const mainRoute = '/main';
 export const boardRoute = '/board';
 export const writeRoute = '/board/write';
+export const editRoute = '/board/edit';

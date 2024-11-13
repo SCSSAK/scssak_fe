@@ -1,0 +1,216 @@
+/* 공통 스타일 */
+.article-write-page {
+  padding: 16px;
+  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
+  margin: 0 auto;
+  position: relative;
+  height: 100vh;
+  font-weight: 300;
+}
+
+.img {
+  object-fit: contain;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.back-button-group {
+  display: flex;
+  justify-content: left;
+  gap: 7%;
+  margin-left: 3%;
+  color: rgb(118, 118, 118);
+  font-weight: 400;
+  align-items: center;
+}
+
+.back-button {
+  color: white;
+  background-color: white;
+  border: none;
+  width: 20%;
+}
+
+.back-button img {
+  width: 100%;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.form {
+  margin-top: 10px;
+  height: 100%;
+}
+
+/* .form-group {
+  margin-bottom: 10px;
+} */
+
+.text-group {
+  display: flex;
+  height: 50%;
+}
+
+input[type='text'],
+textarea {
+  width: 100%;
+  padding: 1px;
+  border: none;
+  border-radius: 4px;
+  font-size: medium;
+  margin-left: 3%;
+  font: inherit;
+}
+
+input:focus {
+  outline: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+textarea {
+  /* height: 100px;
+  resize: none; */
+  flex-grow: 1;
+  margin-left: 3%;
+  font-size: small;
+}
+
+.picture-group {
+  display: flex;
+  justify-content: left;
+  margin-bottom: -15px;
+}
+
+.photo-add-button {
+  width: 40%;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.photo-add-button img {
+  width: 100%;
+}
+
+.preview-image {
+  margin-top: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.select-board-group {
+  margin-bottom: -10px;
+}
+
+.select-board {
+  padding: 0px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  margin-left: 3%;
+  justify-content: space-between;
+  display: flex;
+  font-weight: 400;
+}
+
+/* 구분선 */
+hr {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin: 20px 0 20px 0;
+}
+
+.visibility-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 라디오 버튼과 공개범위 라벨을 같은 줄에 위치 */
+.visibility-label {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 3%;
+  color: rgb(118, 118, 118);
+}
+
+.visibility-options {
+  display: inline-flex; /* 라디오 버튼 두 개가 한 줄에 정렬되도록 수정 */
+  gap: 20px;
+  vertical-align: middle;
+  margin-right: 10%;
+}
+
+.visibility-options label {
+  display: flex;
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown-menu {
+  position: absolute;
+  left: 16px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+  z-index: 10;
+  width: 100%;
+  margin-left: 1.5%;
+}
+
+.dropdown-arrow-image {
+  width: 7%;
+  object-fit: contain;
+  margin-right: 5%;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  color: rgb(80, 80, 80);
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+/* 라디오박스 스타일 수정: 회색 정사각형, 선택 시 파란색 */
+input[type='radio'] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+input[type='radio']:checked {
+  background-color: #007bff;
+  border: none;
+}
