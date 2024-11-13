@@ -5,6 +5,7 @@ import {
   mainRoute,
   boardRoute,
   writeRoute,
+  editRoute,
   mailboxListRoute,
   mailboxRoute,
   mailWriteRoute,
@@ -13,6 +14,7 @@ import {
 import LoginPage from '../pages/LoginPage';
 import ArticleBoardPage from '../pages/ArticleBoardPage';
 import ArticleWritePage from '../pages/ArticleWritePage';
+import ArticleEditPage from '../pages/ArticleEditPage';
 import MainPage from '../pages/MainPage';
 import MailboxListPage from '../pages/MailboxListPage';
 import MailboxPage from '../pages/MailboxPage';
@@ -25,6 +27,7 @@ export default function AppRouter() {
         <Route path={loginRoute} element={<LoginPage />} />
         <Route path={boardRoute} element={<ArticleBoardPage />} />
         <Route path={writeRoute} element={<ArticleWritePage />} />
+        <Route path={editRoute} element={<ArticleEditPage />} />
         <Route path={mainRoute} element={<MainPage />} />
         <Route path={mailboxListRoute} element={<MailboxListPage />} />
         <Route path={mailboxRoute} element={<MailboxPage />} />

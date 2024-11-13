@@ -8,7 +8,7 @@ const ArticleBoardPage = () => {
     <div className="board-page">
       {/* 상단 로고 및 검색창 */}
       <div className="board-header">
-        <div className="logo">🌱 오소팜</div>
+        <div className="logo">🌱 슥싹</div>
         <input
           type="text"
           className="search-bar"
