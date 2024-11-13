@@ -8,10 +8,6 @@
   font-weight: 300;
 }
 
-.img {
-  object-fit: contain;
-}
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -64,7 +60,7 @@
   height: 50%;
 }
 
-input[type='text'],
+.form-group input,
 textarea {
   width: 100%;
   padding: 1px;
@@ -75,15 +71,15 @@ textarea {
   font: inherit;
 }
 
-input:focus {
+.form-group input:focus {
   outline: none;
 }
 
-textarea:focus {
+.form-group textarea:focus {
   outline: none;
 }
 
-textarea {
+.form-group textarea {
   /* height: 100px;
   resize: none; */
   flex-grow: 1;
@@ -154,13 +150,19 @@ hr {
 
 .visibility-options {
   display: inline-flex; /* 라디오 버튼 두 개가 한 줄에 정렬되도록 수정 */
-  gap: 20px;
+  gap: 25px;
   vertical-align: middle;
   margin-right: 10%;
 }
 
 .visibility-options label {
   display: flex;
+  white-space: nowrap;
+  align-items: center;
+}
+
+.visibility-options label input {
+  margin: 0 5px 3px 0;
 }
 
 /* 드롭다운 메뉴 스타일 */
