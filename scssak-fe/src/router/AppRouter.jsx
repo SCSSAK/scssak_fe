@@ -9,6 +9,8 @@ import {
   mailboxListRoute,
   mailboxRoute,
   mailWriteRoute,
+  profileRoute,
+  profileEditRoute,
 } from './Routes';
 
 import LoginPage from '../pages/LoginPage';
@@ -20,6 +22,7 @@ import MainPage from '../pages/MainPage';
 import MailboxListPage from '../pages/MailboxListPage';
 import MailboxPage from '../pages/MailboxPage';
 import MailWritePage from '../pages/MailWritePage';
+import ProfilePage from '../pages/ProfilePage';
 
 export default function AppRouter() {
   return (
@@ -29,11 +32,14 @@ export default function AppRouter() {
         <Route path={boardRoute} element={<ArticleBoardPage />} />
         <Route path={articleWriteRoute} element={<ArticleWritePage />} />
         <Route path={articleEditRoute} element={<ArticleEditPage />} />
-        <Route path={boardRoute + '/:article_id'} element={<ArticleDetailPage/>}></Route>
+        <Route
+          path={boardRoute + '/:article_id'}
+          element={<ArticleDetailPage />}></Route>
         <Route path={mainRoute} element={<MainPage />} />
         <Route path={mailboxListRoute} element={<MailboxListPage />} />
         <Route path={mailboxRoute} element={<MailboxPage />} />
         <Route path={mailWriteRoute} element={<MailWritePage />} />
+        <Route path={profileRoute} element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,153 @@
+.container {
+  padding: 1rem;
+  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
+  margin: 0 auto;
+
+  background-color: #edf0f3;
+}
+
+.containerInfo {
+  padding: 1rem;
+
+  background-color: #ffffff;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.imgProfile {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.containerInfoText {
+  text-align: start;
+}
+
+.containerName {
+  display: flex;
+  align-items: center;
+}
+
+.textSemester {
+  color: #2c46ab;
+  font-family: 'GmarketSans';
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.textName {
+  margin-left: 0.3rem;
+
+  color: #000000;
+  font-family: 'GmarketSans';
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.textCompany {
+  margin: 0;
+  padding-top: 0.25rem;
+
+  color: #000000;
+  font-family: 'GmarketSans';
+  font-weight: 300;
+  font-size: 0.75rem;
+}
+
+.textDepartment,
+.textPosition {
+  margin: 0;
+  padding-top: 4px;
+
+  color: #000000;
+  font-family: 'GmarketSans';
+  font-weight: 300;
+  font-size: 0.7rem;
+}
+
+.textDepartment:after {
+  content: '|';
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.textContactTitle {
+  margin: 0;
+  padding-top: 1.5rem;
+
+  color: #000000;
+  font-family: 'GmarketSans';
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.containerContact {
+  padding-top: 0.25rem;
+
+  display: flex;
+  align-items: center;
+}
+
+.imgContactIcon {
+  margin-right: 0.25rem;
+
+  width: 0.75rem;
+  object-fit: contain;
+}
+
+.textContact {
+  color: #000000;
+  font-family: 'GmarketSans';
+  font-weight: 300;
+  font-size: 0.75rem;
+}
+
+.containerIntroduce {
+  padding: 1rem;
+  margin-top: 0.6rem;
+
+  background-color: #f9f9f9;
+  opacity: 0.8;
+  border-radius: 10px;
+
+  box-shadow:
+    0 4px 4px rgba(0, 0, 0, 0.1),
+    0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.containerIntroduceTitle {
+  display: flex;
+  align-items: center;
+}
+
+.imgIntroduceIcon {
+  width: 1.5rem;
+  object-fit: contain;
+
+  margin-right: 0.5rem;
+}
+
+.textIntroduceTitle {
+  color: #3d5fe7;
+  font-family: 'GmarketSans';
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.textIntroduce {
+  margin: 1rem 0 0 0;
+
+  text-align: start;
+  white-space: pre-line;
+
+  color: #2e2e2e;
+  font-family: 'GmarketSans';
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
