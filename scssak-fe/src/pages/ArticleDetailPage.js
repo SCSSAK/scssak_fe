@@ -16,8 +16,7 @@ const ArticleDetailPage = () => {
       article_user_id: 'scsa23008',
       article_user_name: '23기 조예지',
       article_title: '게시글 제목',
-      article_content:
-        '게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 ',
+      article_content: '게시글 내용',
       article_created_at: '2024-11-11',
       article_like_count: 1,
       article_is_liked: false,
