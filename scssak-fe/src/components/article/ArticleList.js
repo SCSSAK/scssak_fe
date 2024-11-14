@@ -17,8 +17,9 @@ const ArticleList = () => {
       const articleId = (page - 1) * articlesPerPage + index + 1;
       return {
         id: articleId, // 각 게시물에 고유 ID 추가
+        article_type: '자유 게시판', // 예시 게시글 타입 추가
         title: `게시글 제목 ${articleId}`,
-        content: `게시글 내용 ${articleId}`,
+        content: `게시글 내용게시글 내용게시글 내용게시글 내용게시글 내용게시글 내용게시글 내용 ${articleId}`,
         userName: '23기 조예지',
         date: '23.10.30',
         likeCount: 10,
@@ -34,7 +35,6 @@ const ArticleList = () => {
       if (isFetching || currentPage > totalPages) return;
 
       setIsFetching(true);
-      // 실제 API 호출 시 fetchArticles를 API 호출로 대체
       const newArticles = fetchArticles(currentPage);
 
       // 중복되지 않는 게시물만 추가
@@ -85,14 +85,16 @@ const ArticleList = () => {
               )}
             </div>
             <div className="article-info">
+              <p className="article-type">{article.article_type}</p>
               <h3 className="title">{article.title}</h3>
               <p className="content">{article.content}</p>
-              <div className="metadata">
-                <span>{article.userName}</span> | <span>{article.date}</span>
-              </div>
-              <div className="stats">
-                <span>💬 {article.commentCount}</span> |{' '}
-                <span>❤️ {article.likeCount}</span>
+              <div className="metadata-stats">
+                <span>
+                  {article.userName} | {article.date}
+                </span>
+                <span className="stats">
+                  💬 {article.commentCount} | ❤️ {article.likeCount}
+                </span>
               </div>
             </div>
           </li>
