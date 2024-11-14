@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
-import {logoImg} from '../assets/images';
+import {imgLogo} from '../assets/images';
 import AttendanceButton from '../components/main/AttendanceButton';
 import TardyList from '../components/main/TardyList';
 import NoticeList from '../components/main/NoticeList';
@@ -34,7 +34,7 @@ export default function MainPage() {
   return (
     <main className={styles.container}>
       <div className={styles.containerStatus}>
-        <img className={styles.imgLogo} src={logoImg} alt="슥싹 로고" />
+        <img className={styles.imgLogo} src={imgLogo} alt="슥싹 로고" />
         <p className={styles.textBlue}>오늘도 슥-싹한 하루!</p>
         <p className={styles.textTardy}>지금까지 </p>
         <p className={styles.textTardy}>

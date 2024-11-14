@@ -1,7 +1,7 @@
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Pagination} from 'swiper/modules';
 
-import {iconSirenImg} from '../../assets/images';
+import {iconSiren} from '../../assets/images';
 
 import styles from '../../styles/components/main/NoticeList.module.css';
 
@@ -14,7 +14,7 @@ export default function NoticeList({data}) {
   return (
     <div className={styles.container}>
       <div className={styles.containerTitle}>
-        <img className={styles.imgSiren} src={iconSirenImg} alt="" />
+        <img className={styles.imgSiren} src={iconSiren} alt="" />
         <span className={styles.textTitle}>오늘의 공지사항</span>
       </div>
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {BASE_URL} from '../../router/Routes';
 
-import {buttonCheckImg} from '../../assets/images';
+import {buttonImgCheck} from '../../assets/images';
 import styles from '../../styles/components/main/AttendanceButton.module.css';
 
 export default function AttendanceButton() {
@@ -21,7 +21,7 @@ export default function AttendanceButton() {
 
   return (
     <button className={styles.container} onClick={handleClickAttendanceButton}>
-      <img className={styles.imgCheck} src={buttonCheckImg} alt="출석 버튼" />
+      <img className={styles.imgCheck} src={buttonImgCheck} alt="출석 버튼" />
       <span className={styles.textGray}>출석!</span>
     </button>
   );

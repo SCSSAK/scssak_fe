@@ -1,6 +1,6 @@
 import LoginForm from '../components/login/LoginForm';
 
-import {loginImg, backgroundSeaImg} from '../assets/images/index';
+import {imgLogin, backgroundImgSea} from '../assets/images/index';
 import styles from '../styles/pages/LoginPage.module.css';
 
 export default function LoginPage() {
@@ -8,7 +8,7 @@ export default function LoginPage() {
     <main className={styles.container}>
       <img
         className={styles.imgBackground}
-        src={backgroundSeaImg}
+        src={backgroundImgSea}
         alt="로그인 배경 일러스트"
       />
 
@@ -18,7 +18,7 @@ export default function LoginPage() {
 
         <img
           className={styles.imgLogin}
-          src={loginImg}
+          src={imgLogin}
           alt="로그인 메인 일러스트"
         />
 

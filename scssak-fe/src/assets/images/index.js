@@ -1,18 +1,25 @@
-export {default as logoImg} from './logo.png';
+export {default as imgLogo} from './logo.png';
 
-export {default as loginImg} from './login_illustration.png';
-export {default as backgroundSeaImg} from './background_sea.png';
+export {default as imgLogin} from './img_login.png';
+export {default as backgroundImgSea} from './background_sea.png';
 
-export {default as buttonCheckImg} from './button_check.png';
-export {default as iconSirenImg} from './icon_siren.png';
+export {default as buttonImgCheck} from './button_check.png';
+export {default as iconSiren} from './icon_siren.png';
 
-export {default as mailbox01Img} from './mailbox/mailbox_01.png';
-export {default as mailbox02Img} from './mailbox/mailbox_02.png';
-export {default as mailbox03Img} from './mailbox/mailbox_03.png';
-export {default as mailbox04Img} from './mailbox/mailbox_04.png';
-export {default as mailbox05Img} from './mailbox/mailbox_05.png';
-export {default as mailboxWithNotification01Img} from './mailbox/mailbox_with_notification_01.png';
-export {default as mailboxWithNotification02Img} from './mailbox/mailbox_with_notification_02.png';
-export {default as mailboxWithNotification03Img} from './mailbox/mailbox_with_notification_03.png';
-export {default as mailboxWithNotification04Img} from './mailbox/mailbox_with_notification_04.png';
-export {default as mailboxWithNotification05Img} from './mailbox/mailbox_with_notification_05.png';
+export {default as iconEmail} from './icon_email.png';
+export {default as iconSns} from './icon_sns.png';
+export {default as iconIntroduce} from './icon_introduce.png';
+export {default as iconList} from './icon_list.png';
+export {default as iconMenu} from './icon_menu.png';
+export {default as iconSetting} from './icon_setting.png';
+
+export {default as imgMailbox01} from './mailbox/mailbox_01.png';
+export {default as imgMailbox02} from './mailbox/mailbox_02.png';
+export {default as imgMailbox03} from './mailbox/mailbox_03.png';
+export {default as imgMailbox04} from './mailbox/mailbox_04.png';
+export {default as imgMailbox05} from './mailbox/mailbox_05.png';
+export {default as imgMailboxWithNotification01} from './mailbox/mailbox_with_notification_01.png';
+export {default as imgMailboxWithNotification02} from './mailbox/mailbox_with_notification_02.png';
+export {default as imgMailboxWithNotification03} from './mailbox/mailbox_with_notification_03.png';
+export {default as imgMailboxWithNotification04} from './mailbox/mailbox_with_notification_04.png';
+export {default as imgMailboxWithNotification05} from './mailbox/mailbox_with_notification_05.png';

@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import cloud from 'd3-cloud';
 import {useEffect} from 'react';
 
-import {iconSirenImg} from '../../assets/images';
+import {iconSiren} from '../../assets/images';
 
 import styles from '../../styles/components/main/TardyList.module.css';
 
@@ -82,7 +82,7 @@ export default function TardyList({data}) {
   return (
     <div>
       <div className={styles.containerTitle}>
-        <img className={styles.imgSiren} src={iconSirenImg} alt="" />
+        <img className={styles.imgSiren} src={iconSiren} alt="" />
         <span className={styles.textTitle}>오늘의 지각자</span>
       </div>
 
