@@ -1,0 +1,83 @@
+.container {
+  padding: 1rem;
+  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
+  margin: 0 auto;
+
+  height: 100%;
+
+  background-color: #ffffff;
+}
+
+.containerTitle {
+  position: relative;
+  margin: 1rem 0;
+}
+
+.textTitle {
+  margin: 0;
+  padding-top: 4px;
+
+  color: #000000;
+  font-weight: 400;
+  font-size: 1.5rem;
+
+  text-align: center;
+}
+
+.containerTitleIcon {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.iconMenu {
+  width: 30px;
+  object-fit: contain;
+}
+
+.containerMenu {
+  z-index: 2;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  text-align: start;
+
+  width: 10rem;
+  background-color: white;
+
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.containerMenu > div {
+  padding: 0.8rem 1rem;
+
+  border-bottom: 1px solid #cccccc;
+}
+
+.containerMenuTitle {
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.containerMenuIcon {
+  width: 1.4rem;
+  object-fit: contain;
+
+  margin-right: 8px;
+}
+
+.containerMenuItem {
+  background-color: #f5f6f8;
+}

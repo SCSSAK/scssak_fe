@@ -1,36 +1,41 @@
 import {useNavigate} from 'react-router-dom';
 
 import {
-  mailbox01Img,
-  mailbox02Img,
-  mailbox03Img,
-  mailbox04Img,
-  mailbox05Img,
-  mailboxWithNotification01Img,
-  mailboxWithNotification02Img,
-  mailboxWithNotification03Img,
-  mailboxWithNotification04Img,
-  mailboxWithNotification05Img,
+  imgMailbox01,
+  imgMailbox02,
+  imgMailbox03,
+  imgMailbox04,
+  imgMailbox05,
+  imgMailboxWithNotification01,
+  imgMailboxWithNotification02,
+  imgMailboxWithNotification03,
+  imgMailboxWithNotification04,
+  imgMailboxWithNotification05,
 } from '../../assets/images/index';
 
 const mailboxImgList = [
-  mailbox01Img,
-  mailbox02Img,
-  mailbox03Img,
-  mailbox04Img,
-  mailbox05Img,
+  imgMailbox01,
+  imgMailbox02,
+  imgMailbox03,
+  imgMailbox04,
+  imgMailbox05,
 ];
 const mailboxWithNotificationImgList = [
-  mailboxWithNotification01Img,
-  mailboxWithNotification02Img,
-  mailboxWithNotification03Img,
-  mailboxWithNotification04Img,
-  mailboxWithNotification05Img,
+  imgMailboxWithNotification01,
+  imgMailboxWithNotification02,
+  imgMailboxWithNotification03,
+  imgMailboxWithNotification04,
+  imgMailboxWithNotification05,
 ];
 
 export default function MailboxList({data}) {
   // page 이동
   const navigate = useNavigate();
+
+  const handleClickMailBox = (user_id, e) => {
+    e.preventDefault();
+    navigate(`/mail/box/${user_id}`);
+  };
 
   return (
     <div id="mailbox-list-container">
@@ -38,7 +43,11 @@ export default function MailboxList({data}) {
         const imgIdx = idx % mailboxImgList.length;
 
         return (
-          <div key={idx} onClick={() => navigate(`/mail/box/${user.user_id}`)}>
+          <div
+            key={idx}
+            onClick={e => {
+              handleClickMailBox(user.user_id, e);
+            }}>
             <img
               src={
                 user.has_new_mail
