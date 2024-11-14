@@ -43,6 +43,7 @@
   background: none;
   cursor: pointer;
   font-size: 16px;
+  font-family: 'GmarketSans';
 }
 
 /* 취소 버튼 */
@@ -54,4 +55,8 @@
 /* 확인 버튼 */
 .modal-button.confirm {
   color: #007bff;
+}
+
+.modal-content p {
+  font-size: 20px;
 }
