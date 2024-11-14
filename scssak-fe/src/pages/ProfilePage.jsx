@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import Profile from '../components/profile/Profile';
 import ProfileArticleList from '../components/profile/ProfileArticleList';
+import ConfirmModal from '../components/common/ConfirmModal';
+
 import {BASE_URL, loginRoute, profileEditRoute} from '../router/Routes';
 import {iconMenu, iconSetting} from '../assets/images';
 
@@ -57,10 +59,19 @@ export default function ProfilePage() {
   const navigate = useNavigate();
 
   const handleClickMoveToProfileEditButton = () => {
-    navigate(profileEditRoute);
+    navigate(profileEditRoute, {
+      state: {data: profileData},
+    });
   };
 
+  // 확인 모달이 띄워져있는가?
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
   const handleClickLogoutButton = () => {
+    setIsModalOpened(!isModalOpened);
+  };
+
+  const handleConfirm = () => {
     axios
       .create({
         baseURL: BASE_URL,
@@ -71,6 +82,10 @@ export default function ProfilePage() {
         navigate(loginRoute);
       })
       .catch(e => console.log(e));
+  };
+
+  const handleCancel = () => {
+    setIsModalOpened(false);
   };
 
   return (
@@ -85,7 +100,6 @@ export default function ProfilePage() {
                 src={iconMenu}
                 alt="메뉴 아이콘"
                 onClick={handleClickMenuButton}
-                on
               />
             </div>
           )}
@@ -116,6 +130,14 @@ export default function ProfilePage() {
         <Profile data={profileData} />
         <ProfileArticleList />
       </main>
+
+      {isModalOpened && (
+        <ConfirmModal
+          message="로그아웃 하시겠습니까?"
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
+      )}
     </div>
   );
 }

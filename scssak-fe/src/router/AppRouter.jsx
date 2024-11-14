@@ -23,6 +23,7 @@ import MailboxListPage from '../pages/MailboxListPage';
 import MailboxPage from '../pages/MailboxPage';
 import MailWritePage from '../pages/MailWritePage';
 import ProfilePage from '../pages/ProfilePage';
+import ProfileEditPage from '../pages/ProfileEditPage';
 
 export default function AppRouter() {
   return (
@@ -40,6 +41,7 @@ export default function AppRouter() {
         <Route path={mailboxRoute} element={<MailboxPage />} />
         <Route path={mailWriteRoute} element={<MailWritePage />} />
         <Route path={profileRoute} element={<ProfilePage />} />
+        <Route path={profileEditRoute} element={<ProfileEditPage />} />
       </Routes>
     </BrowserRouter>
   );

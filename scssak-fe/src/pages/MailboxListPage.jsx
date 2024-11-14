@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import {BASE_URL} from '../router/Routes';
-import MailboxList from '../components/mailboxlist/MailBoxList';
+import MailboxList from '../components/mailboxList/MailBoxList';
 
 export default function MailboxListPage() {
   const [data, setData] = useState({
