@@ -59,8 +59,13 @@ export default function ProfilePage() {
   const navigate = useNavigate();
 
   const handleClickMoveToProfileEditButton = () => {
-    navigate(profileEditRoute);
+    navigate(profileEditRoute, {
+      state: {data: profileData},
+    });
   };
+
+  // 확인 모달이 띄워져있는가?
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   const handleClickLogoutButton = () => {
     setIsModalOpened(!isModalOpened);
@@ -82,9 +87,6 @@ export default function ProfilePage() {
   const handleCancel = () => {
     setIsModalOpened(false);
   };
-
-  // 확인 모달이 띄워져있는가?
-  const [isModalOpened, setIsModalOpened] = useState(false);
 
   return (
     <div className={styles.container} onClick={handleClickProfilePage}>

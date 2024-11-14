@@ -1,6 +1,6 @@
 import {useParams, useLocation} from 'react-router-dom';
 
-import MailWriteForm from '../components/mailwrite/MailWriteForm';
+import MailWriteForm from '../components/mailWrite/MailWriteForm';
 
 export default function MailWritePage() {
   const location = useLocation();
