@@ -32,13 +32,22 @@ export default function MailboxList({data}) {
   // page 이동
   const navigate = useNavigate();
 
+  const handleClickMailBox = (user_id, e) => {
+    e.preventDefault();
+    navigate(`/mail/box/${user_id}`);
+  };
+
   return (
     <div id="mailbox-list-container">
       {data.map((user, idx) => {
         const imgIdx = idx % mailboxImgList.length;
 
         return (
-          <div key={idx} onClick={() => navigate(`/mail/box/${user.user_id}`)}>
+          <div
+            key={idx}
+            onClick={e => {
+              handleClickMailBox(user.user_id, e);
+            }}>
             <img
               src={
                 user.has_new_mail
