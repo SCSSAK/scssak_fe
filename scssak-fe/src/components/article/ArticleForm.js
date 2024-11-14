@@ -20,7 +20,7 @@ const ArticleForm = ({
   const [visibility, setVisibility] = useState(initialVisibility);
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImages, setSelectedImages] = useState([]); // 여러 이미지 첨부용
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const boards = [
@@ -38,10 +38,13 @@ const ArticleForm = ({
   };
 
   const handleImageUpload = e => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedImage(URL.createObjectURL(file));
-    }
+    const files = Array.from(e.target.files);
+    const newImages = files.map(file => URL.createObjectURL(file));
+    setSelectedImages(prevImages => [...prevImages, ...newImages]);
+  };
+
+  const handleImageDelete = index => {
+    setSelectedImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
   const handleSubmit = () => {
@@ -50,7 +53,7 @@ const ArticleForm = ({
       visibility,
       title,
       content,
-      image: selectedImage,
+      images: selectedImages, // 여러 이미지 전송
     });
     setIsModalOpen(true);
   };
@@ -61,7 +64,7 @@ const ArticleForm = ({
       visibility,
       title,
       content,
-      image: selectedImage,
+      images: selectedImages,
     });
     setIsModalOpen(false);
   };
@@ -182,19 +185,29 @@ const ArticleForm = ({
               type="file"
               id="image-upload"
               accept="image/*"
+              multiple
               style={{display: 'none'}}
               onChange={handleImageUpload}
             />
             <label htmlFor="image-upload" className="photo-add-button">
               <img src={picture_button} alt="사진 추가하기" />
             </label>
-            {selectedImage && (
-              <img
-                src={selectedImage}
-                alt="selected"
-                className="preview-image"
-              />
-            )}
+            <div className="image-preview-container">
+              {selectedImages.map((image, index) => (
+                <div key={index} className="image-preview">
+                  <img
+                    src={image}
+                    alt={`selected-${index}`}
+                    className="preview-image"
+                  />
+                  <button
+                    onClick={() => handleImageDelete(index)}
+                    className="image-delete-button">
+                    삭제
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         )}
         <hr /> {/* 구분선 */}
