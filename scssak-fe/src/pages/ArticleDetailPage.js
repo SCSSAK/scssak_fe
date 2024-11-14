@@ -12,16 +12,16 @@ const ArticleDetailPage = () => {
   const [showModal, setShowModal] = useState(false); // 모달 상태
 
   useEffect(() => {
-    // 데이터를 서버로부터 가져오는 로직 (API 통신 대신 하드코딩)
     const data = {
       article_user_id: 'scsa23008',
       article_user_name: '23기 조예지',
       article_title: '게시글 제목',
-      article_content: '게시글 내용',
+      article_content:
+        '게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 게시글 내용 ',
       article_created_at: '2024-11-11',
       article_like_count: 1,
       article_is_liked: false,
-      article_image_urls: [],
+      article_image_urls: [], // 첨부된 사진들 없을 때 대비
       comments: [
         {
           comment_user_id: 'scsa23001',
@@ -48,7 +48,6 @@ const ArticleDetailPage = () => {
   // ConfirmModal에서 확인 버튼 클릭 시 처리할 함수
   const handleConfirm = () => {
     setShowModal(false); // 모달 닫기
-    // 여기에서 실제 댓글 등록 작업을 수행
     console.log('댓글이 등록되었습니다.');
   };
 
@@ -72,18 +71,35 @@ const ArticleDetailPage = () => {
           <span>&lt; 자유 게시판</span>
         </div>
       </header>
+
       {article && (
-        <div className="article-container">
+        <div className="article-content-container">
+          {/* 구역 1: 제목 */}
           <h2 className="article-title">{article.article_title}</h2>
+
+          {/* 구역 2: 작성자, 작성일, 조회수 */}
           <div className="article-info">
             <span>{article.article_user_name}</span>
             <span>{article.article_created_at} | 조회수 120</span>
           </div>
 
+          {/* 구역 3: 첨부된 사진들 */}
+          <div className="article-images">
+            {article.article_image_urls.length > 0 ? (
+              article.article_image_urls.map((url, index) => (
+                <img key={index} src={url} alt="첨부 이미지" />
+              ))
+            ) : (
+              <p className="no-images">첨부된 이미지가 없습니다.</p>
+            )}
+          </div>
+
+          {/* 구역 4: 본문 */}
           <div className="article-content">
             <p>{article.article_content}</p>
           </div>
 
+          {/* 구역 5: 좋아요 버튼 및 댓글 개수 */}
           <div className="likes-comments">
             <button className="like-button">
               {article.article_is_liked ? '❤️' : '🤍'}{' '}
@@ -94,6 +110,7 @@ const ArticleDetailPage = () => {
 
           <hr className="divider" />
 
+          {/* 구역 6: 댓글들 */}
           <div className="comments-section">
             {article.comments.map((comment, index) => (
               <div className="comment" key={index}>
