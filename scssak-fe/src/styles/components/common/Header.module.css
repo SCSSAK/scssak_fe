@@ -1,0 +1,15 @@
+.container {
+  height: 3rem;
+  padding: 0.5rem;
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  background-color: #ffffff;
+}
+
+.container > img {
+  width: 4rem;
+  object-fit: contain;
+}

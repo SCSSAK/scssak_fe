@@ -1,0 +1,24 @@
+.container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+
+  margin-bottom: 4rem;
+}
+
+.containerMailbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem;
+}
+
+.imgMailbox {
+  width: 4rem;
+  object-fit: contain;
+}
+
+.textMailbox {
+  padding: 1rem;
+}

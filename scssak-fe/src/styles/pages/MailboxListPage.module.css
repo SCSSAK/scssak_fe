@@ -1,0 +1,16 @@
+.container {
+  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
+  margin: 0 auto;
+
+  height: 100%;
+
+  background-color: #f2f9ff;
+}
+
+.textTitle {
+  margin: 0 0 1rem;
+  padding: 1rem;
+
+  font-family: 'YeongdeokSea';
+  font-size: 1.5rem;
+}
