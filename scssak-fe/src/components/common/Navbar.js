@@ -10,21 +10,28 @@ import mailboxIconActive from '../../assets/images/navbar/mailbox_icon_active.pn
 import mypageIconActive from '../../assets/images/navbar/mypage_icon_active.png';
 // import mypageIconInactive from '../../assets/images/navbar/mypage_icon_inactive.png';
 
+import {
+  mainRoute,
+  boardRoute,
+  mailboxRootRoute,
+  profileRootRoute,
+} from '../../router/Routes';
+
 const Navbar = () => {
   const navigate = useNavigate();
 
   return (
     <nav className="navbar">
-      <div className="nav-item" onClick={() => navigate('/main')}>
+      <div className="nav-item" onClick={() => navigate(mainRoute)}>
         <img src={homeIconActive} alt="Home" className="active" />
       </div>
-      <div className="nav-item" onClick={() => navigate('/board')}>
+      <div className="nav-item" onClick={() => navigate(boardRoute)}>
         <img src={communityIconActive} alt="Community" />
       </div>
-      <div className="nav-item" onClick={() => navigate('/mail/box')}>
+      <div className="nav-item" onClick={() => navigate(mailboxRootRoute)}>
         <img src={mailboxIconActive} alt="Mailbox" />
       </div>
-      <div className="nav-item" onClick={() => navigate('/my')}>
+      <div className="nav-item" onClick={() => navigate(profileRootRoute)}>
         <img src={mypageIconActive} alt="My" />
       </div>
     </nav>

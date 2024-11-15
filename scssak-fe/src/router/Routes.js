@@ -9,9 +9,11 @@ export const boardRoute = '/board';
 export const articleWriteRoute = '/board/write';
 export const articleEditRoute = '/board/edit';
 
-export const mailboxListRoute = '/mail/box';
-export const mailboxRoute = '/mail/box/:receiver_id';
-export const mailWriteRoute = '/mail/box/:receiver_id/write';
+export const mailboxRootRoute = '/mailbox';
+export const mailboxListRoute = mailboxRootRoute + '/list';
+export const mailboxRoute = mailboxRootRoute + '/:receiver_id';
+export const mailWriteRoute = mailboxRootRoute + '/write/:receiver_id';
 
-export const profileRoute = '/profile/:user_id';
-export const profileEditRoute = '/profile/edit';
+export const profileRootRoute = '/profile';
+export const profileRoute = profileRootRoute + '/:user_id';
+export const profileEditRoute = profileRootRoute + '/edit';

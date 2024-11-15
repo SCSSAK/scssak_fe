@@ -1,5 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 
+import {mailboxRootRoute} from '../../router/Routes';
+
 import {
   imgMailbox01,
   imgMailbox02,
@@ -34,7 +36,7 @@ export default function MailboxList({data}) {
 
   const handleClickMailBox = (user_id, e) => {
     e.preventDefault();
-    navigate(`/mail/box/${user_id}`);
+    navigate(mailboxRootRoute + '/' + user_id);
   };
 
   return (
