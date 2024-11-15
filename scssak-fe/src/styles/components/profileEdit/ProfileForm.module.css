@@ -1,0 +1,97 @@
+.containerProfileImg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imgProfile {
+  margin-top: 1rem;
+
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.buttonChangeImg {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+
+  background: none;
+  border: none;
+
+  color: #424242;
+  font-weight: 300;
+  font-size: 0.75rem;
+}
+
+.buttonChangeImg:hover {
+  cursor: pointer;
+}
+
+.containerInput {
+  border-top: 1px solid #d8e0ec;
+
+  display: flex;
+  align-items: center;
+}
+
+.containerInput > label {
+  flex: 1;
+
+  font-size: 1rem;
+  text-align: start;
+}
+
+.containerInput > input,
+.containerInput > textarea {
+  flex: 2;
+
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.7rem;
+
+  background-color: #edf0f3;
+  border: none;
+  border-radius: 10px;
+
+  color: #536177;
+  font-family: 'Noto Sans KR';
+  font-size: 0.9rem;
+}
+
+.containerInput > textarea {
+  height: 10rem;
+  -ms-overflow-style: none;
+}
+
+.containerInput > textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.containerInput > input:disabled {
+  background-color: #ffffff;
+
+  color: #000000;
+  font-family: 'GmarketSans';
+  font-size: 1rem;
+}
+
+.containerButton {
+  border-top: 1px solid #d8e0ec;
+}
+
+.profileEditButton {
+  margin: 1rem;
+  padding: 0.5rem 1.5rem;
+
+  background-color: #3d5fe7;
+  border: none;
+  border-radius: 50px;
+
+  color: #ffffff;
+  font-size: 1.25rem;
+
+  box-shadow:
+    0 4px 4px rgba(0, 0, 0, 0.1),
+    0 4px 4px rgba(0, 0, 0, 0.1);
+}
