@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import {BASE_URL} from '../router/Routes';
 import MailboxList from '../components/mailboxList/MailBoxList';
+import Navbar from '../components/common/Navbar';
 
 export default function MailboxListPage() {
   const [data, setData] = useState({
@@ -57,6 +58,8 @@ export default function MailboxListPage() {
 
         <MailboxList data={data.users} />
       </main>
+
+      <Navbar />
     </div>
   );
 }

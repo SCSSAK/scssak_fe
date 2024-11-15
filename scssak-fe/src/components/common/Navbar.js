@@ -13,7 +13,7 @@ import mypageIconActive from '../../assets/images/navbar/mypage_icon_active.png'
 import {
   mainRoute,
   boardRoute,
-  mailboxRootRoute,
+  mailboxListRoute,
   profileRootRoute,
 } from '../../router/Routes';
 
@@ -28,7 +28,7 @@ const Navbar = () => {
       <div className="nav-item" onClick={() => navigate(boardRoute)}>
         <img src={communityIconActive} alt="Community" />
       </div>
-      <div className="nav-item" onClick={() => navigate(mailboxRootRoute)}>
+      <div className="nav-item" onClick={() => navigate(mailboxListRoute)}>
         <img src={mailboxIconActive} alt="Mailbox" />
       </div>
       <div className="nav-item" onClick={() => navigate(profileRootRoute)}>

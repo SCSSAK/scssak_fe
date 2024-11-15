@@ -5,6 +5,7 @@ import axios from 'axios';
 import Profile from '../components/profile/Profile';
 import ProfileArticleList from '../components/profile/ProfileArticleList';
 import ConfirmModal from '../components/common/ConfirmModal';
+import Navbar from '../components/common/Navbar';
 
 import {BASE_URL, loginRoute, profileEditRoute} from '../router/Routes';
 import {iconMenu, iconSetting} from '../assets/images';
@@ -138,6 +139,8 @@ export default function ProfilePage() {
           onCancel={handleCancel}
         />
       )}
+
+      <Navbar />
     </div>
   );
 }
