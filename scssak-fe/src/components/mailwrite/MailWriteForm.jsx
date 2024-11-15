@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 import {BASE_URL, mailboxRootRoute} from '../../router/Routes';
+import styles from '../../styles/components/mailWrite/MailWriteForm.module.css';
 
 export default function MailWriteForm({recevier_id}) {
   // page 이동
@@ -31,8 +32,9 @@ export default function MailWriteForm({recevier_id}) {
   };
 
   return (
-    <div>
-      <input
+    <div className={styles.container}>
+      <textarea
+        className={styles.inputContent}
         type="text"
         placeholder="전하고 싶은 내용을 입력하세요! (200자 이내)"
         onChange={e => {
@@ -40,7 +42,11 @@ export default function MailWriteForm({recevier_id}) {
         }}
       />
 
-      <button onClick={handleClickMailWriteButton}>편지 보내기</button>
+      <button
+        className={styles.buttonMailWrite}
+        onClick={handleClickMailWriteButton}>
+        편지 보내기
+      </button>
     </div>
   );
 }

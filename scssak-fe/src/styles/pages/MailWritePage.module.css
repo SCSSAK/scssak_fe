@@ -1,0 +1,45 @@
+.container {
+  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
+  margin: 0 auto;
+  padding: 1.5rem;
+
+  height: 100vh;
+
+  background-color: #f2f9ff;
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-y: bottom;
+}
+
+.containerTitle {
+  display: flex;
+  justify-content: start;
+  align-items: end;
+
+  padding: 1rem 0;
+}
+
+.containerTitle > span {
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+
+.iconGoBackArrow {
+  padding-right: 1rem;
+
+  width: 1.5rem;
+  object-fit: contain;
+}
+
+.textReceiverTitle {
+  font-family: 'YeongdeokSea';
+  font-size: 1.5rem;
+}
+
+.textAlert {
+  margin: 0;
+
+  color: #76777a;
+  font-family: 'YeongdeokSea';
+}
