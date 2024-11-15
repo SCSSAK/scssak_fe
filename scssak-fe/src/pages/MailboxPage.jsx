@@ -1,10 +1,15 @@
 import {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 import {BASE_URL} from '../router/Routes';
 import MailList from '../components/mailbox/MailList';
 import MoveToMailWriteButton from '../components/mailbox/MoveToMailWriteButton';
+import Header from '../components/common/Header';
+import Navbar from '../components/common/Navbar';
+import go_back_arrow from '../assets/images/go_back_arrow.png';
+
+import styles from '../styles/pages/MailboxPage.module.css';
 
 export default function MailboxPage() {
   const {user_id} = useParams();
@@ -66,6 +71,13 @@ export default function MailboxPage() {
     ],
   });
 
+  // page 이동
+  const navigate = useNavigate();
+
+  const handleClickGoBackButton = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     axios
       .create({
@@ -81,9 +93,19 @@ export default function MailboxPage() {
   });
 
   return (
-    <div>
-      <main>
-        <p>{data.receiver_name}님의 우체통 💌</p>
+    <div className={styles.container}>
+      <Header />
+
+      <main className={styles.containerMain}>
+        <div className={styles.containerTitle}>
+          <img
+            className={styles.iconGoBackArrow}
+            src={go_back_arrow}
+            alt="뒤로 가기 버튼"
+            onClick={handleClickGoBackButton}
+          />
+          {data.receiver_name}님의 우체통 💌
+        </div>
 
         <MailList data={data.mail_list} />
 
@@ -94,6 +116,8 @@ export default function MailboxPage() {
           }}
         />
       </main>
+
+      <Navbar />
     </div>
   );
 }

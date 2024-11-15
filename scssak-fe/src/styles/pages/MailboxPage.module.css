@@ -1,0 +1,31 @@
+.container {
+  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
+  margin: 0 auto;
+
+  height: 100%;
+
+  background-color: #f2f9ff;
+}
+
+.containerMain {
+  height: inherit;
+}
+
+.containerTitle {
+  position: relative;
+
+  padding: 1rem 0;
+
+  font-family: 'YeongdeokSea';
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.iconGoBackArrow {
+  position: absolute;
+  left: 1.5rem;
+  top: 30%;
+
+  width: 1.5rem;
+  object-fit: contain;
+}
