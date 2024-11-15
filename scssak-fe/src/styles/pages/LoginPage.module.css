@@ -1,5 +1,4 @@
 .container {
-  padding: 16px;
   max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
   margin: 0 auto;
 
@@ -10,23 +9,20 @@
   background-color: #f2f9ff;
 }
 
+.containerWithBackgroundImg {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-y: bottom;
+}
+
 .containerIntroduce {
-  margin-top: 97px;
+  padding-top: 97px;
 }
 
 .containerIntroduce > p {
   margin: 0;
 
   font-family: 'YeongdeokSea';
-}
-
-.imgBackground {
-  position: absolute;
-
-  width: 100%;
-  object-fit: contain;
-  left: 0;
-  top: 760px;
 }
 
 .imgLogin {

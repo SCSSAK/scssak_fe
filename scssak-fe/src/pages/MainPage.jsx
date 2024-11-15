@@ -5,6 +5,7 @@ import {imgLogo} from '../assets/images';
 import AttendanceButton from '../components/main/AttendanceButton';
 import TardyList from '../components/main/TardyList';
 import NoticeList from '../components/main/NoticeList';
+import Navbar from '../components/common/Navbar';
 import {BASE_URL} from '../router/Routes';
 
 import styles from '../styles/pages/MainPage.module.css';
@@ -46,6 +47,8 @@ export default function MainPage() {
 
       <TardyList data={data.tardy_list} />
       <NoticeList data={data.notice_list} />
+
+      <Navbar />
     </main>
   );
 }

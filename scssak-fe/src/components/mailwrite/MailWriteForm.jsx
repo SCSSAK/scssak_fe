@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
-import {BASE_URL} from '../../router/Routes';
+import {BASE_URL, mailboxRootRoute} from '../../router/Routes';
 
 export default function MailWriteForm({recevier_id}) {
   // page 이동
@@ -25,12 +25,9 @@ export default function MailWriteForm({recevier_id}) {
       .post('/mail', data)
       .then(() => {
         // TODO: 편지 보내기 성공 팝업 띄우기
-        navigate(`/mail/box/${recevier_id}`);
+        navigate(mailboxRootRoute + '/' + recevier_id);
       })
-      .catch(e => console.log(e))
-      .finally(() => {
-        navigate(`/mail/box/${recevier_id}`);
-      });
+      .catch(e => console.log(e));
   };
 
   return (

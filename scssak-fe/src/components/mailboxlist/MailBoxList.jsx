@@ -1,5 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 
+import {mailboxRootRoute} from '../../router/Routes';
+
 import {
   imgMailbox01,
   imgMailbox02,
@@ -12,6 +14,7 @@ import {
   imgMailboxWithNotification04,
   imgMailboxWithNotification05,
 } from '../../assets/images/index';
+import styles from '../../styles/components/mailboxList/MailboxList.module.css';
 
 const mailboxImgList = [
   imgMailbox01,
@@ -34,21 +37,23 @@ export default function MailboxList({data}) {
 
   const handleClickMailBox = (user_id, e) => {
     e.preventDefault();
-    navigate(`/mail/box/${user_id}`);
+    navigate(mailboxRootRoute + '/' + user_id);
   };
 
   return (
-    <div id="mailbox-list-container">
+    <div className={styles.container}>
       {data.map((user, idx) => {
         const imgIdx = idx % mailboxImgList.length;
 
         return (
           <div
+            className={styles.containerMailbox}
             key={idx}
             onClick={e => {
               handleClickMailBox(user.user_id, e);
             }}>
             <img
+              className={styles.imgMailbox}
               src={
                 user.has_new_mail
                   ? mailboxWithNotificationImgList[imgIdx]
@@ -57,7 +62,7 @@ export default function MailboxList({data}) {
               alt={`${user.user_name}의 우체통`}
             />
 
-            <span>{user.user_name}</span>
+            <span className={styles.textMailbox}>{user.user_name}</span>
           </div>
         );
       })}

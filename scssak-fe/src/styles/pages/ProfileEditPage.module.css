@@ -1,0 +1,28 @@
+.container {
+  padding: 1rem;
+  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
+  margin: 0 auto;
+
+  height: 100%;
+
+  background-color: #ffffff;
+}
+
+.containerTitle {
+  position: relative;
+
+  padding: 1rem 0;
+
+  border-bottom: 1px solid #d8e0ec;
+
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.iconGoBackArrow {
+  position: absolute;
+  left: 0;
+
+  width: 1.5rem;
+  object-fit: contain;
+}
