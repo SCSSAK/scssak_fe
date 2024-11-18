@@ -10,7 +10,6 @@ export const articleWriteRoute = '/board/write';
 export const articleEditRoute = '/board/edit';
 
 export const mailboxRootRoute = '/mailbox';
-export const mailboxListRoute = mailboxRootRoute + '/list';
 export const mailboxRoute = mailboxRootRoute + '/:receiver_id';
 export const mailWriteRoute = mailboxRootRoute + '/write/:receiver_id';
 
