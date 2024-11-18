@@ -1,9 +1,12 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
+
+import XModal from '../common/XModal';
+import {API_WITHOUT_AUTH} from '../../apis/apiSettings';
+import {LOGIN_URL} from '../../apis/apiUrls';
+import {mainRoute} from '../../router/Routes';
 
 import styles from '../../styles/components/login/LoginForm.module.css';
-import {BASE_URL, mainRoute} from '../../router/Routes';
 
 export default function LoginForm() {
   // page 이동
@@ -12,7 +15,6 @@ export default function LoginForm() {
   // form 입력값
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); // 에러 메시지 상태 추가
 
   // 로그인 버튼 클릭 처리
   const handleClickLoginButton = async () => {
@@ -23,30 +25,44 @@ export default function LoginForm() {
       };
 
       // 로그인 요청
-      const response = await axios.post(`${BASE_URL}/user/login`, data);
+      const response = await API_WITHOUT_AUTH.post(LOGIN_URL, data);
 
       // 서버로부터 응답을 받았을 때 (status 200)
       if (response.status === 200) {
-        const {access_token, refresh_token} = response.data;
+        const {user_is_student, access_token, refresh_token} = response.data;
 
         // 토큰을 로컬 스토리지에 저장
         localStorage.setItem('access_token', access_token);
         localStorage.setItem('refresh_token', refresh_token);
         localStorage.setItem('userId', id);
+        localStorage.setItem('user_is_student', user_is_student);
 
         // 로그인 성공 후 메인 페이지로 이동
         navigate(mainRoute);
       } else {
         // 로그인 실패 시 처리 (예: 401 Unauthorized)
-        setErrorMessage(
-          '로그인에 실패했습니다. 아이디 또는 비밀번호를 확인하세요.',
-        );
+        setXModalInfo({
+          isOpened: true,
+          message: '로그인에 실패했습니다. 아이디 또는 비밀번호를 확인하세요.',
+        });
       }
     } catch (e) {
       // 에러 처리 (예: 네트워크 문제 또는 서버 에러)
-      console.error(e);
-      setErrorMessage('서버와 통신 중 오류가 발생했습니다.');
+      setXModalInfo({
+        isOpened: true,
+        message: '서버와 통신 중 오류가 발생했습니다.',
+      });
     }
+  };
+
+  // 에러 메시지 표시용 모달
+  const [xModalInfo, setXModalInfo] = useState({
+    isOpened: false,
+    message: '',
+  });
+
+  const handleCloseXModal = () => {
+    setXModalInfo({isOpened: false});
   };
 
   return (
@@ -73,7 +89,9 @@ export default function LoginForm() {
       </button>
 
       {/* 에러 메시지 출력 */}
-      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+      {xModalInfo.isOpened && (
+        <XModal message={xModalInfo.message} onClose={handleCloseXModal} />
+      )}
     </div>
   );
 }

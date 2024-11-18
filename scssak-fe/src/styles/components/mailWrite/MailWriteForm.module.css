@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: 0.5rem 1rem;
+}
+
+.inputContent {
+  width: inherit;
+  height: 15rem;
+  padding: 1rem;
+  margin: 0;
+
+  border: 0.3px solid #3d5fe7;
+  border-radius: 10px;
+
+  color: #76777a;
+  font-family: 'YeongdeokSea';
+  font-size: 1.1rem;
+}
+
+.inputContent::-webkit-scrollbar {
+  display: none;
+}
+
+.buttonMailWrite {
+  align-self: center;
+
+  width: fit-content;
+  padding: 0.3rem 1.5rem;
+  margin-top: 1rem;
+
+  background-color: #3d5fe7;
+  border: none;
+  border-radius: 50px;
+
+  color: #ffffff;
+  font-size: 1.2rem;
+
+  box-shadow:
+    0 4px 4px rgba(0, 0, 0, 0.1),
+    0 4px 4px rgba(0, 0, 0, 0.1);
+}

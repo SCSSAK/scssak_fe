@@ -2,6 +2,8 @@ import {useNavigate} from 'react-router-dom';
 
 import {mailboxRootRoute} from '../../router/Routes';
 
+import styles from '../../styles/components/mailbox/MoveToMailWriteButton.module.css';
+
 export default function MoveToMailWriteButton({receiver_id, receiver_name}) {
   // page 이동
   const navigate = useNavigate();
@@ -13,5 +15,11 @@ export default function MoveToMailWriteButton({receiver_id, receiver_name}) {
     });
   };
 
-  return <button onClick={handleClickMoveToMailWriteButton}>글쓰기</button>;
+  return (
+    <button
+      className={styles.buttonMoveToWrite}
+      onClick={handleClickMoveToMailWriteButton}>
+      글쓰기
+    </button>
+  );
 }

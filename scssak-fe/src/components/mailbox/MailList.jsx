@@ -1,11 +1,13 @@
+import styles from '../../styles/components/mailbox/MailList.module.css';
+
 export default function MailList({data}) {
   return (
-    <div id="mail-list-container">
+    <div className={styles.container}>
       {data.map((mail, idx) => {
         return (
-          <div key={idx}>
-            <p>{mail.mail_content}</p>
-            <p>{mail.mail_created_at}</p>
+          <div key={idx} className={styles.containerMail}>
+            <p className={styles.textMailContent}>{mail.mail_content}</p>
+            <p className={styles.textMailCreatedAt}>{mail.mail_created_at}</p>
           </div>
         );
       })}

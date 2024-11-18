@@ -12,7 +12,7 @@ export default function ProfileEditPage() {
   // page 이동
   const navigate = useNavigate();
 
-  const handleClickMoveToProfileButton = () => {
+  const handleClickGoBackButton = () => {
     navigate(-1);
   };
 
@@ -23,7 +23,7 @@ export default function ProfileEditPage() {
           className={styles.iconGoBackArrow}
           src={go_back_arrow}
           alt="뒤로 가기 버튼"
-          onClick={handleClickMoveToProfileButton}
+          onClick={handleClickGoBackButton}
         />
         기본 정보 수정
       </div>
