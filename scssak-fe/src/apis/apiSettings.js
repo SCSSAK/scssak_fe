@@ -24,7 +24,6 @@ export const API_AUTH_FILE = axios.create({
 API_AUTH.interceptors.request.use(
   config => {
     const token = localStorage.getItem('access_token');
-
     if (token && token.length > 0) {
       config.headers.Authorization = 'Bearer ' + token;
     }

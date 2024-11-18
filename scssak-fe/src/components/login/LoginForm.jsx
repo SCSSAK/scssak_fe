@@ -20,18 +20,16 @@ export default function LoginForm() {
 
   // 로그인 버튼 클릭 처리
   const handleClickLoginButton = async () => {
-    try {
-      const data = {
-        id: id,
-        pwd: pwd,
-      };
+    const data = {
+      id: id,
+      pwd: pwd,
+    };
 
-      // 로그인 요청
-      const response = await API_WITHOUT_AUTH.post(LOGIN_URL, data);
-
-      // 서버로부터 응답을 받았을 때 (status 200)
-      if (response.status === 200) {
-        const {user_is_student, access_token, refresh_token} = response.data;
+    // 로그인 요청
+    API_WITHOUT_AUTH.post(LOGIN_URL, data)
+      .then(r => {
+        // 서버로부터 응답을 받았을 때 (status 200)
+        const {user_is_student, access_token, refresh_token} = r.data;
 
         // 토큰을 로컬 스토리지에 저장
         localStorage.setItem('access_token', access_token);
@@ -41,20 +39,29 @@ export default function LoginForm() {
 
         // 로그인 성공 후 메인 페이지로 이동
         navigate(mainRoute);
-      } else {
-        // 로그인 실패 시 처리 (예: 401 Unauthorized)
-        setXModalInfo({
-          isOpened: true,
-          message: '로그인에 실패했습니다. 아이디 또는 비밀번호를 확인하세요.',
-        });
-      }
-    } catch (e) {
-      // 에러 처리 (예: 네트워크 문제 또는 서버 에러)
-      setXModalInfo({
-        isOpened: true,
-        message: '서버와 통신 중 오류가 발생했습니다.',
+      })
+      .catch(e => {
+        const status = e.status;
+
+        switch (status) {
+          // 에러 처리 (401, 비로그인)
+          case 401:
+            setXModalInfo({
+              isOpened: true,
+              message:
+                '로그인에 실패했습니다.\n아이디 또는 비밀번호를 확인하세요.',
+            });
+            break;
+
+          // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
+          default:
+            setXModalInfo({
+              isOpened: true,
+              message: '서버와 통신 중 오류가 발생했습니다.',
+            });
+            break;
+        }
       });
-    }
   };
 
   // 에러 메시지 표시용 모달

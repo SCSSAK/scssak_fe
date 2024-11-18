@@ -26,12 +26,11 @@ export default function MainPage() {
     notice_list: [],
   });
 
+  // main api 호출
   useEffect(() => {
     API_AUTH.get(MAIN_URL)
       .then(r => {
         setData(r.data);
-
-        console.log(data);
       })
       .catch(e => {
         const status = e.status;
@@ -57,7 +56,7 @@ export default function MainPage() {
       });
   }, []);
 
-  // 에러 메시지 표시용 모달
+  // 에러 메시지 표시
   const [xModalInfo, setXModalInfo] = useState({
     isOpened: false,
     message: '',
