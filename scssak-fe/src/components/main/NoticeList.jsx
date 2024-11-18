@@ -9,8 +9,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 export default function NoticeList({data}) {
-  const temp_data = ['공지사항 1번', '공지사항 2번', '공지사항 3번'];
-
   return (
     <div className={styles.container}>
       <div className={styles.containerTitle}>
@@ -24,7 +22,7 @@ export default function NoticeList({data}) {
         slidesPerView={1}
         loop={true}
         pagination={{clickable: true, type: 'bullets'}}>
-        {temp_data.map((item, idx) => {
+        {data.map((item, idx) => {
           return (
             <SwiperSlide key={idx}>
               <p className={styles.itemNotice}>{item}</p>

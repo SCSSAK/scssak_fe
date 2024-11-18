@@ -7,21 +7,12 @@ import {iconSiren} from '../../assets/images';
 import styles from '../../styles/components/main/TardyList.module.css';
 
 export default function TardyList({data}) {
-  const temp_data = [
-    '박효신',
-    '장원영',
-    '차은우',
-    '테스트',
-    '고구마',
-    '옥수수',
-  ];
-
-  const width = 400;
+  const width = 460;
   const height = 300;
 
   // 단어 개수에 따른 기본 폰트 크기 계산
   const fontSize = wordCount => {
-    if (wordCount == 1) return 100;
+    if (wordCount === 1) return 80;
     if (wordCount <= 2) return 60;
     if (wordCount <= 4) return 50;
     if (wordCount <= 6) return 40;
@@ -31,16 +22,20 @@ export default function TardyList({data}) {
   };
 
   useEffect(() => {
+    if (data === null || data.length === 0) {
+      return;
+    }
+
     const layout = cloud()
       .size([width, height])
       .words(
-        temp_data.map(function (d) {
+        data.map(function (d) {
           return {text: d, size: 1};
         }),
       )
       .font('Impact')
       .fontSize(function (d) {
-        return fontSize(temp_data.length);
+        return fontSize(data.length);
       })
       .rotate(0)
       .on('end', end);
@@ -48,6 +43,9 @@ export default function TardyList({data}) {
     layout.start();
 
     function end(words) {
+      // 기존 svg 삭제
+      d3.select('#word-cloud svg').remove();
+
       d3.select('#word-cloud')
         .append('svg')
         .attr('width', layout.size()[0])
@@ -77,7 +75,7 @@ export default function TardyList({data}) {
           return d.text;
         });
     }
-  });
+  }, [data]);
 
   return (
     <div>
