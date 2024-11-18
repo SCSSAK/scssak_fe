@@ -30,8 +30,6 @@ export default function MainPage() {
     API_AUTH.get(MAIN_URL)
       .then(r => {
         setData(r.data);
-
-        console.log(data);
       })
       .catch(e => {
         const status = e.status;
