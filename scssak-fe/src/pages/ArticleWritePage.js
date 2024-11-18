@@ -5,9 +5,14 @@ import {BASE_URL} from '../router/Routes';
 const ArticleWritePage = () => {
   const handleSubmit = async formData => {
     try {
+      const auth = `Bearer ` + localStorage.getItem('access_token');
+      console.log(auth);
       const response = await fetch(BASE_URL + '/article', {
         method: 'POST',
         body: formData,
+        headers: {
+          Authorization: auth,
+        },
       });
 
       if (response.ok) {
@@ -25,7 +30,7 @@ const ArticleWritePage = () => {
     }
   };
 
-  return <ArticleForm onSubmit={handleSubmit} />;
+  return <ArticleForm onSubmit={handleSubmit} initialData={null} />;
 };
 
 export default ArticleWritePage;

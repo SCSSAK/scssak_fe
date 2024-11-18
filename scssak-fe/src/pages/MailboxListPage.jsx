@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import {BASE_URL} from '../router/Routes';
-import MailboxList from '../components/mailboxList/MailboxList';
+import MailboxList from '../components/mailboxList/MailBoxList';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 
