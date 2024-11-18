@@ -1,0 +1,34 @@
+.container {
+  padding-bottom: 5rem;
+
+  font-family: 'YeongdeokSea';
+}
+
+.containerMail {
+  height: 8rem;
+
+  padding: 0.5rem 0.75rem;
+  margin: 1rem 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #ffffff;
+  border-radius: 10px;
+
+  text-align: start;
+
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.textMailContent {
+  margin: auto 0;
+
+  font-size: 1.2rem;
+}
+
+.textMailCreatedAt {
+  margin: 0;
+
+  font-size: 0.75rem;
+}
