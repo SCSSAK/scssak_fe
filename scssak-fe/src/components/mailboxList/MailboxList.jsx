@@ -35,11 +35,6 @@ export default function MailboxList({data}) {
   // page 이동
   const navigate = useNavigate();
 
-  const handleClickMailBox = (user_id, e) => {
-    e.preventDefault();
-    navigate(mailboxRootRoute + '/' + user_id);
-  };
-
   return (
     <div className={styles.container}>
       {data.map((user, idx) => {
@@ -50,7 +45,8 @@ export default function MailboxList({data}) {
             className={styles.containerMailbox}
             key={idx}
             onClick={e => {
-              handleClickMailBox(user.user_id, e);
+              e.preventDefault();
+              navigate(mailboxRootRoute + '/' + user.user_id);
             }}>
             <img
               className={styles.imgMailbox}

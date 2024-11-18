@@ -1,132 +1,60 @@
 import {useState, useEffect} from 'react';
-import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
-import {BASE_URL} from '../router/Routes';
 import MailboxList from '../components/mailboxList/MailboxList';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
+import XModal from '../components/common/XModal';
+
+import {API_AUTH} from '../apis/apiSettings';
+import {MAIL_URL} from '../apis/apiUrls';
+
+import {loginRoute} from '../router/Routes';
 
 import styles from '../styles/pages/MailboxListPage.module.css';
 
 export default function MailboxListPage() {
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
-    semester: 23,
-    users: [
-      {
-        user_id: 'scsa23001',
-        user_name: '김광수',
-        has_new_mail: false,
-      },
-      {
-        user_id: 'scsa23002',
-        user_name: '김다빈',
-        has_new_mail: false,
-      },
-      {
-        user_id: 'scsa23003',
-        user_name: '김동규',
-        has_new_mail: true,
-      },
-      {
-        user_id: 'scsa23004',
-        user_name: '김동현',
-        has_new_mail: true,
-      },
-      {
-        user_id: 'scsa23005',
-        user_name: '김민협',
-        has_new_mail: true,
-      },
-      {
-        user_id: 'scsa23006',
-        user_name: '김주승',
-        has_new_mail: true,
-      },
-      {
-        user_id: 'scsa23007',
-        user_name: '김준하',
-        has_new_mail: false,
-      },
-      {
-        user_id: 'scsa23008',
-        user_name: '김혜민',
-        has_new_mail: true,
-      },
-      {
-        user_id: 'scsa23009',
-        user_name: '박설진',
-        has_new_mail: false,
-      },
-      {
-        user_id: 'scsa23010',
-        user_name: '박수영',
-        has_new_mail: false,
-      },
-      {
-        user_id: 'scsa23011',
-        user_name: '배태용',
-        has_new_mail: true,
-      },
-      {
-        user_id: 'scsa23012',
-        user_name: '서지은',
-        has_new_mail: true,
-      },
-      {
-        user_id: 'scsa23013',
-        user_name: '손상범',
-        has_new_mail: false,
-      },
-      {
-        user_id: 'scsa23014',
-        user_name: '이건',
-        has_new_mail: true,
-      },
-      {
-        user_id: 'scsa23015',
-        user_name: '이동인',
-        has_new_mail: true,
-      },
-      {
-        user_id: 'scsa23016',
-        user_name: '이주빈',
-        has_new_mail: false,
-      },
-      {
-        user_id: 'scsa23017',
-        user_name: '정내혁',
-        has_new_mail: true,
-      },
-      {
-        user_id: 'scsa23018',
-        user_name: '조예지',
-        has_new_mail: false,
-      },
-      {
-        user_id: 'scsa23019',
-        user_name: '하제우',
-        has_new_mail: false,
-      },
-      {
-        user_id: 'scsa23020',
-        user_name: '황윤영',
-        has_new_mail: true,
-      },
-    ],
+    semester: 0,
+    users: [],
   });
 
   useEffect(() => {
-    axios
-      .create({
-        baseURL: BASE_URL,
-      })
-      .get('/mail')
+    API_AUTH.get(MAIL_URL)
       .then(r => {
         setData(r.data);
       })
-      .catch(e => console.log(e));
+      .catch(e => {
+        const status = e.status;
 
-    console.log('/mail 요청 완료');
+        switch (status) {
+          // 에러 처리 (401, 비로그인)
+          case 401:
+            setXModalInfo({
+              isOpened: true,
+              message: '로그인이 필요합니다.',
+              onClose: () => navigate(loginRoute),
+            });
+            break;
+
+          // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
+          default:
+            setXModalInfo({
+              isOpened: true,
+              message: '서버와 통신 중 오류가 발생했습니다.',
+            });
+            break;
+        }
+      });
+  }, []);
+
+  // 에러 메시지 표시
+  const [xModalInfo, setXModalInfo] = useState({
+    isOpened: false,
+    message: '',
+    onClose: () => {},
   });
 
   return (
@@ -140,6 +68,11 @@ export default function MailboxListPage() {
       </main>
 
       <Navbar />
+
+      {/* 에러 메시지 출력 */}
+      {xModalInfo.isOpened && (
+        <XModal message={xModalInfo.message} onClose={xModalInfo.onClose} />
+      )}
     </div>
   );
 }
