@@ -1,22 +1,26 @@
 import {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import axios from 'axios';
 
 import Profile from '../components/profile/Profile';
 import ProfileArticleList from '../components/profile/ProfileArticleList';
 import ConfirmModal from '../components/common/ConfirmModal';
+import XModal from '../components/common/XModal';
 import Navbar from '../components/common/Navbar';
 
-import {BASE_URL, loginRoute, profileEditRoute} from '../router/Routes';
-import {iconMenu, iconSetting} from '../assets/images';
+import {API_AUTH} from '../apis/apiSettings';
+import {PROFILE_URL, LOGOUT_URL} from '../apis/apiUrls';
 
+import {loginRoute, profileEditRoute} from '../router/Routes';
+
+import {iconMenu, iconSetting} from '../assets/images';
 import styles from '../styles/pages/ProfilePage.module.css';
 
 export default function ProfilePage() {
   const {user_id} = useParams();
+  const loginedUserId = localStorage.getItem('userId');
 
   // 현재 로그인한 사용자의 user_id와 path variable로 받은 user_id가 동일한가?
-  const isUserIdSame = true;
+  const isUserIdSame = user_id === loginedUserId;
 
   const [profileData, setProfileData] = useState({
     user_name: '김동규',
@@ -33,15 +37,17 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
-    axios
-      .create({
-        baseURL: BASE_URL,
-      })
-      .get(`/user/profile/${user_id}`)
+    API_AUTH.get(PROFILE_URL + '/' + user_id)
       .then(r => {
         setProfileData(r.data);
       })
-      .catch(e => console.log(e));
+      .catch(e => {
+        // 에러 처리 (예: 네트워크 문제 또는 서버 에러)
+        setXModalInfo({
+          isOpened: true,
+          message: '서버와 통신 중 오류가 발생했습니다.',
+        });
+      });
   });
 
   // 메뉴 창이 띄워져있는가?
@@ -72,21 +78,34 @@ export default function ProfilePage() {
     setIsModalOpened(!isModalOpened);
   };
 
-  const handleConfirm = () => {
-    axios
-      .create({
-        baseURL: BASE_URL,
-      })
-      .get(`/user/logout`)
+  const handleConfirmLogout = () => {
+    API_AUTH.post(LOGOUT_URL)
       .then(r => {
-        console.log(r);
+        // 로그아웃 처리
+        localStorage.clear();
         navigate(loginRoute);
       })
-      .catch(e => console.log(e));
+      .catch(e => {
+        // 에러 처리 (예: 네트워크 문제 또는 서버 에러)
+        setXModalInfo({
+          isOpened: true,
+          message: '서버와 통신 중 오류가 발생했습니다.',
+        });
+      });
   };
 
-  const handleCancel = () => {
+  const handleCancelLogout = () => {
     setIsModalOpened(false);
+  };
+
+  // 에러 메시지 표시용 모달
+  const [xModalInfo, setXModalInfo] = useState({
+    isOpened: false,
+    message: '',
+  });
+
+  const handleCloseXModal = () => {
+    setXModalInfo({isOpened: false});
   };
 
   return (
@@ -135,12 +154,17 @@ export default function ProfilePage() {
       {isModalOpened && (
         <ConfirmModal
           message="로그아웃 하시겠습니까?"
-          onConfirm={handleConfirm}
-          onCancel={handleCancel}
+          onConfirm={handleConfirmLogout}
+          onCancel={handleCancelLogout}
         />
       )}
 
       <Navbar />
+
+      {/* 에러 메시지 출력 */}
+      {xModalInfo.isOpened && (
+        <XModal message={xModalInfo.message} onClose={handleCloseXModal} />
+      )}
     </div>
   );
 }

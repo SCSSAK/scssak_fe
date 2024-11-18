@@ -20,6 +20,8 @@ import {
 const Navbar = () => {
   const navigate = useNavigate();
 
+  const loginedUserId = localStorage.getItem('userId');
+
   return (
     <nav className="navbar">
       <div className="nav-item" onClick={() => navigate(mainRoute)}>
@@ -31,7 +33,9 @@ const Navbar = () => {
       <div className="nav-item" onClick={() => navigate(mailboxListRoute)}>
         <img src={mailboxIconActive} alt="Mailbox" />
       </div>
-      <div className="nav-item" onClick={() => navigate(profileRootRoute)}>
+      <div
+        className="nav-item"
+        onClick={() => navigate(profileRootRoute + '/' + loginedUserId)}>
         <img src={mypageIconActive} alt="My" />
       </div>
     </nav>
