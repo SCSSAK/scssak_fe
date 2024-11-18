@@ -42,13 +42,28 @@ export default function ProfilePage() {
         setProfileData(r.data);
       })
       .catch(e => {
-        // 에러 처리 (예: 네트워크 문제 또는 서버 에러)
-        setXModalInfo({
-          isOpened: true,
-          message: '서버와 통신 중 오류가 발생했습니다.',
-        });
+        const status = e.status;
+
+        switch (status) {
+          // 에러 처리 (401, 비로그인)
+          case 401:
+            setXModalInfo({
+              isOpened: true,
+              message: '로그인이 필요합니다.',
+              onClose: () => navigate(loginRoute),
+            });
+            break;
+
+          // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
+          default:
+            setXModalInfo({
+              isOpened: true,
+              message: '서버와 통신 중 오류가 발생했습니다.',
+            });
+            break;
+        }
       });
-  });
+  }, []);
 
   // 메뉴 창이 띄워져있는가?
   const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -102,11 +117,8 @@ export default function ProfilePage() {
   const [xModalInfo, setXModalInfo] = useState({
     isOpened: false,
     message: '',
+    onClose: () => {},
   });
-
-  const handleCloseXModal = () => {
-    setXModalInfo({isOpened: false});
-  };
 
   return (
     <div className={styles.container} onClick={handleClickProfilePage}>
@@ -163,7 +175,7 @@ export default function ProfilePage() {
 
       {/* 에러 메시지 출력 */}
       {xModalInfo.isOpened && (
-        <XModal message={xModalInfo.message} onClose={handleCloseXModal} />
+        <XModal message={xModalInfo.message} onClose={xModalInfo.onClose} />
       )}
     </div>
   );
