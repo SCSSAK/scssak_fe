@@ -42,7 +42,7 @@ export default function MailWritePage() {
           ! 비방 및 욕설이 포함될 경우, 경고 없이 삭제될 수 있습니다.
         </p>
 
-        <MailWriteForm recevier_id={receiver_id} />
+        <MailWriteForm receiver_id={receiver_id} />
       </main>
 
       <Navbar />

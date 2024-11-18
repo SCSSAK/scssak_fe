@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useParams, useLocation, useNavigate} from 'react-router-dom';
 
 import MailList from '../components/mailbox/MailList';
 import MoveToMailWriteButton from '../components/mailbox/MoveToMailWriteButton';
@@ -17,11 +17,9 @@ import styles from '../styles/pages/MailboxPage.module.css';
 
 export default function MailboxPage() {
   const {receiver_id} = useParams();
+  const receiver_name = useLocation().state?.receiver_name;
 
-  const [data, setData] = useState({
-    receiver_name: '',
-    mail_list: [],
-  });
+  const [data, setData] = useState();
 
   // page 이동
   const navigate = useNavigate();
@@ -78,16 +76,14 @@ export default function MailboxPage() {
             alt="뒤로 가기 버튼"
             onClick={handleClickGoBackButton}
           />
-          {data.receiver_name}님의 우체통 💌
+          {receiver_name}님의 우체통 💌
         </div>
 
-        <MailList data={data.mail_list} />
+        {data && <MailList data={data} />}
 
         <MoveToMailWriteButton
-          data={{
-            receiver_id: data.receiver_id,
-            receiver_name: data.receiver_name,
-          }}
+          receiver_id={receiver_id}
+          receiver_name={receiver_name}
         />
       </main>
 

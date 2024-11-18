@@ -46,7 +46,9 @@ export default function MailboxList({data}) {
             key={idx}
             onClick={e => {
               e.preventDefault();
-              navigate(mailboxRootRoute + '/' + user.user_id);
+              navigate(mailboxRootRoute + '/' + user.user_id, {
+                state: {receiver_name: user.user_name},
+              });
             }}>
             <img
               className={styles.imgMailbox}
