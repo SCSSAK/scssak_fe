@@ -6,7 +6,7 @@ import {
   boardRoute,
   articleWriteRoute,
   articleEditRoute,
-  mailboxListRoute,
+  mailboxRootRoute,
   mailboxRoute,
   mailWriteRoute,
   profileRoute,
@@ -37,7 +37,7 @@ export default function AppRouter() {
           path={boardRoute + '/:article_id'}
           element={<ArticleDetailPage />}></Route>
         <Route path={mainRoute} element={<MainPage />} />
-        <Route path={mailboxListRoute} element={<MailboxListPage />} />
+        <Route path={mailboxRootRoute} element={<MailboxListPage />} />
         <Route path={mailboxRoute} element={<MailboxPage />} />
         <Route path={mailWriteRoute} element={<MailWritePage />} />
         <Route path={profileRoute} element={<ProfilePage />} />

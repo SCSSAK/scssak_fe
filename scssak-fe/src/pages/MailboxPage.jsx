@@ -1,74 +1,26 @@
 import {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import axios from 'axios';
 
-import {BASE_URL} from '../router/Routes';
 import MailList from '../components/mailbox/MailList';
 import MoveToMailWriteButton from '../components/mailbox/MoveToMailWriteButton';
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
-import go_back_arrow from '../assets/images/go_back_arrow.png';
+import XModal from '../components/common/XModal';
 
+import {API_AUTH} from '../apis/apiSettings';
+import {MAIL_URL} from '../apis/apiUrls';
+
+import {loginRoute} from '../router/Routes';
+
+import go_back_arrow from '../assets/images/go_back_arrow.png';
 import styles from '../styles/pages/MailboxPage.module.css';
 
 export default function MailboxPage() {
-  const {user_id} = useParams();
+  const {receiver_id} = useParams();
 
   const [data, setData] = useState({
-    receiver_id: user_id,
-    receiver_name: '조예지',
-    mail_list: [
-      {
-        mail_id: 1,
-        mail_content: '편지 내용',
-        mail_created_at: '2024-11-11',
-      },
-      {
-        mail_id: 2,
-        mail_content: '편지 내용',
-        mail_created_at: '2024-11-11',
-      },
-      {
-        mail_id: 3,
-        mail_content: '편지 내용',
-        mail_created_at: '2024-11-11',
-      },
-      {
-        mail_id: 4,
-        mail_content: '편지 내용',
-        mail_created_at: '2024-11-11',
-      },
-      {
-        mail_id: 5,
-        mail_content: '편지 내용',
-        mail_created_at: '2024-11-11',
-      },
-      {
-        mail_id: 6,
-        mail_content: '편지 내용',
-        mail_created_at: '2024-11-11',
-      },
-      {
-        mail_id: 7,
-        mail_content: '편지 내용',
-        mail_created_at: '2024-11-11',
-      },
-      {
-        mail_id: 8,
-        mail_content: '편지 내용',
-        mail_created_at: '2024-11-11',
-      },
-      {
-        mail_id: 9,
-        mail_content: '편지 내용',
-        mail_created_at: '2024-11-11',
-      },
-      {
-        mail_id: 10,
-        mail_content: '편지 내용',
-        mail_created_at: '2024-11-11',
-      },
-    ],
+    receiver_name: '',
+    mail_list: [],
   });
 
   // page 이동
@@ -79,17 +31,39 @@ export default function MailboxPage() {
   };
 
   useEffect(() => {
-    axios
-      .create({
-        baseURL: BASE_URL,
-      })
-      .get(`/mail/${user_id}`)
+    API_AUTH.get(MAIL_URL + '/' + receiver_id)
       .then(r => {
         setData(r.data);
       })
-      .catch(e => console.log(e));
+      .catch(e => {
+        const status = e.status;
 
-    console.log(`/mail/${user_id} 요청 완료`);
+        switch (status) {
+          // 에러 처리 (401, 비로그인)
+          case 401:
+            setXModalInfo({
+              isOpened: true,
+              message: '로그인이 필요합니다.',
+              onClose: () => navigate(loginRoute),
+            });
+            break;
+
+          // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
+          default:
+            setXModalInfo({
+              isOpened: true,
+              message: '서버와 통신 중 오류가 발생했습니다.',
+            });
+            break;
+        }
+      });
+  }, []);
+
+  // 에러 메시지 표시
+  const [xModalInfo, setXModalInfo] = useState({
+    isOpened: false,
+    message: '',
+    onClose: () => {},
   });
 
   return (
@@ -118,6 +92,11 @@ export default function MailboxPage() {
       </main>
 
       <Navbar />
+
+      {/* 에러 메시지 출력 */}
+      {xModalInfo.isOpened && (
+        <XModal message={xModalInfo.message} onClose={xModalInfo.onClose} />
+      )}
     </div>
   );
 }
