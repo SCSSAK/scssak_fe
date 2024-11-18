@@ -38,8 +38,11 @@ const ArticleForm = ({
   };
 
   const handleImageUpload = e => {
-    const files = Array.from(e.target.files);
-    const newImages = files.map(file => URL.createObjectURL(file));
+    const files = Array.from(e.target.files); // 선택한 파일 목록을 배열로 변환
+    const newImages = files.map(file => ({
+      url: URL.createObjectURL(file), // 미리보기용 URL
+      file: file, // 실제 파일 데이터
+    }));
     setSelectedImages(prevImages => [...prevImages, ...newImages]);
   };
 
@@ -48,25 +51,30 @@ const ArticleForm = ({
   };
 
   const handleSubmit = () => {
-    onSubmit({
-      selectedBoard,
-      visibility,
-      title,
-      content,
-      images: selectedImages, // 여러 이미지 전송
-    });
+    // 모달을 열고 확인을 통해 부모의 onSubmit 함수 호출
     setIsModalOpen(true);
   };
 
-  const handleConfirm = () => {
-    onSubmit({
-      selectedBoard,
-      visibility,
-      title,
-      content,
-      images: selectedImages,
+  const handleConfirm = async () => {
+    const formData = new FormData();
+
+    // FormData에 백엔드에서 요구하는 파라미터 이름으로 데이터 추가
+    formData.append('articleTitle', title); // 변경
+    formData.append('articleContent', content); // 변경
+    formData.append('articleType', boards.indexOf(selectedBoard) + 1);
+    formData.append('articleIsOpen', visibility === '전체'); // 변경
+
+    // 이미지 파일 추가
+    selectedImages.forEach((image, index) => {
+      formData.append('images', image.file);
     });
-    setIsModalOpen(false);
+
+    // 부모 컴포넌트에서 받은 onSubmit 함수를 호출하고, 필요한 데이터를 전달합니다.
+    if (onSubmit) {
+      onSubmit(formData); // 부모의 onSubmit에 formData 전달
+    }
+
+    setIsModalOpen(false); // 모달 닫기
   };
 
   const handleCancel = () => {
