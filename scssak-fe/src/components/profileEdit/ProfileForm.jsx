@@ -1,25 +1,17 @@
 import {useState, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
 
 import ConfirmModal from '../common/ConfirmModal';
 import XModal from '../common/XModal';
-import {BASE_URL} from '../../router/Routes';
+
+import {API_AUTH_FILE} from '../../apis/apiSettings';
+import {PROFILE_URL} from '../../apis/apiUrls';
+
+import {profileRootRoute} from '../../router/Routes';
 
 import styles from '../../styles/components/profileEdit/ProfileForm.module.css';
 
 export default function ProfileForm({data}) {
-  const temp_data = {
-    user_name: '테스트',
-    user_company: '',
-    user_department: '',
-    user_position: '',
-    user_email: '',
-    user_sns: '',
-    user_message: '',
-    user_img: '',
-  };
-
   // page 이동
   const navigate = useNavigate();
 
@@ -28,14 +20,12 @@ export default function ProfileForm({data}) {
   const [userPwdCurrent, setUserPwdCurrent] = useState('');
   const [userPwdNew, setUserPwdNew] = useState('');
   const [userPwdNewCheck, setUserPwdNewCheck] = useState('');
-  const [userCompany, setUserCompany] = useState(temp_data.user_company);
-  const [userDepartment, setUserDepartment] = useState(
-    temp_data.user_department,
-  );
-  const [userPosition, setUserPosition] = useState(temp_data.user_position);
-  const [userEmail, setUserEmail] = useState(temp_data.user_email);
-  const [userSns, setUserSns] = useState(temp_data.user_sns);
-  const [userMessage, setUserMessage] = useState(temp_data.user_message);
+  const [userCompany, setUserCompany] = useState(data.user_company);
+  const [userDepartment, setUserDepartment] = useState(data.user_department);
+  const [userPosition, setUserPosition] = useState(data.user_position);
+  const [userEmail, setUserEmail] = useState(data.user_email);
+  const [userSns, setUserSns] = useState(data.user_sns);
+  const [userMessage, setUserMessage] = useState(data.user_message);
 
   const inputList = [
     {
@@ -114,8 +104,7 @@ export default function ProfileForm({data}) {
 
   // 새로 등록하는 이미지
   const userImgRef = useRef(null);
-  const [userImgURL, setUserImgURL] = useState(temp_data.user_img);
-  var isImgChanged = false;
+  const [userImgURL, setUserImgURL] = useState(data.user_img);
 
   // 이미지 업로드 버튼 클릭 처리
   const handleClickImgUploadButton = () => {
@@ -124,7 +113,7 @@ export default function ProfileForm({data}) {
   };
 
   // 새로운 이미지 등록 처리
-  const handleChangeImgInput = e => {
+  const handleChangeImgInput = async e => {
     const imgList = e.target.files;
 
     if (imgList === null || imgList.length === 0) {
@@ -152,7 +141,6 @@ export default function ProfileForm({data}) {
       return;
     }
 
-    isImgChanged = true;
     setUserImg(img);
     setUserImgURL(url);
   };
@@ -193,48 +181,49 @@ export default function ProfileForm({data}) {
   const handleConfirm = async () => {
     setIsConfirmModalOpened(false);
 
-    const data = new FormData();
-    data.append('user_pwd_current', userPwdCurrent);
-    data.append('user_pwd_new', userPwdNew);
-    data.append('user_pwd_new_check', userPwdNewCheck);
-    data.append('user_company', userCompany);
-    data.append('user_department', userDepartment);
-    data.append('user_position', userPosition);
-    data.append('user_email', userEmail);
-    data.append('user_sns', userSns);
-    data.append('user_message', userMessage);
-    data.append('user_img', userImg);
+    const formData = new FormData();
+    formData.append('user_pwd_current', userPwdCurrent);
+    if (userPwdNew || userPwdNewCheck) {
+      formData.append('user_pwd_new', userPwdNew);
+      formData.append('user_pwd_new_check', userPwdNewCheck);
+    }
+    formData.append('user_company', userCompany);
+    formData.append('user_department', userDepartment);
+    formData.append('user_position', userPosition);
+    formData.append('user_email', userEmail);
+    formData.append('user_sns', userSns);
+    formData.append('user_message', userMessage);
+    if (userImg) {
+      formData.append('user_img', userImg);
+    }
 
-    axios
-      .put(BASE_URL + '/user/profile', data)
+    for (const key of formData.keys()) {
+      console.log(key, formData.get(key));
+    }
+
+    API_AUTH_FILE.put(PROFILE_URL, formData)
       .then(r => {
-        console.log(r);
-
-        setXModalInfo({
-          isOpened: true,
-          message: '비밀번호 확인이\n일치하지 않습니다.',
-        });
-
-        // TODO: 자기 프로필 페이지로 돌아가기
-        navigate();
+        navigate(profileRootRoute + '/' + localStorage.getItem('userId'));
       })
-      .catch(error => {
-        console.log(error);
+      .catch(e => {
+        const status = e.status;
 
-        if (error.response) {
-          const {status} = error.response;
-
-          if (status === 401) {
+        switch (status) {
+          // 에러 처리 (401, 현재 비밀번호 오류)
+          case 401:
             setXModalInfo({
               isOpened: true,
               message: '입력하신 비밀번호를\n다시 확인해주세요.',
             });
-          } else if (status === 500) {
+            break;
+
+          // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
+          default:
             setXModalInfo({
               isOpened: true,
-              message: '서버 오류가 발생하여\n변경에 실패했습니다.',
+              message: '서버와 통신 중 오류가 발생했습니다.',
             });
-          }
+            break;
         }
       });
   };
@@ -269,12 +258,12 @@ export default function ProfileForm({data}) {
 
       <div className={styles.containerInput}>
         <label>이름</label>
-        <input value={temp_data.user_name} disabled />
+        <input value={data.user_name} disabled />
       </div>
 
       {inputList.map(inputData => {
         return (
-          <div className={styles.containerInput}>
+          <div key={inputData.label} className={styles.containerInput}>
             <label htmlFor={inputData.label}>{inputData.label}</label>
             <input
               id={inputData.label}
