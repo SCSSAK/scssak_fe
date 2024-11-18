@@ -1,10 +1,11 @@
 import React from 'react';
 import ArticleForm from '../components/article/ArticleForm';
+import {BASE_URL} from '../router/Routes';
 
 const ArticleWritePage = () => {
   const handleSubmit = async formData => {
     try {
-      const response = await fetch('/api/v1/article', {
+      const response = await fetch(BASE_URL + '/article', {
         method: 'POST',
         body: formData,
       });
