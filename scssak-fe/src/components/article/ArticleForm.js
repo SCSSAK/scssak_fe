@@ -7,8 +7,7 @@ import dropdown_arrow_down from '../../assets/images/dropdown_arrow_down.png';
 import dropdown_arrow_up from '../../assets/images/dropdown_arrow_up.png';
 import picture_button from '../../assets/images/picture_button.png';
 
-const ArticleForm = ({onSubmit, initialData}) => {
-  let isEditMode = false; // 작성/수정 모드 구분
+const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
   let initialBoard = '';
   let initialVisibility = '전체';
   let initialTitle = '';
@@ -25,8 +24,8 @@ const ArticleForm = ({onSubmit, initialData}) => {
     isEditMode = true;
     initialBoard = initialData.board;
     initialVisibility = initialData.visibility;
-    initialTitle = initialData.title;
-    initialContent = initialData.content;
+    initialTitle = initialData.article_title;
+    initialContent = initialData.article_content;
     showImageUpload = false;
   }
 
@@ -71,25 +70,44 @@ const ArticleForm = ({onSubmit, initialData}) => {
   };
 
   const handleConfirm = async () => {
-    const formData = new FormData();
+    // 작성 모드
+    if (!isEditMode) {
+      const formData = new FormData();
 
-    // FormData에 백엔드에서 요구하는 파라미터 이름으로 데이터 추가
-    formData.append('articleTitle', title); // 변경
-    formData.append('articleContent', content); // 변경
-    formData.append('articleType', boards.indexOf(selectedBoard) + 1);
-    formData.append('articleIsOpen', visibility === '전체'); // 변경
+      // FormData에 백엔드에서 요구하는 파라미터 이름으로 데이터 추가
+      formData.append('articleTitle', title); // 변경
+      formData.append('articleContent', content); // 변경
+      formData.append('articleType', boards.indexOf(selectedBoard) + 1);
+      formData.append('articleIsOpen', visibility === '전체'); // 변경
 
-    // 이미지 파일 추가
-    selectedImages.forEach((image, index) => {
-      formData.append('images', image.file);
-    });
+      // 이미지 파일 추가
+      selectedImages.forEach((image, index) => {
+        formData.append('images', image.file);
+      });
 
-    // 부모 컴포넌트에서 받은 onSubmit 함수를 호출하고, 필요한 데이터를 전달합니다.
-    if (onSubmit) {
-      onSubmit(formData); // 부모의 onSubmit에 formData 전달
+      // 부모 컴포넌트에서 받은 onSubmit 함수를 호출하고, 필요한 데이터를 전달합니다.
+      if (onSubmit) {
+        onSubmit(formData); // 부모의 onSubmit에 formData 전달
+      }
+
+      setIsModalOpen(false); // 모달 닫기
+    } else {
+      // 수정 모드
+      const requestData = {
+        article_title: title, // 제목
+        article_content: content, // 내용
+        article_type: boards.indexOf(selectedBoard) + 1, // 게시판 선택
+        article_is_open: visibility === '전체', // 공개 범위 (전체: true, 동기: false)
+      };
+
+      // 부모 컴포넌트에서 받은 onSubmit 함수를 호출하고, 필요한 데이터를 전달합니다.
+      if (onSubmit) {
+        console.log(requestData);
+        onSubmit(requestData); // 부모의 onSubmit에 requestData 전달
+      }
+
+      setIsModalOpen(false); // 모달 닫기
     }
-
-    setIsModalOpen(false); // 모달 닫기
   };
 
   const handleCancel = () => {
