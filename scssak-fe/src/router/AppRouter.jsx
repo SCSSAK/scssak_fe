@@ -56,6 +56,19 @@ export default function AppRouter() {
         {/* 둘 다 없는 경우 */}
         <Route path={loginRoute} element={<LoginPage />} />
         <Route path={articleWriteRoute} element={<ArticleWritePage />} />
+        <Route
+          path={articleEditRoute + '/:articleId'}
+          element={<ArticleEditPage />}
+        />
+        <Route
+          path={boardRoute + '/:articleId'}
+          element={<ArticleDetailPage />}></Route>
+        <Route path={mainRoute} element={<MainPage />} />
+        <Route path={mailboxRootRoute} element={<MailboxListPage />} />
+        <Route path={mailboxRoute} element={<MailboxPage />} />
+        <Route path={mailWriteRoute} element={<MailWritePage />} />
+        <Route path={profileRoute} element={<ProfilePage />} />
+        <Route path={profileEditRoute} element={<ProfileEditPage />} />
         <Route path={articleEditRoute} element={<ArticleEditPage />} />
       </Routes>
     </BrowserRouter>

@@ -1,4 +1,5 @@
 import React, {useState, useRef} from 'react';
+import {useNavigate} from 'react-router-dom';
 import '../../styles/components/article/ArticleForm.css';
 import ConfirmModal from '../common/ConfirmModal';
 import go_back_arrow from '../../assets/images/go_back_arrow.png';
@@ -13,6 +14,12 @@ const ArticleForm = ({onSubmit, initialData}) => {
   let initialTitle = '';
   let initialContent = '';
   let showImageUpload = true; // 이미지 업로드 버튼을 보여줄지 여부
+
+  const navigate = useNavigate(); // useNavigate 훅 선언
+
+  const handleGoBack = () => {
+    navigate(-1); // 히스토리 스택에서 이전 페이지로 이동
+  };
 
   if (initialData) {
     isEditMode = true;
@@ -93,7 +100,7 @@ const ArticleForm = ({onSubmit, initialData}) => {
     <div className="article-write-page">
       <header className="header">
         <div className="form-group back-button-group">
-          <button className="back-button">
+          <button className="back-button" onClick={handleGoBack}>
             <img src={go_back_arrow} alt="<-"></img>
           </button>
           <div>{isEditMode ? '게시글 수정' : '글쓰기'}</div>
@@ -212,7 +219,7 @@ const ArticleForm = ({onSubmit, initialData}) => {
               {selectedImages.map((image, index) => (
                 <div key={index} className="image-preview">
                   <img
-                    src={image}
+                    src={image.url}
                     alt={`selected-${index}`}
                     className="preview-image"
                   />
