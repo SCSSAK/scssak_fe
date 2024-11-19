@@ -64,7 +64,7 @@ const ArticleBoardPage = () => {
         setArticles(data.article_list); // 첫 페이지에는 새로 로드한 데이터로 덮어쓰기
       } else {
         // 두 번째 요청부터는 기존 데이터에 추가
-        setArticles(prev => [...prev, ...data.articleList]);
+        setArticles(prev => [...prev, ...data.article_list]);
       }
 
       setTotalPages(data.total_page); // 총 페이지 수 갱신
