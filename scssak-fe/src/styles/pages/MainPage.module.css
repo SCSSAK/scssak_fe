@@ -1,41 +1,30 @@
 .container {
-  padding: 16px;
-  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
-  margin: 0 auto;
-
-  height: 100%;
-
+  padding: 1rem;
   background-color: #f2f9ff;
 }
 
 .containerStatus {
-  padding: 16px;
+  padding: 0.5rem;
   position: relative;
+
   text-align: start;
+  font-family: 'YeongdeokSea';
 }
 
 .containerStatus > p {
   margin: 0;
 }
 
-.imgLogo {
-  width: 70px;
-  object-fit: contain;
-}
-
 .textBlue {
   color: #3c96e0;
-  font-family: 'YeongdeokSea';
   font-weight: 400;
-  font-size: 18px;
+  font-size: 1rem;
 
-  padding-top: 24px;
-  padding-bottom: 16px;
+  padding-bottom: 1rem;
 }
 
 .textTardy {
   color: #040520;
-  font-family: 'YeongdeokSea';
   font-weight: 400;
-  font-size: 28px;
+  font-size: 1.75rem;
 }

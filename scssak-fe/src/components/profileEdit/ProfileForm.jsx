@@ -1,8 +1,9 @@
 import {useState, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
+import {xModalAtom} from '../../recoil/atom';
 
 import ConfirmModal from '../common/ConfirmModal';
-import XModal from '../common/XModal';
 
 import {API_AUTH_FILE} from '../../apis/apiSettings';
 import {PROFILE_URL} from '../../apis/apiUrls';
@@ -14,6 +15,9 @@ import styles from '../../styles/components/profileEdit/ProfileForm.module.css';
 export default function ProfileForm({data}) {
   // page 이동
   const navigate = useNavigate();
+
+  // 에러 메시지 전역 상태
+  const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
 
   // form 입력값
   const [userImg, setUserImg] = useState();
@@ -125,7 +129,7 @@ export default function ProfileForm({data}) {
 
     // 이미지 용량이 20mb를 초과하는 경우
     if (img.size > 20 * 1024 * 1024) {
-      setXModalInfo({
+      setXmodalState({
         isOpened: true,
         message: '20MB 이하의 파일만\n업로드할 수 있습니다.',
       });
@@ -134,7 +138,7 @@ export default function ProfileForm({data}) {
 
     // 이미지 파일이 아닌 경우
     if (!img.type.startsWith('image')) {
-      setXModalInfo({
+      setXmodalState({
         isOpened: true,
         message: '이미지 파일만\n업로드할 수 있습니다.',
       });
@@ -149,7 +153,7 @@ export default function ProfileForm({data}) {
   const handleClickEditProfileButton = () => {
     // 기존 비밀번호를 입력하지 않은 경우
     if (userPwdCurrent === null || userPwdCurrent === '') {
-      setXModalInfo({
+      setXmodalState({
         isOpened: true,
         message: '현재 비밀번호는\n필수 입력값입니다.',
       });
@@ -161,7 +165,7 @@ export default function ProfileForm({data}) {
       setUserPwdNewCheck('');
     } else if (userPwdNew !== userPwdNewCheck) {
       // 새 비밀번호를 입력했는데 새 비밀번호 확인과 동일하지 않은 경우
-      setXModalInfo({
+      setXmodalState({
         isOpened: true,
         message: '비밀번호 확인이\n일치하지 않습니다.',
       });
@@ -197,10 +201,6 @@ export default function ProfileForm({data}) {
       formData.append('user_img', userImg);
     }
 
-    for (const key of formData.keys()) {
-      console.log(key, formData.get(key));
-    }
-
     API_AUTH_FILE.put(PROFILE_URL, formData)
       .then(r => {
         navigate(profileRootRoute + '/' + localStorage.getItem('userId'));
@@ -211,7 +211,7 @@ export default function ProfileForm({data}) {
         switch (status) {
           // 에러 처리 (401, 현재 비밀번호 오류)
           case 401:
-            setXModalInfo({
+            setXmodalState({
               isOpened: true,
               message: '입력하신 비밀번호를\n다시 확인해주세요.',
             });
@@ -219,23 +219,13 @@ export default function ProfileForm({data}) {
 
           // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
           default:
-            setXModalInfo({
+            setXmodalState({
               isOpened: true,
               message: '서버와 통신 중 오류가 발생했습니다.',
             });
             break;
         }
       });
-  };
-
-  // 닫기 버튼만 있는 모달
-  const [xModalInfo, setXModalInfo] = useState({
-    isOpened: false,
-    message: '',
-  });
-
-  const handleCloseXModal = () => {
-    setXModalInfo({isOpened: false});
   };
 
   return (
@@ -300,10 +290,6 @@ export default function ProfileForm({data}) {
           onConfirm={handleConfirm}
           onCancel={handleCancel}
         />
-      )}
-
-      {xModalInfo.isOpened && (
-        <XModal message={xModalInfo.message} onClose={handleCloseXModal} />
       )}
     </div>
   );

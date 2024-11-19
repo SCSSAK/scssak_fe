@@ -1,4 +1,3 @@
-import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../../styles/components/common/Navbar.css'; // 네비게이션 바 CSS
 import communityIconActive from '../../assets/images/navbar/community_icon_active.png';
