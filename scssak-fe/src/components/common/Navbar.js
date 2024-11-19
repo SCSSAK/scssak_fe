@@ -1,5 +1,4 @@
-import React from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import '../../styles/components/common/Navbar.css'; // 네비게이션 바 CSS
 import communityIconActive from '../../assets/images/navbar/community_icon_active.png';
 // import communityIconInactive from '../../assets/images/navbar/community_icon_inactive.png';
@@ -19,25 +18,43 @@ import {
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const loginedUserId = localStorage.getItem('userId');
 
+  const menuList = [
+    {to: '/main', alt: 'Home', src: homeIconActive, route: mainRoute},
+    {
+      to: '/board',
+      alt: 'Community',
+      src: communityIconActive,
+      route: boardRoute,
+    },
+    {
+      to: '/mailbox',
+      alt: 'Mailbox',
+      src: mailboxIconActive,
+      route: mailboxRootRoute,
+    },
+    {
+      to: '/profile',
+      alt: 'My',
+      src: mypageIconActive,
+      route: profileRootRoute + '/' + loginedUserId,
+    },
+  ];
+
   return (
     <nav className="navbar">
-      <div className="nav-item" onClick={() => navigate(mainRoute)}>
-        <img src={homeIconActive} alt="Home" className="active" />
-      </div>
-      <div className="nav-item" onClick={() => navigate(boardRoute)}>
-        <img src={communityIconActive} alt="Community" />
-      </div>
-      <div className="nav-item" onClick={() => navigate(mailboxRootRoute)}>
-        <img src={mailboxIconActive} alt="Mailbox" />
-      </div>
-      <div
-        className="nav-item"
-        onClick={() => navigate(profileRootRoute + '/' + loginedUserId)}>
-        <img src={mypageIconActive} alt="My" />
-      </div>
+      {menuList.map((menu, idx) => (
+        <div className="nav-item" onClick={() => navigate(menu.route)}>
+          <img
+            src={menu.src}
+            alt={menu.alt}
+            className={location.pathname.startsWith(menu.to) ? 'active' : ''}
+          />
+        </div>
+      ))}
     </nav>
   );
 };

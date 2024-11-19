@@ -17,7 +17,7 @@ export default function MoveToMailWriteButton({receiver_id, receiver_name}) {
 
   return (
     <button
-      className={styles.buttonMoveToWrite}
+      className={styles.buttonMoveToWriteMail}
       onClick={handleClickMoveToMailWriteButton}>
       글쓰기
     </button>

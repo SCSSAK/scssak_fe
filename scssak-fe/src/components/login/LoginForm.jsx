@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-
-import XModal from '../common/XModal';
+import {useRecoilState} from 'recoil';
+import {xModalAtom} from '../../recoil/atom';
 
 import {API_WITHOUT_AUTH} from '../../apis/apiSettings';
 import {LOGIN_URL} from '../../apis/apiUrls';
@@ -13,6 +13,9 @@ import styles from '../../styles/components/login/LoginForm.module.css';
 export default function LoginForm() {
   // page 이동
   const navigate = useNavigate();
+
+  // 에러 메시지 전역 상태
+  const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
 
   // form 입력값
   const [id, setId] = useState('');
@@ -46,7 +49,7 @@ export default function LoginForm() {
         switch (status) {
           // 에러 처리 (401, 비로그인)
           case 401:
-            setXModalInfo({
+            setXmodalState({
               isOpened: true,
               message:
                 '로그인에 실패했습니다.\n아이디 또는 비밀번호를 확인하세요.',
@@ -55,23 +58,13 @@ export default function LoginForm() {
 
           // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
           default:
-            setXModalInfo({
+            setXmodalState({
               isOpened: true,
               message: '서버와 통신 중 오류가 발생했습니다.',
             });
             break;
         }
       });
-  };
-
-  // 에러 메시지 표시용 모달
-  const [xModalInfo, setXModalInfo] = useState({
-    isOpened: false,
-    message: '',
-  });
-
-  const handleCloseXModal = () => {
-    setXModalInfo({isOpened: false});
   };
 
   return (
@@ -96,11 +89,6 @@ export default function LoginForm() {
       <button className={styles.loginButton} onClick={handleClickLoginButton}>
         로그인
       </button>
-
-      {/* 에러 메시지 출력 */}
-      {xModalInfo.isOpened && (
-        <XModal message={xModalInfo.message} onClose={handleCloseXModal} />
-      )}
     </div>
   );
 }

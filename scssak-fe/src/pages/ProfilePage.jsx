@@ -1,11 +1,11 @@
 import {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
+import {xModalAtom} from '../recoil/atom';
 
 import Profile from '../components/profile/Profile';
 import ProfileArticleList from '../components/profile/ProfileArticleList';
 import ConfirmModal from '../components/common/ConfirmModal';
-import XModal from '../components/common/XModal';
-import Navbar from '../components/common/Navbar';
 
 import {API_AUTH} from '../apis/apiSettings';
 import {PROFILE_URL, LOGOUT_URL} from '../apis/apiUrls';
@@ -16,26 +16,32 @@ import {iconMenu, iconSetting} from '../assets/images';
 import styles from '../styles/pages/ProfilePage.module.css';
 
 export default function ProfilePage() {
+  // page 이동
+  const navigate = useNavigate();
+
+  // 에러 메시지 전역 상태
+  const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
+
   const {user_id} = useParams();
   const loginedUserId = localStorage.getItem('userId');
 
   // 현재 로그인한 사용자의 user_id와 path variable로 받은 user_id가 동일한가?
   const isUserIdSame = user_id === loginedUserId;
 
+  // 표시할 데이터
   const [profileData, setProfileData] = useState({
-    user_name: '김동규',
-    user_semester: 13,
-    user_company: 'SK하이닉스',
-    user_department: 'Solution SW',
-    user_position: '부장',
-    user_email: 'scsa23000@scsa.com',
-    user_sns: '@boneismylif',
-    user_message:
-      '안녕하세요, 13기 김동규입니다.\n SK 하이닉스 이직 관련 고민은 제게 문의 주시면 됩니다.\n 쓱싸 전체 회식 하고 싶어요.\n 동기님, 후배님들은 밥 사드려요~~!',
-    user_img:
-      'https://static.wanted.co.kr/community/2022/5/0e62e732238a73f1a2834638909bd6b216b4d40b135403b508947076cefe1c89_resized',
+    user_name: '',
+    user_semester: 0,
+    user_company: '',
+    user_department: '',
+    user_position: '',
+    user_email: '',
+    user_sns: '',
+    user_message: '',
+    user_img: '',
   });
 
+  // profile api 호출
   useEffect(() => {
     API_AUTH.get(PROFILE_URL + '/' + user_id)
       .then(r => {
@@ -47,7 +53,7 @@ export default function ProfilePage() {
         switch (status) {
           // 에러 처리 (401, 비로그인)
           case 401:
-            setXModalInfo({
+            setXmodalState({
               isOpened: true,
               message: '로그인이 필요합니다.',
               onClose: () => navigate(loginRoute),
@@ -56,7 +62,7 @@ export default function ProfilePage() {
 
           // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
           default:
-            setXModalInfo({
+            setXmodalState({
               isOpened: true,
               message: '서버와 통신 중 오류가 발생했습니다.',
             });
@@ -76,9 +82,6 @@ export default function ProfilePage() {
       setIsMenuOpened(!isMenuOpened);
     }
   };
-
-  // page 이동
-  const navigate = useNavigate();
 
   const handleClickMoveToProfileEditButton = () => {
     navigate(profileEditRoute, {
@@ -102,7 +105,7 @@ export default function ProfilePage() {
       })
       .catch(e => {
         // 에러 처리 (예: 네트워크 문제 또는 서버 에러)
-        setXModalInfo({
+        setXmodalState({
           isOpened: true,
           message: '서버와 통신 중 오류가 발생했습니다.',
         });
@@ -112,13 +115,6 @@ export default function ProfilePage() {
   const handleCancelLogout = () => {
     setIsModalOpened(false);
   };
-
-  // 에러 메시지 표시용 모달
-  const [xModalInfo, setXModalInfo] = useState({
-    isOpened: false,
-    message: '',
-    onClose: () => {},
-  });
 
   return (
     <div className={styles.container} onClick={handleClickProfilePage}>
@@ -169,13 +165,6 @@ export default function ProfilePage() {
           onConfirm={handleConfirmLogout}
           onCancel={handleCancelLogout}
         />
-      )}
-
-      <Navbar />
-
-      {/* 에러 메시지 출력 */}
-      {xModalInfo.isOpened && (
-        <XModal message={xModalInfo.message} onClose={xModalInfo.onClose} />
       )}
     </div>
   );

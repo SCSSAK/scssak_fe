@@ -1,7 +1,6 @@
 import {useParams, useLocation, useNavigate} from 'react-router-dom';
 
 import MailWriteForm from '../components/mailWrite/MailWriteForm';
-import Navbar from '../components/common/Navbar';
 import go_back_arrow from '../assets/images/go_back_arrow.png';
 import {backgroundImgSea} from '../assets/images/index';
 
@@ -44,8 +43,6 @@ export default function MailWritePage() {
 
         <MailWriteForm receiver_id={receiver_id} />
       </main>
-
-      <Navbar />
     </div>
   );
 }

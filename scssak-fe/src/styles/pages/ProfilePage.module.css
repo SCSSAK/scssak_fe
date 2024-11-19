@@ -1,11 +1,5 @@
 .container {
-  padding: 1rem;
-  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
-  margin: 0 auto;
-
   height: 100%;
-
-  background-color: #ffffff;
 }
 
 .containerTitle {
@@ -26,11 +20,11 @@
 
 .containerTitleIcon {
   position: absolute;
-  left: 0;
+  right: 1rem;
   top: 0;
 
   z-index: 2;
-  width: 100%;
+
   display: flex;
   justify-content: flex-end;
   align-items: center;

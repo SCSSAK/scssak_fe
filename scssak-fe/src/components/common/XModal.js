@@ -1,12 +1,24 @@
 // XModal.js
 import React from 'react';
 import '../../styles/components/common/XModal.css';
+import {useRecoilState} from 'recoil';
+import {xModalAtom} from '../../recoil/atom';
 
 const XModal = ({message, onClose}) => {
+  // 에러 메시지 전역 상태
+  const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
+
+  const onClick = () => {
+    setXmodalState({isOpened: false});
+    if (onClose) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={onClick}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <span className="close-btn" onClick={onClose}>
+        <span className="close-btn" onClick={onClick}>
           &times;
         </span>
         <p>{message}</p>
