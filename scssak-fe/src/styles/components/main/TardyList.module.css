@@ -1,6 +1,9 @@
+.container {
+  margin-top: 1.5rem;
+}
+
 .containerTitle {
-  padding: 8px;
-  margin-top: 38px;
+  padding: 0.5rem;
 
   background-color: #008cff;
   border-radius: 12px;
@@ -15,16 +18,16 @@
 }
 
 .imgSiren {
-  width: 14px;
-  padding: 0 8px 0;
+  width: 1rem;
+  padding-right: 0.5rem;
 }
 
 .textTitle {
   color: #ffffff;
   font-weight: 400;
-  font-size: 13.5px;
+  font-size: 0.8rem;
 
-  margin-top: 4px;
+  margin-top: 0.25rem;
 }
 
 .containerTardyList {

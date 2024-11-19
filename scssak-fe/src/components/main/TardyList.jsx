@@ -78,7 +78,7 @@ export default function TardyList({data}) {
   }, [data]);
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.containerTitle}>
         <img className={styles.imgSiren} src={iconSiren} alt="" />
         <span className={styles.textTitle}>오늘의 지각자</span>
