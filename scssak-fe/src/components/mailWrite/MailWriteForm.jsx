@@ -94,6 +94,7 @@ export default function MailWriteForm({receiver_id}) {
         className={styles.inputContent}
         type="text"
         placeholder="전하고 싶은 내용을 입력하세요! (200자 이내)"
+        maxLength={220}
         onChange={e => {
           setMailContent(e.target.value);
         }}

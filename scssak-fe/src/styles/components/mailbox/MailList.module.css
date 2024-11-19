@@ -7,8 +7,10 @@
 .containerMail {
   height: 8rem;
 
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 1rem;
   margin: 1rem 0.5rem;
+
+  position: relative;
 
   display: flex;
   flex-direction: column;
@@ -21,10 +23,29 @@
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }
 
+.iconDeleteMail {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+
+  padding: 0.5rem;
+
+  width: 1rem;
+  object-fit: contain;
+}
+
 .textMailContent {
   margin: auto 0;
+  padding: 1rem 0;
 
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+
+  overflow: scroll;
+}
+
+.textMailContent::-webkit-scrollbar {
+  display: none;
 }
 
 .textMailCreatedAt {
