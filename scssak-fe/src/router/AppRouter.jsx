@@ -46,9 +46,13 @@ export default function AppRouter() {
         {/* bottom nav만 있는 경우 */}
         <Route element={<LayoutWithNav />}>
           <Route
-            path={boardRoute + '/:article_id'}
-            element={<ArticleDetailPage />}></Route>
-
+            path={boardRoute + '/:articleId'}
+            element={<ArticleDetailPage />}
+          />
+          <Route
+            path={articleEditRoute + '/:articleId'}
+            element={<ArticleEditPage />}
+          />
           <Route path={mailWriteRoute} element={<MailWritePage />} />
           <Route path={profileEditRoute} element={<ProfileEditPage />} />
         </Route>
@@ -56,13 +60,6 @@ export default function AppRouter() {
         {/* 둘 다 없는 경우 */}
         <Route path={loginRoute} element={<LoginPage />} />
         <Route path={articleWriteRoute} element={<ArticleWritePage />} />
-        <Route
-          path={articleEditRoute + '/:articleId'}
-          element={<ArticleEditPage />}
-        />
-        <Route
-          path={boardRoute + '/:articleId'}
-          element={<ArticleDetailPage />}></Route>
         <Route path={mainRoute} element={<MainPage />} />
         <Route path={mailboxRootRoute} element={<MailboxListPage />} />
         <Route path={mailboxRoute} element={<MailboxPage />} />
