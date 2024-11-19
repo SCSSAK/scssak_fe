@@ -1,6 +1,6 @@
 import {useNavigate} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
-import {xModalAtom} from '../../globalState/atom';
+import {xModalAtom} from '../../recoil/atom';
 
 import {API_AUTH} from '../../apis/apiSettings';
 import {MAIL_URL} from '../../apis/apiUrls';
