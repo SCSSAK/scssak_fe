@@ -2,7 +2,6 @@
   margin: 0 auto;
   max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
   height: 100vh;
-  overflow: hidden;
 
   text-align: center;
 }
