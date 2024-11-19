@@ -53,7 +53,7 @@ const ArticleList = ({articles, loadMore, isFetching}) => {
       <ul className="articles">
         {articles.map((article, index) => (
           <li
-            key={article.id || index} // 고유한 key로 id 사용
+            key={article.article_id || index} // 고유한 key로 id 사용
             className="article-item"
             ref={index === articles.length - 1 ? observeLastElement : null}>
             <div className="thumbnail">
@@ -64,16 +64,16 @@ const ArticleList = ({articles, loadMore, isFetching}) => {
               )}
             </div>
             <div className="article-info">
-              <p className="article-type">타입 {article.articleType}</p>
-              <h3 className="title">{article.articleTitle}</h3>
-              <p className="content">{article.articleContent}</p>
+              <p className="article-type">타입 {article.article_type}</p>
+              <h3 className="title">{article.article_title}</h3>
+              <p className="content">{article.article_content}</p>
               <div className="metadata-stats">
                 <span>
-                  {article.articleUserName} | {article.articleCreatedAt}
+                  {article.article_user_name} | {article.article_created_at}
                 </span>
                 <span className="stats">
-                  💬 {article.articleCommentCount} | ❤️{' '}
-                  {article.articleLikeCount}
+                  💬 {article.article_comment_count} | ❤️{' '}
+                  {article.article_like_count}
                 </span>
               </div>
             </div>
