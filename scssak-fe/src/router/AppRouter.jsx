@@ -32,9 +32,12 @@ export default function AppRouter() {
         <Route path={loginRoute} element={<LoginPage />} />
         <Route path={boardRoute} element={<ArticleBoardPage />} />
         <Route path={articleWriteRoute} element={<ArticleWritePage />} />
-        <Route path={articleEditRoute} element={<ArticleEditPage />} />
         <Route
-          path={boardRoute + '/:article_id'}
+          path={articleEditRoute + '/:articleId'}
+          element={<ArticleEditPage />}
+        />
+        <Route
+          path={boardRoute + '/:articleId'}
           element={<ArticleDetailPage />}></Route>
         <Route path={mainRoute} element={<MainPage />} />
         <Route path={mailboxRootRoute} element={<MailboxListPage />} />

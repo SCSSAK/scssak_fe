@@ -6,7 +6,7 @@ const ArticleWritePage = () => {
   const handleSubmit = async formData => {
     try {
       const auth = `Bearer ` + localStorage.getItem('access_token');
-      console.log(auth);
+      // con  sole.log(auth);
       const response = await fetch(BASE_URL + '/article', {
         method: 'POST',
         body: formData,
@@ -18,12 +18,8 @@ const ArticleWritePage = () => {
       if (response.ok) {
         console.log('게시글 작성 성공');
         // 성공 시 추가 처리 (예: 페이지 이동 등)
-      } else if (response.status === 400) {
-        console.error('잘못된 요청: 제목 또는 내용이 비어 있습니다.');
-      } else if (response.status === 401) {
-        console.error('로그인되지 않았습니다.');
       } else {
-        console.error('서버 에러가 발생했습니다.');
+        console.error('서버 에러가 발생했습니다.', response.error);
       }
     } catch (error) {
       console.error('API 요청 중 오류 발생:', error);

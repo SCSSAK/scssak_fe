@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
+import {useNavigate} from 'react-router-dom';
 import '../styles/pages/ArticleBoardPage.css';
 import ArticleList from '../components/article/ArticleList';
 import Logo from '../assets/images/logo.png';
@@ -26,6 +27,12 @@ const ArticleBoardPage = () => {
   const [activeType, setActiveType] = useState('typeAll');
   const [activeOpenType, setActiveOpenType] = useState('전체');
   const [loadedPages, setloadedPages] = useState(0);
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/board/write');
+  };
 
   // 게시글 요청 함수
   const fetchArticles = async page => {
@@ -165,7 +172,9 @@ const ArticleBoardPage = () => {
       />
 
       {/* 하단 글쓰기 버튼 */}
-      <button className="write-button">글쓰기</button>
+      <button className="write-button" onClick={handleClick}>
+        글쓰기
+      </button>
     </div>
   );
 };

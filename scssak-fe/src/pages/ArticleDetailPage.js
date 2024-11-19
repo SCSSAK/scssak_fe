@@ -1,8 +1,18 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
+import {BASE_URL} from '../router/Routes';
 import Navbar from '../components/common/Navbar';
 import ConfirmModal from '../components/common/ConfirmModal'; // ConfirmModal 컴포넌트 임포트
 import '../styles/pages/ArticleDetailPage.css';
+import go_back_arrow from '../assets/images/go_back_arrow.png';
+import heart_active from '../assets/images/article/heart_active.png';
+import like_button from '../assets/images/article/like_button.png'; // 좋아요 버튼
+import edit_button from '../assets/images/article/edit_button.png'; // 수정 버튼
+import delete_button from '../assets/images/article/delete_button.png'; // 삭제 버튼
+import comment_icon from '../assets/images/article/comment_icon.png'; // 댓글 아이콘
+import comment_submit_icon from '../assets/images/article/comment_submit_icon.png'; // 댓글 등록 아이콘
+import default_image from '../assets/images/default_thumbnail.png'; // 디폴트 이미지
 
 const ArticleDetailPage = () => {
   const {articleId} = useParams();
@@ -10,49 +20,159 @@ const ArticleDetailPage = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false); // 모달 상태
+  const [isLiked, setIsLiked] = useState(false); // 좋아요 상태
+  const [userId, setUserId] = useState(localStorage.getItem('userId')); // 사용자 ID
+  const [commentContent, setCommentContent] = useState(''); // 댓글 내용
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // 삭제 모달 상태
+
+  const navigate = useNavigate(); // useNavigate 훅 선언
+
+  const handleGoBack = () => {
+    navigate(-1); // 히스토리 스택에서 이전 페이지로 이동
+  };
 
   useEffect(() => {
-    const data = {
-      article_user_id: 'scsa23008',
-      article_user_name: '23기 조예지',
-      article_title: '게시글 제목',
-      article_content: '게시글 내용',
-      article_created_at: '2024-11-11',
-      article_like_count: 1,
-      article_is_liked: false,
-      article_image_urls: [], // 첨부된 사진들 없을 때 대비
-      comments: [
-        {
-          comment_user_id: 'scsa23001',
-          comment_user_name: '23기 김동규',
-          comment_content: '댓글 내용',
-          comment_created_at: '2024-11-12',
-        },
-        {
-          comment_user_id: 'scsa23001',
-          comment_user_name: '23기 김동규',
-          comment_content: '댓글 내용',
-          comment_created_at: '2024-11-12',
-        },
-      ],
+    const fetchArticle = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const auth = `Bearer ${localStorage.getItem('access_token')}`;
+        const url = BASE_URL + `/article/${articleId}`;
+
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: auth,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setArticle(data);
+          setIsLiked(data.article_is_liked); // 기존 좋아요 상태 가져오기
+        } else {
+          if (response.status === 404) {
+            setError('해당 게시글이 존재하지 않습니다.');
+          } else if (response.status === 401) {
+            setError('로그인이 필요합니다.');
+          } else {
+            setError('서버에 문제가 발생했습니다.');
+          }
+        }
+      } catch (err) {
+        setError('네트워크 오류가 발생했습니다.');
+      } finally {
+        setLoading(false);
+      }
     };
-    setArticle(data);
+
+    fetchArticle();
   }, [articleId]);
 
-  // 댓글 등록 버튼 클릭 핸들러
+  const handleLikeClick = async () => {
+    setIsLiked(!isLiked);
+    setArticle({
+      ...article,
+      article_is_liked: !isLiked,
+      article_like_count: isLiked
+        ? article.article_like_count - 1
+        : article.article_like_count + 1,
+    });
+
+    try {
+      const auth = `Bearer ${localStorage.getItem('access_token')}`;
+      const url = BASE_URL + `/like/${articleId}`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: auth,
+        },
+      });
+
+      if (!response.ok) {
+        console.error('좋아요 요청 실패');
+      }
+    } catch (err) {
+      console.error('네트워크 오류 발생:', err);
+    }
+  };
+
   const handleCommentSubmit = () => {
     setShowModal(true); // 모달 열기
   };
 
-  // ConfirmModal에서 확인 버튼 클릭 시 처리할 함수
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setShowModal(false); // 모달 닫기
     console.log('댓글이 등록되었습니다.');
+
+    try {
+      const auth = `Bearer ${localStorage.getItem('access_token')}`;
+      const url = BASE_URL + `/comment/${articleId}`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: auth,
+        },
+        body: JSON.stringify({
+          comment_content: commentContent,
+        }),
+      });
+
+      if (!response.ok) {
+        console.error('댓글 등록 실패');
+      }
+    } catch (err) {
+      console.error('네트워크 오류 발생:', err);
+    }
   };
 
-  // ConfirmModal에서 취소 버튼 클릭 시 처리할 함수
   const handleCancel = () => {
     setShowModal(false); // 모달 닫기
+  };
+
+  const handleEditClick = () => {
+    // 수정 버튼 클릭 시 수정 페이지로 이동
+    navigate(`/board/edit/${articleId}`);
+  };
+
+  const handleDeleteClick = () => {
+    setShowDeleteModal(true); // 모달 열기
+  };
+
+  const handleDeleteConfirm = async () => {
+    setShowDeleteModal(false); // 모달 닫기
+
+    try {
+      const auth = `Bearer ${localStorage.getItem('access_token')}`;
+      const url = BASE_URL + `/article/${articleId}`;
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: auth,
+        },
+      });
+
+      if (response.ok) {
+        // 삭제 성공 시, 게시판 목록 페이지로 이동
+        navigate('/board');
+      } else {
+        console.error('삭제 요청 실패');
+      }
+    } catch (err) {
+      console.error('네트워크 오류 발생:', err);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteModal(false); // 모달 닫기
   };
 
   if (loading) {
@@ -63,53 +183,102 @@ const ArticleDetailPage = () => {
     return <div>{error}</div>;
   }
 
+  if (!article) {
+    return <div>게시글 정보를 불러오는 중입니다...</div>;
+  }
+
   return (
     <div className="article-detail-page">
       <header className="header">
-        <div className="back-button">
-          <span>&lt; 자유 게시판</span>
+        <div className="header-left">
+          <div className="back-button" onClick={handleGoBack}>
+            <img src={go_back_arrow} alt="<-" />
+          </div>
+          <div className="board-title">자유 게시판</div>
         </div>
       </header>
 
       {article && (
         <div className="article-content-container">
-          {/* 구역 1: 제목 */}
           <h2 className="article-title">{article.article_title}</h2>
-
-          {/* 구역 2: 작성자, 작성일, 조회수 */}
-          <div className="article-info">
-            <span>{article.article_user_name}</span>
-            <span>{article.article_created_at} | 조회수 120</span>
+          <div className="edit-delete-container">
+            {article.article_user_id === userId && (
+              <div className="edit-delete-buttons">
+                <img
+                  className="edit-button"
+                  src={edit_button}
+                  alt="수정"
+                  onClick={handleEditClick}
+                />
+                <img
+                  className="delete-button"
+                  src={delete_button}
+                  alt="삭제"
+                  onClick={handleDeleteClick}
+                />
+              </div>
+            )}
           </div>
 
-          {/* 구역 3: 첨부된 사진들 */}
+          <hr className="divider" />
+
+          <div className="article-info">
+            <span className="writer-name">{article.article_user_name}</span>
+            <span>{article.article_created_at.split('T')[0]}</span>
+          </div>
+
+          <hr className="divider" />
+
           <div className="article-images">
             {article.article_image_urls.length > 0 ? (
               article.article_image_urls.map((url, index) => (
                 <img key={index} src={url} alt="첨부 이미지" />
               ))
             ) : (
-              <p className="no-images">첨부된 이미지가 없습니다.</p>
+              <img
+                src={default_image}
+                alt="기본 이미지"
+                className="default-image"
+              />
             )}
-          </div>
-
-          {/* 구역 4: 본문 */}
-          <div className="article-content">
-            <p>{article.article_content}</p>
-          </div>
-
-          {/* 구역 5: 좋아요 버튼 및 댓글 개수 */}
-          <div className="likes-comments">
-            <button className="like-button">
-              {article.article_is_liked ? '❤️' : '🤍'}{' '}
-              {article.article_like_count}
-            </button>
-            <div className="comments-count">{article.comments.length} 댓글</div>
           </div>
 
           <hr className="divider" />
 
-          {/* 구역 6: 댓글들 */}
+          <div className="article-content">
+            <p>{article.article_content}</p>
+          </div>
+
+          <hr className="divider" />
+
+          <div className="likes-comments">
+            <div className="likes-comments-left-container">
+              <div className="likes-left">
+                <img
+                  className={`like-heart ${isLiked ? 'liked' : 'unliked'}`}
+                  src={heart_active}
+                  alt="좋아요"
+                  onClick={handleLikeClick}
+                />
+                <span className="like-count">{article.article_like_count}</span>
+              </div>
+              <div className="comments-count">
+                <img src={comment_icon} alt="댓글" />
+                <span>{article.comments.length}</span>
+              </div>
+            </div>
+            <div className="like-button">
+              <img
+                src={like_button}
+                alt="좋아요 버튼"
+                className="like-button-img"
+                onClick={handleLikeClick}
+              />
+            </div>
+          </div>
+
+          <hr className="divider" />
+
           <div className="comments-section">
             {article.comments.map((comment, index) => (
               <div className="comment" key={index}>
@@ -125,21 +294,36 @@ const ArticleDetailPage = () => {
               </div>
             ))}
           </div>
-
-          <div className="comment-input-section">
-            <input type="text" placeholder="댓글을 입력해주세요." />
-            <button onClick={handleCommentSubmit}>댓글 등록</button>
-          </div>
         </div>
       )}
+
       <Navbar />
 
-      {/* ConfirmModal 컴포넌트 */}
+      {/* 댓글 입력 섹션 고정 */}
+      <div className="comment-input-section">
+        <textarea
+          placeholder="댓글을 입력해주세요."
+          value={commentContent}
+          onChange={e => setCommentContent(e.target.value)} // 댓글 내용 업데이트
+        />
+        <button onClick={handleCommentSubmit}>
+          <img src={comment_submit_icon} alt="댓글 등록" />
+        </button>
+      </div>
+
       {showModal && (
         <ConfirmModal
           message="댓글을 등록하시겠습니까?"
           onConfirm={handleConfirm}
           onCancel={handleCancel}
+        />
+      )}
+
+      {showDeleteModal && (
+        <ConfirmModal
+          message="게시글을 삭제하시겠습니까?"
+          onConfirm={handleDeleteConfirm}
+          onCancel={handleDeleteCancel}
         />
       )}
     </div>
