@@ -6,15 +6,23 @@ import dropdown_arrow_down from '../../assets/images/dropdown_arrow_down.png';
 import dropdown_arrow_up from '../../assets/images/dropdown_arrow_up.png';
 import picture_button from '../../assets/images/picture_button.png';
 
-const ArticleForm = ({
-  isEditMode = false, // 작성/수정 모드 구분
-  initialBoard = '',
-  initialVisibility = '전체',
-  initialTitle = '',
-  initialContent = '',
-  onSubmit, // 등록/수정 버튼 클릭 시 처리할 함수
-  showImageUpload = true, // 이미지 업로드 버튼을 보여줄지 여부
-}) => {
+const ArticleForm = ({onSubmit, initialData}) => {
+  let isEditMode = false; // 작성/수정 모드 구분
+  let initialBoard = '';
+  let initialVisibility = '전체';
+  let initialTitle = '';
+  let initialContent = '';
+  let showImageUpload = true; // 이미지 업로드 버튼을 보여줄지 여부
+
+  if (initialData) {
+    isEditMode = true;
+    initialBoard = initialData.board;
+    initialVisibility = initialData.visibility;
+    initialTitle = initialData.title;
+    initialContent = initialData.content;
+    showImageUpload = false;
+  }
+
   const [selectedBoard, setSelectedBoard] = useState(initialBoard);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [visibility, setVisibility] = useState(initialVisibility);
