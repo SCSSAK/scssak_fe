@@ -187,6 +187,7 @@ hr.divider {
 /* 구획 6: 댓글들 */
 .comments-section {
   margin-bottom: 16px;
+  padding-bottom: 60px; /* 댓글 입력창이 고정되면서 댓글 리스트가 가리지 않도록 여유 공간 추가 */
 }
 
 .comment {
@@ -201,21 +202,43 @@ hr.divider {
   font-size: 14px;
   color: #888;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.comment-user {
-  font-weight: bold;
+  justify-content: left;
+  gap: 10px;
 }
 
 .comment-date {
   color: #bbb;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.comment-upper-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
 }
 
 .comment-content {
   font-size: 16px;
   color: #333;
+  margin-bottom: 12px; /* 댓글 본문과 작성자 간격 조정 */
+}
+
+.comment .delete-button {
+  display: none; /* 기본적으로 삭제 버튼 숨기기 */
+  width: 20px;
+  height: 20px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment .delete-button img {
+  width: 25px;
+}
+
+.comment .show-delete-button .delete-button {
+  display: inline-block; /* 조건에 맞으면 삭제 버튼 보이기 */
 }
 
 /* 댓글 입력 섹션 */
@@ -275,24 +298,3 @@ hr.divider {
   max-height: 100px; /* 입력창 최대 높이 설정 */
   overflow-y: scroll; /* 입력이 길어지면 스크롤 되도록 */
 }
-
-/* 하단 바 (Navbar) */
-/* .navbar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #fff;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  border-top: 1px solid #ddd;
-}
-
-.navbar div {
-  font-size: 14px;
-  color: #007aff;
-}
-
-.navbar div:hover {
-  text-decoration: underline;
-} */

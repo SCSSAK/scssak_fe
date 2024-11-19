@@ -12,6 +12,7 @@ import edit_button from '../assets/images/article/edit_button.png'; // 수정 �
 import delete_button from '../assets/images/article/delete_button.png'; // 삭제 버튼
 import comment_icon from '../assets/images/article/comment_icon.png'; // 댓글 아이콘
 import comment_submit_icon from '../assets/images/article/comment_submit_icon.png'; // 댓글 등록 아이콘
+import comment_delete_icon from '../assets/images/article/comment_delete_icon.png'; // 댓글 삭제 아이콘
 import default_image from '../assets/images/default_thumbnail.png'; // 디폴트 이미지
 
 const ArticleDetailPage = () => {
@@ -23,7 +24,9 @@ const ArticleDetailPage = () => {
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태
   const [userId, setUserId] = useState(localStorage.getItem('userId')); // 사용자 ID
   const [commentContent, setCommentContent] = useState(''); // 댓글 내용
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // 삭제 모달 상태
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // 게시글 삭제 모달 상태
+  const [selectedCommentId, setSelectedCommentId] = useState(null); // 삭제할 댓글 ID 추적
+  const [showCommentDeleteModal, setShowCommentDeleteModal] = useState(false); // 게시글 삭제 모달 상태
 
   const navigate = useNavigate(); // useNavigate 훅 선언
 
@@ -51,6 +54,7 @@ const ArticleDetailPage = () => {
         if (response.ok) {
           const data = await response.json();
           setArticle(data);
+          console.log(data);
           setIsLiked(data.article_is_liked); // 기존 좋아요 상태 가져오기
         } else {
           if (response.status === 404) {
@@ -126,6 +130,9 @@ const ArticleDetailPage = () => {
 
       if (!response.ok) {
         console.error('댓글 등록 실패');
+      } else {
+        // 댓글 등록 성공 시 새로고침
+        window.location.reload();
       }
     } catch (err) {
       console.error('네트워크 오류 발생:', err);
@@ -137,8 +144,10 @@ const ArticleDetailPage = () => {
   };
 
   const handleEditClick = () => {
-    // 수정 버튼 클릭 시 수정 페이지로 이동
-    navigate(`/board/edit/${articleId}`);
+    // state를 사용하여 데이터를 전달
+    navigate(`/board/edit/${articleId}`, {
+      state: {article, articleId},
+    });
   };
 
   const handleDeleteClick = () => {
@@ -173,6 +182,41 @@ const ArticleDetailPage = () => {
 
   const handleDeleteCancel = () => {
     setShowDeleteModal(false); // 모달 닫기
+  };
+
+  const handleCommentDeleteClick = commentId => {
+    setSelectedCommentId(commentId); // 삭제할 댓글 번호 지정
+    setShowCommentDeleteModal(true); // 모달 열기
+  };
+
+  const handleCommentDeleteConfirm = async () => {
+    setShowCommentDeleteModal(false); // 모달 닫기
+
+    try {
+      const auth = `Bearer ${localStorage.getItem('access_token')}`;
+      const url = BASE_URL + `/comment/${articleId}/${selectedCommentId}`;
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: auth,
+        },
+      });
+
+      if (response.ok) {
+        // 삭제 성공 시 새로고침
+        window.location.reload();
+      } else {
+        console.error('삭제 요청 실패');
+      }
+    } catch (err) {
+      console.error('네트워크 오류 발생:', err);
+    }
+  };
+
+  const handleCommentDeleteCancel = () => {
+    setShowCommentDeleteModal(false); // 모달 닫기
   };
 
   if (loading) {
@@ -282,22 +326,33 @@ const ArticleDetailPage = () => {
           <div className="comments-section">
             {article.comments.map((comment, index) => (
               <div className="comment" key={index}>
-                <div className="comment-info">
-                  <span className="comment-user">
-                    {comment.comment_user_name}
-                  </span>
-                  <span className="comment-date">
-                    {comment.comment_created_at}
-                  </span>
+                <div className="comment-upper-container">
+                  <div className="comment-content">
+                    {comment.comment_content}
+                  </div>
+                  <div
+                    className={`show-delete-button ${comment.user_id === userId ? 'show-delete-button' : ''}`}>
+                    <img
+                      src={comment_delete_icon}
+                      alt="X"
+                      className="delete-button"
+                      onClick={() =>
+                        handleCommentDeleteClick(comment.comment_id)
+                      }></img>
+                  </div>
                 </div>
-                <div className="comment-content">{comment.comment_content}</div>
+                <div className="comment-info">
+                  <div className="comment-user">{comment.user_name}</div>
+                  <div className="comment-date">
+                    {new Date(comment.comment_created_at).toLocaleDateString()}
+                    {/* 날짜만 표시 */}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       )}
-
-      <Navbar />
 
       {/* 댓글 입력 섹션 고정 */}
       <div className="comment-input-section">
@@ -324,6 +379,14 @@ const ArticleDetailPage = () => {
           message="게시글을 삭제하시겠습니까?"
           onConfirm={handleDeleteConfirm}
           onCancel={handleDeleteCancel}
+        />
+      )}
+
+      {showCommentDeleteModal && (
+        <ConfirmModal
+          message="댓글을 삭제하시겠습니까?"
+          onConfirm={handleCommentDeleteConfirm}
+          onCancel={handleCommentDeleteCancel}
         />
       )}
     </div>

@@ -26,7 +26,13 @@ const ArticleWritePage = () => {
     }
   };
 
-  return <ArticleForm onSubmit={handleSubmit} initialData={null} />;
+  return (
+    <ArticleForm
+      isEditMode={false}
+      onSubmit={handleSubmit}
+      initialData={null}
+    />
+  );
 };
 
 export default ArticleWritePage;
