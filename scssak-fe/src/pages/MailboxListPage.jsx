@@ -1,12 +1,8 @@
 import {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-<<<<<<< HEAD
 import {BASE_URL} from '../router/Routes';
-import MailboxList from '../components/mailboxList/MailBoxList';
-=======
 import MailboxList from '../components/mailboxList/MailboxList';
->>>>>>> 24ddb1ce61f068d6e7b0b6ceda516ffb1d4783d2
 import Header from '../components/common/Header';
 import Navbar from '../components/common/Navbar';
 import XModal from '../components/common/XModal';
