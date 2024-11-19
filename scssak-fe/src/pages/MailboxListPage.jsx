@@ -3,15 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {xModalAtom} from '../recoil/atom';
 
-<<<<<<< HEAD
-import {BASE_URL} from '../router/Routes';
 import MailboxList from '../components/mailboxList/MailboxList';
-import Header from '../components/common/Header';
-import Navbar from '../components/common/Navbar';
-import XModal from '../components/common/XModal';
-=======
-import MailboxList from '../components/mailboxList/MailboxList';
->>>>>>> 04f30d2addb9342c2cc7facd58a7809938346386
 
 import {API_AUTH} from '../apis/apiSettings';
 import {MAIL_URL} from '../apis/apiUrls';
