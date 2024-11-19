@@ -1,14 +1,10 @@
 .container {
-  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
-  margin: 0 auto;
-
   height: 100%;
 
-  background-color: #f2f9ff;
-}
+  position: relative;
+  overflow: hidden;
 
-.containerMain {
-  height: inherit;
+  background-color: #f2f9ff;
 }
 
 .containerTitle {

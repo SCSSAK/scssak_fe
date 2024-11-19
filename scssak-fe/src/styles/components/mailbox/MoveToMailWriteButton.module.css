@@ -1,8 +1,10 @@
-.buttonMoveToWrite {
+.buttonMoveToWriteMail {
   padding: 0.25rem 1.5rem;
 
   position: sticky;
-  bottom: 5.5rem;
+  bottom: 20px;
+  left: 0;
+  z-index: 50;
 
   background-color: #3d5fe7;
   border: none;
