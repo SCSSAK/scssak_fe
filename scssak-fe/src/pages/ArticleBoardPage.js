@@ -61,13 +61,13 @@ const ArticleBoardPage = () => {
 
       // 첫 번째 요청일 때
       if (page === 1) {
-        setArticles(data.articleList); // 첫 페이지에는 새로 로드한 데이터로 덮어쓰기
+        setArticles(data.article_list); // 첫 페이지에는 새로 로드한 데이터로 덮어쓰기
       } else {
         // 두 번째 요청부터는 기존 데이터에 추가
         setArticles(prev => [...prev, ...data.articleList]);
       }
 
-      setTotalPages(data.totalPage); // 총 페이지 수 갱신
+      setTotalPages(data.total_page); // 총 페이지 수 갱신
       setIsFetching(false); // 데이터 요청 끝
     } catch (error) {
       console.error('Error fetching articles:', error);
