@@ -1,11 +1,13 @@
 import React, {useState, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../../styles/components/article/ArticleForm.css';
-import ConfirmModal from '../common/ConfirmModal';
 import go_back_arrow from '../../assets/images/go_back_arrow.png';
 import dropdown_arrow_down from '../../assets/images/dropdown_arrow_down.png';
 import dropdown_arrow_up from '../../assets/images/dropdown_arrow_up.png';
 import picture_button from '../../assets/images/picture_button.png';
+
+import {useSetRecoilState} from 'recoil';
+import {confirmModalAtom} from '../../recoil/atom';
 
 const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
   let initialBoard = '';
@@ -35,7 +37,6 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
   const [selectedImages, setSelectedImages] = useState([]); // 여러 이미지 첨부용
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const boards = [
     '자유 게시판',
@@ -64,9 +65,18 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
     setSelectedImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
+  // 모달 전역 상태
+  const setConfirmModalState = useSetRecoilState(confirmModalAtom);
+
   const handleSubmit = () => {
     // 모달을 열고 확인을 통해 부모의 onSubmit 함수 호출
-    setIsModalOpen(true);
+    setConfirmModalState({
+      isOpened: true,
+      message: isEditMode
+        ? '게시글을 수정하시겠습니까?'
+        : '게시글을 등록하시겠습니까?',
+      onConfirm: handleConfirm,
+    });
   };
 
   const handleConfirm = async () => {
@@ -90,8 +100,6 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
       if (onSubmit) {
         onSubmit(formData); // 부모의 onSubmit에 formData 전달
       }
-
-      setIsModalOpen(false); // 모달 닫기
     } else {
       // 수정 모드
       const requestData = {
@@ -106,13 +114,7 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
         console.log(requestData);
         onSubmit(requestData); // 부모의 onSubmit에 requestData 전달
       }
-
-      setIsModalOpen(false); // 모달 닫기
     }
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -127,17 +129,6 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
         <button className="submit-button" onClick={handleSubmit}>
           {isEditMode ? '수정' : '등록'}
         </button>
-        {isModalOpen && (
-          <ConfirmModal
-            message={
-              isEditMode
-                ? '게시글을 수정하시겠습니까?'
-                : '게시글을 등록하시겠습니까?'
-            }
-            onConfirm={handleConfirm}
-            onCancel={handleCancel}
-          />
-        )}
       </header>
 
       <div className="form">

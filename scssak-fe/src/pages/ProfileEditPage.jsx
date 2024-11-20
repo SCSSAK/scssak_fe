@@ -17,7 +17,7 @@ export default function ProfileEditPage() {
   };
 
   return (
-    <main className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.containerTitle}>
         <img
           className={styles.iconGoBackArrow}
@@ -29,6 +29,6 @@ export default function ProfileEditPage() {
       </div>
 
       <ProfileForm data={data} />
-    </main>
+    </div>
   );
 }

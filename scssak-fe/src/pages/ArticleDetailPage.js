@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
 import {BASE_URL} from '../router/Routes';
-import Navbar from '../components/common/Navbar';
-import ConfirmModal from '../components/common/ConfirmModal'; // ConfirmModal 컴포넌트 임포트
 import '../styles/pages/ArticleDetailPage.css';
 import go_back_arrow from '../assets/images/go_back_arrow.png';
 import heart_active from '../assets/images/article/heart_active.png';
@@ -15,18 +13,18 @@ import comment_submit_icon from '../assets/images/article/comment_submit_icon.pn
 import comment_delete_icon from '../assets/images/article/comment_delete_icon.png'; // 댓글 삭제 아이콘
 import default_image from '../assets/images/default_thumbnail.png'; // 디폴트 이미지
 
+import {useSetRecoilState} from 'recoil';
+import {confirmModalAtom} from '../recoil/atom';
+
 const ArticleDetailPage = () => {
   const {articleId} = useParams();
   const [article, setArticle] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false); // 모달 상태
   const [isLiked, setIsLiked] = useState(false); // 좋아요 상태
   const [userId, setUserId] = useState(localStorage.getItem('userId')); // 사용자 ID
   const [commentContent, setCommentContent] = useState(''); // 댓글 내용
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // 게시글 삭제 모달 상태
   const [selectedCommentId, setSelectedCommentId] = useState(null); // 삭제할 댓글 ID 추적
-  const [showCommentDeleteModal, setShowCommentDeleteModal] = useState(false); // 게시글 삭제 모달 상태
 
   const navigate = useNavigate(); // useNavigate 훅 선언
 
@@ -107,14 +105,18 @@ const ArticleDetailPage = () => {
     }
   };
 
+  // 모달 전역 상태
+  const setConfirmModalState = useSetRecoilState(confirmModalAtom);
+
   const handleCommentSubmit = () => {
-    setShowModal(true); // 모달 열기
+    setConfirmModalState({
+      isOpened: true,
+      message: '댓글을 등록하시겠습니까?',
+      onConfirm: handleConfirmCommentSubmit,
+    });
   };
 
-  const handleConfirm = async () => {
-    setShowModal(false); // 모달 닫기
-    console.log('댓글이 등록되었습니다.');
-
+  const handleConfirmCommentSubmit = async () => {
     try {
       const auth = `Bearer ${localStorage.getItem('access_token')}`;
       const url = BASE_URL + `/comment/${articleId}`;
@@ -141,10 +143,6 @@ const ArticleDetailPage = () => {
     }
   };
 
-  const handleCancel = () => {
-    setShowModal(false); // 모달 닫기
-  };
-
   const handleEditClick = () => {
     // state를 사용하여 데이터를 전달
     navigate(`/board/edit/${articleId}`, {
@@ -152,13 +150,15 @@ const ArticleDetailPage = () => {
     });
   };
 
-  const handleDeleteClick = () => {
-    setShowDeleteModal(true); // 모달 열기
+  const handleArticleDelete = () => {
+    setConfirmModalState({
+      isOpened: true,
+      message: '게시글을 삭제하시겠습니까?',
+      onConfirm: handleConfirmArticleDelete,
+    });
   };
 
-  const handleDeleteConfirm = async () => {
-    setShowDeleteModal(false); // 모달 닫기
-
+  const handleConfirmArticleDelete = async () => {
     try {
       const auth = `Bearer ${localStorage.getItem('access_token')}`;
       const url = BASE_URL + `/article/${articleId}`;
@@ -182,18 +182,16 @@ const ArticleDetailPage = () => {
     }
   };
 
-  const handleDeleteCancel = () => {
-    setShowDeleteModal(false); // 모달 닫기
-  };
-
-  const handleCommentDeleteClick = commentId => {
+  const handleCommentDelete = commentId => {
     setSelectedCommentId(commentId); // 삭제할 댓글 번호 지정
-    setShowCommentDeleteModal(true); // 모달 열기
+    setConfirmModalState({
+      isOpened: true,
+      message: '댓글을 삭제하시겠습니까?',
+      onConfirm: handleConfirmCommentDelete,
+    });
   };
 
-  const handleCommentDeleteConfirm = async () => {
-    setShowCommentDeleteModal(false); // 모달 닫기
-
+  const handleConfirmCommentDelete = async () => {
     try {
       const auth = `Bearer ${localStorage.getItem('access_token')}`;
       const url = BASE_URL + `/comment/${articleId}/${selectedCommentId}`;
@@ -215,10 +213,6 @@ const ArticleDetailPage = () => {
     } catch (err) {
       console.error('네트워크 오류 발생:', err);
     }
-  };
-
-  const handleCommentDeleteCancel = () => {
-    setShowCommentDeleteModal(false); // 모달 닫기
   };
 
   if (loading) {
@@ -262,7 +256,7 @@ const ArticleDetailPage = () => {
                   className="delete-button"
                   src={delete_button}
                   alt="삭제"
-                  onClick={handleDeleteClick}
+                  onClick={handleArticleDelete}
                 />
               </div>
             )}
@@ -340,7 +334,7 @@ const ArticleDetailPage = () => {
                       alt="X"
                       className="delete-button"
                       onClick={() =>
-                        handleCommentDeleteClick(comment.comment_id)
+                        handleCommentDelete(comment.comment_id)
                       }></img>
                   </div>
                 </div>
@@ -368,30 +362,6 @@ const ArticleDetailPage = () => {
           <img src={comment_submit_icon} alt="댓글 등록" />
         </button>
       </div>
-
-      {showModal && (
-        <ConfirmModal
-          message="댓글을 등록하시겠습니까?"
-          onConfirm={handleConfirm}
-          onCancel={handleCancel}
-        />
-      )}
-
-      {showDeleteModal && (
-        <ConfirmModal
-          message="게시글을 삭제하시겠습니까?"
-          onConfirm={handleDeleteConfirm}
-          onCancel={handleDeleteCancel}
-        />
-      )}
-
-      {showCommentDeleteModal && (
-        <ConfirmModal
-          message="댓글을 삭제하시겠습니까?"
-          onConfirm={handleCommentDeleteConfirm}
-          onCancel={handleCommentDeleteCancel}
-        />
-      )}
     </div>
   );
 };

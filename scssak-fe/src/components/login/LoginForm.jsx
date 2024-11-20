@@ -15,7 +15,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   // 에러 메시지 전역 상태
-  const setXmodalState = useSetRecoilState(xModalAtom);
+  const setXModalState = useSetRecoilState(xModalAtom);
 
   // form 입력값
   const [id, setId] = useState('');
@@ -49,7 +49,7 @@ export default function LoginForm() {
         switch (status) {
           // 에러 처리 (401, 비로그인)
           case 401:
-            setXmodalState({
+            setXModalState({
               isOpened: true,
               message:
                 '로그인에 실패했습니다.\n아이디 또는 비밀번호를 확인하세요.',
@@ -58,7 +58,7 @@ export default function LoginForm() {
 
           // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
           default:
-            setXmodalState({
+            setXModalState({
               isOpened: true,
               message: '서버와 통신 중 오류가 발생했습니다.',
             });

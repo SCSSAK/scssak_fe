@@ -12,5 +12,7 @@ export default function PublicRoute() {
     }
   }, []);
 
-  return <Outlet />;
+  if (!isAuthenticated) {
+    return <Outlet />;
+  }
 }

@@ -19,7 +19,7 @@ export default function MainPage() {
   const navigate = useNavigate();
 
   // 에러 메시지 전역 상태
-  const setXmodalState = useSetRecoilState(xModalAtom);
+  const setXModalState = useSetRecoilState(xModalAtom);
 
   // 표시할 데이터
   const [data, setData] = useState({
@@ -41,7 +41,7 @@ export default function MainPage() {
         switch (status) {
           // 에러 처리 (401, 비로그인)
           case 401:
-            setXmodalState({
+            setXModalState({
               isOpened: true,
               message: '로그인이 필요합니다.',
               onClose: () => navigate(loginRoute),
@@ -50,7 +50,7 @@ export default function MainPage() {
 
           // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
           default:
-            setXmodalState({
+            setXModalState({
               isOpened: true,
               message: '서버와 통신 중 오류가 발생했습니다.',
             });
