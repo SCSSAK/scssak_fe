@@ -70,18 +70,19 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
   };
 
   const handleConfirm = async () => {
+    // if (!title || !)
     // 작성 모드
     if (!isEditMode) {
       const formData = new FormData();
 
       // FormData에 백엔드에서 요구하는 파라미터 이름으로 데이터 추가
-      formData.append('articleTitle', title); // 변경
-      formData.append('articleContent', content); // 변경
-      formData.append('articleType', boards.indexOf(selectedBoard) + 1);
-      formData.append('articleIsOpen', visibility === '전체'); // 변경
+      formData.append('article_title', title); // 변경
+      formData.append('article_content', content); // 변경
+      formData.append('article_type', boards.indexOf(selectedBoard) + 1);
+      formData.append('article_is_open', visibility === '전체'); // 변경
 
       // 이미지 파일 추가
-      selectedImages.forEach((image, index) => {
+      selectedImages.forEach(image => {
         formData.append('images', image.file);
       });
 
