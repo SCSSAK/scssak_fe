@@ -1,6 +1,6 @@
 .article-list {
   overflow-y: auto;
-  max-height: calc(100vh - 220px); /* 동적 높이 */
+  max-height: calc(92vh - 246px); /* 동적 높이 */
 }
 
 .articles {
@@ -48,6 +48,7 @@
   padding-left: 8px;
   padding-right: 20px;
   padding-bottom: 0px; /* metadata-stats와 겹치지 않도록 하단 패딩 추가 */
+  margin-right: 8px;
 }
 
 .article-type {
