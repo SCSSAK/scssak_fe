@@ -26,7 +26,7 @@ const ArticleBoardPage = () => {
   const [totalPages, setTotalPages] = useState(1); // 기본값 설정
   const [activeType, setActiveType] = useState('typeAll');
   const [activeOpenType, setActiveOpenType] = useState('전체');
-  const [loadedPages, setloadedPages] = useState(0);
+  // const [loadedPages, setloadedPages] = useState(0);
 
   const navigate = useNavigate();
 
@@ -47,6 +47,7 @@ const ArticleBoardPage = () => {
         url = `${BASE_URL}/article?article_type=${articleType}&open_type=${openType}&current_page=${page}`;
       } else {
         url = `${BASE_URL}/article?open_type=${openType}&current_page=${page}`;
+        console.log(url);
       }
 
       const response = await fetch(url, {
@@ -77,7 +78,14 @@ const ArticleBoardPage = () => {
 
   useEffect(() => {
     fetchArticles(currentPage); // 컴포넌트 초기 렌더링 시 호출
-  }, [currentPage, activeType, activeOpenType]); // 필터 변경 시 재요청
+  }, [currentPage]); // 현재 페이지 변경 시 요청
+
+  useEffect(() => {
+    setTotalPages(1);
+    setCurrentPage(1);
+    // setloadedPages(0);
+    fetchArticles(currentPage); // 컴포넌트 초기 렌더링 시 호출
+  }, [activeType, activeOpenType]); // 필터 변경 시 재요청
 
   const loadMore = useCallback(() => {
     console.log(
