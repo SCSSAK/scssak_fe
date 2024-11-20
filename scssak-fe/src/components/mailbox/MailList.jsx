@@ -20,15 +20,18 @@ export default function MailList({data}) {
 
   const loginedUserId = localStorage.getItem('userId');
 
-  const handleClickDeleteMailButton = mail_id => {
+  const handleClickDeleteMailButton = (mail_id, idx) => {
     API_AUTH.delete(MAIL_URL + '/' + mail_id)
-      .then(r =>
+      .then(r => {
         setXModalState({
           isOpened: true,
-          message: '편지가 성공적으로 삭제되었습니다.',
-          onClose: () => setXModalState({isOpened: false}),
-        }),
-      )
+          message: '편지가 성공적으로\n삭제되었습니다.',
+        });
+
+        if (idx > -1) {
+          data.splice(idx, 1);
+        }
+      })
       .catch(e => {
         const status = e.status;
 
@@ -38,7 +41,7 @@ export default function MailList({data}) {
             setXModalState({
               isOpened: true,
               message: '로그인 후, 본인이 작성한 편지만\n삭제할 수 있습니다.',
-              onClose: () => navigate(loginRoute),
+              onClose: navigate(loginRoute),
             });
             break;
 
@@ -71,7 +74,7 @@ export default function MailList({data}) {
                 className={styles.iconDeleteMail}
                 src={iconDelete}
                 alt="편지 삭제 버튼"
-                onClick={() => handleClickDeleteMailButton(mail.mail_id)}
+                onClick={() => handleClickDeleteMailButton(mail.mail_id, idx)}
               />
             )}
             <p className={styles.textMailContent}>{mail.mail_content}</p>
