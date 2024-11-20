@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {useParams, useLocation, useNavigate} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 import {xModalAtom} from '../recoil/atom';
 
@@ -22,9 +22,11 @@ export default function MailboxPage() {
   const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
 
   const {receiver_id} = useParams();
-  const receiver_name = useLocation().state?.receiver_name;
 
-  const [data, setData] = useState();
+  const [data, setData] = useState({
+    receiver_name: '',
+    mail_list: [],
+  });
 
   const handleClickGoBackButton = () => {
     navigate(-1);
@@ -68,14 +70,14 @@ export default function MailboxPage() {
           alt="뒤로 가기 버튼"
           onClick={handleClickGoBackButton}
         />
-        {receiver_name}님의 우체통 💌
+        {data.receiver_name}님의 우체통 💌
       </div>
 
-      {data && <MailList data={data} />}
+      {data && <MailList data={data.mail_list} />}
 
       <MoveToMailWriteButton
         receiver_id={receiver_id}
-        receiver_name={receiver_name}
+        receiver_name={data.receiver_name}
       />
     </div>
   );

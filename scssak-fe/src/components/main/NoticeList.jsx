@@ -17,11 +17,14 @@ export default function NoticeList({data}) {
       </div>
 
       <Swiper
-        className={`swiper ${styles.containerNoticeList}`}
+        className={styles.containerNoticeList}
         modules={[Pagination]}
         slidesPerView={1}
-        loop={true}
-        pagination={{clickable: true, type: 'bullets'}}>
+        spaceBetween={30}
+        pagination={{
+          clickable: true,
+          type: 'bullets',
+        }}>
         {data.map((item, idx) => {
           return (
             <SwiperSlide key={idx}>

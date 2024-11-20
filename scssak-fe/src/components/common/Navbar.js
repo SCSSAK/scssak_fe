@@ -47,7 +47,10 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       {menuList.map((menu, idx) => (
-        <div className="nav-item" onClick={() => navigate(menu.route)}>
+        <div
+          key={idx}
+          className="nav-item"
+          onClick={() => navigate(menu.route)}>
           <img
             src={menu.src}
             alt={menu.alt}
