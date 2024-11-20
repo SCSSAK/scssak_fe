@@ -11,7 +11,11 @@ function App() {
   const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
 
   return (
-    <div className="App">
+    <div
+      className="App"
+      onContextMenu={e => {
+        e.preventDefault();
+      }}>
       <AppRouter />
 
       {/* 에러 메시지 */}
