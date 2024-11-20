@@ -1,6 +1,6 @@
 import {useState, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useRecoilState} from 'recoil';
+import {useSetRecoilState} from 'recoil';
 import {xModalAtom} from '../../recoil/atom';
 
 import ConfirmModal from '../common/ConfirmModal';
@@ -17,7 +17,7 @@ export default function ProfileForm({data}) {
   const navigate = useNavigate();
 
   // 에러 메시지 전역 상태
-  const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
+  const setXmodalState = useSetRecoilState(xModalAtom);
 
   // form 입력값
   const [userImg, setUserImg] = useState();

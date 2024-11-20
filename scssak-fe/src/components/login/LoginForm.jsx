@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useRecoilState} from 'recoil';
+import {useSetRecoilState} from 'recoil';
 import {xModalAtom} from '../../recoil/atom';
 
 import {API_WITHOUT_AUTH} from '../../apis/apiSettings';
@@ -15,7 +15,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   // 에러 메시지 전역 상태
-  const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
+  const setXmodalState = useSetRecoilState(xModalAtom);
 
   // form 입력값
   const [id, setId] = useState('');

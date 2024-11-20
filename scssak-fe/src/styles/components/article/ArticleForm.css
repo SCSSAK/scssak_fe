@@ -1,11 +1,13 @@
 /* 공통 스타일 */
 .article-write-page {
   padding: 16px;
-  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
-  margin: 0 auto;
   position: relative;
   height: 100vh;
   font-weight: 300;
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {

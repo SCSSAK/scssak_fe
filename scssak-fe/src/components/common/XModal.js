@@ -1,12 +1,12 @@
 // XModal.js
 import React from 'react';
 import '../../styles/components/common/XModal.css';
-import {useRecoilState} from 'recoil';
+import {useSetRecoilState} from 'recoil';
 import {xModalAtom} from '../../recoil/atom';
 
 const XModal = ({message, onClose}) => {
   // 에러 메시지 전역 상태
-  const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
+  const setXmodalState = useSetRecoilState(xModalAtom);
 
   const onClick = () => {
     setXmodalState({isOpened: false});

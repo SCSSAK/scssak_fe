@@ -4,6 +4,7 @@
   height: 100vh;
 
   text-align: center;
+  white-space: pre-wrap;
 }
 
 main {

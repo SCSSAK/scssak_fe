@@ -44,10 +44,7 @@ export default function AppRouter() {
         <Route element={<ProtectedRoute />}>
           {/* logo header, bottom nav 모두 있는 경우 */}
           <Route element={<LayoutWithHeaderAndNav />}>
-            <Route path={boardRoute} element={<ArticleBoardPage />} />
-
             <Route path={mainRoute} element={<MainPage />} />
-
             <Route path={mailboxRootRoute} element={<MailboxListPage />} />
             <Route path={mailboxRoute} element={<MailboxPage />} />
             <Route path={profileRoute} element={<ProfilePage />} />
@@ -55,6 +52,7 @@ export default function AppRouter() {
 
           {/* bottom nav만 있는 경우 */}
           <Route element={<LayoutWithNav />}>
+            <Route path={boardRoute} element={<ArticleBoardPage />} />
             <Route
               path={boardRoute + '/:articleId'}
               element={<ArticleDetailPage />}
