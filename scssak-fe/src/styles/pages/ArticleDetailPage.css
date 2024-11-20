@@ -49,7 +49,7 @@
 
 .edit-button,
 .delete-button {
-  width: 50px;
+  width: 60px;
   color: white;
   padding: 2px 2px;
   border: none;
@@ -93,8 +93,10 @@ hr.divider {
 /* 구획 3: 첨부된 이미지 스타일 */
 .article-images {
   display: flex;
-  justify-content: center;
   margin: 20px 20px;
+  flex-direction: column; /* 세로로 정렬 */
+  align-items: center; /* 이미지를 가운데 정렬 */
+  gap: 20px; /* 이미지 사이의 간격 */
 }
 
 .article-images img {

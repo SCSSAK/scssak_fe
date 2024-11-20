@@ -30,6 +30,8 @@ const ArticleDetailPage = () => {
 
   const navigate = useNavigate(); // useNavigate 훅 선언
 
+  const boardType = ['??', '자유', '꿀팁', '질문', '칭찬', '자랑'];
+
   const handleGoBack = () => {
     navigate(-1); // 히스토리 스택에서 이전 페이지로 이동
   };
@@ -238,7 +240,9 @@ const ArticleDetailPage = () => {
           <div className="back-button" onClick={handleGoBack}>
             <img src={go_back_arrow} alt="<-" />
           </div>
-          <div className="board-title">자유 게시판</div>
+          <div className="board-title">
+            {boardType[article.article_type]} 게시판
+          </div>
         </div>
       </header>
 
@@ -302,7 +306,6 @@ const ArticleDetailPage = () => {
                   className={`like-heart ${isLiked ? 'liked' : 'unliked'}`}
                   src={heart_active}
                   alt="좋아요"
-                  onClick={handleLikeClick}
                 />
                 <span className="like-count">{article.article_like_count}</span>
               </div>
