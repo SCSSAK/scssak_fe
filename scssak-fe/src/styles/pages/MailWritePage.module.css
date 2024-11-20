@@ -1,9 +1,8 @@
 .container {
-  max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
-  margin: 0 auto;
   padding: 1.5rem;
 
-  height: 100vh;
+  height: 100%;
+  box-sizing: border-box;
 
   background-color: #f2f9ff;
 

@@ -1,7 +1,14 @@
+.container {
+  padding: 1.5rem;
+
+  height: 100%;
+  box-sizing: border-box;
+}
+
 .containerTitle {
   position: relative;
 
-  padding: 1rem 0;
+  padding-bottom: 1rem;
 
   border-bottom: 1px solid #d8e0ec;
 

@@ -109,7 +109,7 @@
 }
 
 .write-button {
-  position: fixed;
+  position: sticky;
   bottom: 16px;
   padding: 12px 24px;
   border-radius: 24px;
