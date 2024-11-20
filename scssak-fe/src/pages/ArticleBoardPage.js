@@ -26,13 +26,12 @@ const ArticleBoardPage = () => {
   const [totalPages, setTotalPages] = useState(1); // 기본값 설정
   const [activeType, setActiveType] = useState('typeAll');
   const [activeOpenType, setActiveOpenType] = useState('전체');
-  // const [loadedPages, setloadedPages] = useState(0);
+  const [searchKeyword, setSearchKeyword] = useState(''); // 검색어 상태 관리
+  const [searchKeywordLockIn, setSearchKeywordLockIn] = useState(''); // 검색어 검색 버튼 눌렀을때 확정
+  const [activeSort, setActiveSort] = useState('latest'); // 기본값은 '최신순'
+  const [isFirstPageRendered, setIsFirstPageRendered] = useState(false); // 상태로 관리
 
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate('/board/write');
-  };
 
   // 게시글 요청 함수
   const fetchArticles = async page => {
@@ -47,7 +46,12 @@ const ArticleBoardPage = () => {
         url = `${BASE_URL}/article?article_type=${articleType}&open_type=${openType}&current_page=${page}`;
       } else {
         url = `${BASE_URL}/article?open_type=${openType}&current_page=${page}`;
-        console.log(url);
+      }
+      if (searchKeywordLockIn) {
+        url = url.concat(`&keyword=${encodeURIComponent(searchKeywordLockIn)}`);
+      }
+      if (activeSort === 'popular') {
+        url = url.concat(`&order_type=2`);
       }
 
       const response = await fetch(url, {
@@ -61,11 +65,15 @@ const ArticleBoardPage = () => {
       console.log(data);
 
       // 첫 번째 요청일 때
-      if (page === 1) {
+      if (page === 1 && articleList.length === 0) {
         setArticles(data.article_list); // 첫 페이지에는 새로 로드한 데이터로 덮어쓰기
+        console.log('1페이지 추가');
+        console.log(articleList);
       } else {
         // 두 번째 요청부터는 기존 데이터에 추가
         setArticles(prev => [...prev, ...data.article_list]);
+        console.log('2페이지 이상 추가');
+        console.log(articleList);
       }
 
       setTotalPages(data.total_page); // 총 페이지 수 갱신
@@ -77,31 +85,48 @@ const ArticleBoardPage = () => {
   };
 
   useEffect(() => {
+    setIsFirstPageRendered(true); // 첫 페이지 렌더링 이후 상태 변경
+    console.log('페이지 렌더링 완료');
+    console.log(articleList);
+  }, [articleList]);
+
+  useEffect(() => {
     fetchArticles(currentPage); // 컴포넌트 초기 렌더링 시 호출
+    console.log('여기---------------------------');
+    console.log(articleList);
   }, [currentPage]); // 현재 페이지 변경 시 요청
 
   useEffect(() => {
     setTotalPages(1);
     setCurrentPage(1);
-    // setloadedPages(0);
     fetchArticles(currentPage); // 컴포넌트 초기 렌더링 시 호출
-  }, [activeType, activeOpenType]); // 필터 변경 시 재요청
+    console.log('이건 찍히면 안되는데????');
+    console.log('이건 찍히면 안되는데????');
+    console.log('이건 찍히면 안되는데????');
+    console.log('이건 찍히면 안되는데????');
+    console.log('이건 찍히면 안되는데????');
+  }, [activeType, activeOpenType, activeSort, searchKeywordLockIn]); // 필터 변경 또는 검색 시 재요청
 
   const loadMore = useCallback(() => {
-    console.log(
-      'loadMore 호출, 현재 페이지:' +
-        currentPage +
-        ', 최대 페이지:' +
-        totalPages +
-        ', isFetching:' +
-        isFetching,
-    );
-
     // 페이지가 마지막 페이지에 도달하지 않고, isFetching이 false일 때만 페이지 증가
+    console.log(currentPage, totalPages, isFetching);
     if (currentPage < totalPages && !isFetching) {
       setCurrentPage(prev => prev + 1); // 페이지 증가
     }
   }, [currentPage, totalPages, isFetching]);
+
+  // 입력값을 저장하는 함수
+  const handleInputChange = event => {
+    setSearchKeyword(event.target.value);
+  };
+
+  const handleSearch = () => {
+    setSearchKeywordLockIn(searchKeyword);
+  };
+
+  const handleClick = () => {
+    navigate('/board/write');
+  };
 
   return (
     <div className="board-page">
@@ -113,7 +138,12 @@ const ArticleBoardPage = () => {
             type="text"
             className="search-bar"
             placeholder="키워드로 게시글을 검색해주세요!"
+            maxLength={15} // 입력 길이 제한 추가
+            onChange={handleInputChange} // 검색어 입력 이벤트 처리
           />
+          <button className="search-button" onClick={handleSearch}>
+            {/* 돋보기 모양을 CSS 배경 이미지로 사용할 수 있습니다. */}
+          </button>
         </div>
       </div>
 
@@ -169,6 +199,29 @@ const ArticleBoardPage = () => {
           className={`open-type-item ${activeOpenType === '동기' ? 'active' : ''}`}
           onClick={() => setActiveOpenType('동기')}>
           동기
+        </span>
+      </div>
+
+      {/* 공지 바 */}
+      <div className="notice-bar">
+        <span className="notice-label">공지</span>
+        <span className="notice-message">
+          욕설이나 비방글은 자동 삭제됩니다.
+        </span>
+      </div>
+
+      {/* 최신순/좋아요순 정렬 선택 */}
+      <div className="sort-buttons">
+        <span
+          className={`sort-button ${activeSort === 'latest' ? 'active' : ''}`}
+          onClick={() => setActiveSort('latest')}>
+          최신 순
+        </span>
+        {' | '}
+        <span
+          className={`sort-button ${activeSort === 'popular' ? 'active' : ''}`}
+          onClick={() => setActiveSort('popular')}>
+          좋아요 순
         </span>
       </div>
 

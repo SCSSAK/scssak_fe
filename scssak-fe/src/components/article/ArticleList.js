@@ -16,10 +16,11 @@ const ArticleList = ({articles, loadMore, isFetching}) => {
         entries => {
           if (entries[0].isIntersecting && !isFetching) {
             console.log('마지막 요소 감지됨');
+            console.log(isFetching);
             loadMore(); // 추가 데이터 요청
           }
         },
-        {threshold: 0.9}, // 요소가 거의 다 보였을 때 트리거됨
+        {threshold: 0.5}, // 10개 중 마지막 요소의 반이 보였을 때 트리거
       );
     }
   }, [isFetching, loadMore]);

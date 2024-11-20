@@ -65,7 +65,7 @@
 /* 구획 2: 작성자, 작성일 */
 .article-info {
   font-size: 12px;
-  background-color: #ebf9ff; /* 하늘색 배경 */
+  background-color: #f4fbfe; /* 하늘색 배경 */
   padding: 8px;
   border-radius: 4px;
   display: flex;
