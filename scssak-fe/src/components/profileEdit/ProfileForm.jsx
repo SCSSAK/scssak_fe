@@ -1,9 +1,7 @@
 import {useState, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
-import {xModalAtom} from '../../recoil/atom';
-
-import ConfirmModal from '../common/ConfirmModal';
+import {xModalAtom, confirmModalAtom} from '../../recoil/atom';
 
 import {API_AUTH_FILE} from '../../apis/apiSettings';
 import {PROFILE_URL} from '../../apis/apiUrls';
@@ -17,7 +15,7 @@ export default function ProfileForm({data}) {
   const navigate = useNavigate();
 
   // 에러 메시지 전역 상태
-  const setXmodalState = useSetRecoilState(xModalAtom);
+  const setXModalState = useSetRecoilState(xModalAtom);
 
   // form 입력값
   const [userImg, setUserImg] = useState();
@@ -129,7 +127,7 @@ export default function ProfileForm({data}) {
 
     // 이미지 용량이 20mb를 초과하는 경우
     if (img.size > 20 * 1024 * 1024) {
-      setXmodalState({
+      setXModalState({
         isOpened: true,
         message: '20MB 이하의 파일만\n업로드할 수 있습니다.',
       });
@@ -138,7 +136,7 @@ export default function ProfileForm({data}) {
 
     // 이미지 파일이 아닌 경우
     if (!img.type.startsWith('image')) {
-      setXmodalState({
+      setXModalState({
         isOpened: true,
         message: '이미지 파일만\n업로드할 수 있습니다.',
       });
@@ -153,7 +151,7 @@ export default function ProfileForm({data}) {
   const handleClickEditProfileButton = () => {
     // 기존 비밀번호를 입력하지 않은 경우
     if (userPwdCurrent === null || userPwdCurrent === '') {
-      setXmodalState({
+      setXModalState({
         isOpened: true,
         message: '현재 비밀번호는\n필수 입력값입니다.',
       });
@@ -165,26 +163,24 @@ export default function ProfileForm({data}) {
       setUserPwdNewCheck('');
     } else if (userPwdNew !== userPwdNewCheck) {
       // 새 비밀번호를 입력했는데 새 비밀번호 확인과 동일하지 않은 경우
-      setXmodalState({
+      setXModalState({
         isOpened: true,
         message: '비밀번호 확인이\n일치하지 않습니다.',
       });
       return;
     }
 
-    setIsConfirmModalOpened(true);
+    setConfirmModalState({
+      isOpened: true,
+      message: '변경하시겠습니까?',
+      onConfirm: handleClickConfirmButton,
+    });
   };
 
-  // 변경 확인 모달
-  const [isConfirmModalOpened, setIsConfirmModalOpened] = useState(false);
+  // 모달 전역 상태
+  const setConfirmModalState = useSetRecoilState(confirmModalAtom);
 
-  const handleCancel = () => {
-    setIsConfirmModalOpened(false);
-  };
-
-  const handleConfirm = async () => {
-    setIsConfirmModalOpened(false);
-
+  const handleClickConfirmButton = async () => {
     const formData = new FormData();
     formData.append('user_pwd_current', userPwdCurrent);
     if (userPwdNew || userPwdNewCheck) {
@@ -211,7 +207,7 @@ export default function ProfileForm({data}) {
         switch (status) {
           // 에러 처리 (401, 현재 비밀번호 오류)
           case 401:
-            setXmodalState({
+            setXModalState({
               isOpened: true,
               message: '입력하신 비밀번호를\n다시 확인해주세요.',
             });
@@ -219,7 +215,7 @@ export default function ProfileForm({data}) {
 
           // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
           default:
-            setXmodalState({
+            setXModalState({
               isOpened: true,
               message: '서버와 통신 중 오류가 발생했습니다.',
             });
@@ -283,14 +279,6 @@ export default function ProfileForm({data}) {
           변경 완료
         </button>
       </div>
-
-      {isConfirmModalOpened && (
-        <ConfirmModal
-          message="변경하시겠습니까?"
-          onConfirm={handleConfirm}
-          onCancel={handleCancel}
-        />
-      )}
     </div>
   );
 }
