@@ -1,4 +1,4 @@
-import {useRecoilState} from 'recoil';
+import {useRecoilValue} from 'recoil';
 import {xModalAtom} from './recoil/atom';
 
 import XModal from './components/common/XModal';
@@ -8,7 +8,7 @@ import AppRouter from './router/AppRouter';
 import './App.css';
 
 function App() {
-  const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
+  const xModalState = useRecoilValue(xModalAtom);
 
   return (
     <div
