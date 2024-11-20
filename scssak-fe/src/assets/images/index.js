@@ -15,6 +15,7 @@ export {default as iconSetting} from './icon/icon_setting.png';
 export {default as iconComment} from './icon/icon_comment.png';
 export {default as iconHeart} from './icon/icon_heart.png';
 export {default as iconDelete} from './icon/icon_delete.png';
+export {default as iconFire} from './icon/icon_fire.png';
 
 export {default as imgMailbox01} from './mailbox/mailbox_01.png';
 export {default as imgMailbox02} from './mailbox/mailbox_02.png';

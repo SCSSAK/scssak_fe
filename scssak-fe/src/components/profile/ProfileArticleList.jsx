@@ -18,7 +18,7 @@ export default function ArticleList({userId}) {
   const navigate = useNavigate();
 
   // 에러 메시지 전역 상태
-  const setXmodalState = useSetRecoilState(xModalAtom);
+  const setXModalState = useSetRecoilState(xModalAtom);
 
   // 데이터
   const [isFetching, setIsFetching] = useState(false); // 현재 가져오는 중인가?
@@ -106,7 +106,7 @@ export default function ArticleList({userId}) {
         switch (status) {
           // 에러 처리 (401, 비로그인)
           case 401:
-            setXmodalState({
+            setXModalState({
               isOpened: true,
               message: '로그인이 필요합니다.',
               onClose: () => navigate(loginRoute),
@@ -115,7 +115,7 @@ export default function ArticleList({userId}) {
 
           // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
           default:
-            setXmodalState({
+            setXModalState({
               isOpened: true,
               message: '서버와 통신 중 오류가 발생했습니다.',
             });
@@ -162,10 +162,12 @@ export default function ArticleList({userId}) {
             <span>{article.article_comment_count}</span>
             <img src={iconHeart} alt="좋아요 아이콘" />
             <span>{article.article_like_count}</span>
-            <span>{article.article_created_at}</span>
+            <span>{article.article_created_at.split('T')[0]}</span>
           </div>
         </div>
       ))}
+
+      {articleList.length == 0 && <p>작성한 글이 없습니다.</p>}
 
       {isFetching && <p>Loading...</p>}
     </div>

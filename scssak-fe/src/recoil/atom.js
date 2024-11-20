@@ -1,11 +1,22 @@
 import {atom} from 'recoil';
 
-// 에러 메시지 전역 상태
+// xModal 전역 상태
 export const xModalAtom = atom({
   key: 'xModalAtom',
   default: {
     isOpened: false,
     message: '',
     onClose: () => {},
+  },
+});
+
+// confirmModal 전역 상태
+export const confirmModalAtom = atom({
+  key: 'confirmModalAtom',
+  default: {
+    isOpened: false,
+    message: '',
+    onConfirm: () => {},
+    onCancel: () => {},
   },
 });

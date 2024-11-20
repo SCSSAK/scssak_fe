@@ -1,11 +1,10 @@
 import {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
-import {xModalAtom} from '../recoil/atom';
+import {xModalAtom, confirmModalAtom} from '../recoil/atom';
 
 import Profile from '../components/profile/Profile';
 import ProfileArticleList from '../components/profile/ProfileArticleList';
-import ConfirmModal from '../components/common/ConfirmModal';
 
 import {API_AUTH} from '../apis/apiSettings';
 import {PROFILE_URL, LOGOUT_URL} from '../apis/apiUrls';
@@ -20,7 +19,7 @@ export default function ProfilePage() {
   const navigate = useNavigate();
 
   // 에러 메시지 전역 상태
-  const setXmodalState = useSetRecoilState(xModalAtom);
+  const setXModalState = useSetRecoilState(xModalAtom);
 
   const {user_id} = useParams();
   const loginedUserId = localStorage.getItem('userId');
@@ -53,7 +52,7 @@ export default function ProfilePage() {
         switch (status) {
           // 에러 처리 (401, 비로그인)
           case 401:
-            setXmodalState({
+            setXModalState({
               isOpened: true,
               message: '로그인이 필요합니다.',
               onClose: () => navigate(loginRoute),
@@ -62,7 +61,7 @@ export default function ProfilePage() {
 
           // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
           default:
-            setXmodalState({
+            setXModalState({
               isOpened: true,
               message: '서버와 통신 중 오류가 발생했습니다.',
             });
@@ -89,11 +88,15 @@ export default function ProfilePage() {
     });
   };
 
-  // 확인 모달이 띄워져있는가?
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  // 모달 전역 상태
+  const setConfirmModalState = useSetRecoilState(confirmModalAtom);
 
   const handleClickLogoutButton = () => {
-    setIsModalOpened(!isModalOpened);
+    setConfirmModalState({
+      isOpened: true,
+      message: '로그아웃 하시겠습니까?',
+      onConfirm: handleConfirmLogout,
+    });
   };
 
   const handleConfirmLogout = () => {
@@ -105,15 +108,11 @@ export default function ProfilePage() {
       })
       .catch(e => {
         // 에러 처리 (예: 네트워크 문제 또는 서버 에러)
-        setXmodalState({
+        setXModalState({
           isOpened: true,
           message: '서버와 통신 중 오류가 발생했습니다.',
         });
       });
-  };
-
-  const handleCancelLogout = () => {
-    setIsModalOpened(false);
   };
 
   return (
@@ -158,14 +157,6 @@ export default function ProfilePage() {
         <Profile data={profileData} />
         <ProfileArticleList userId={user_id} />
       </main>
-
-      {isModalOpened && (
-        <ConfirmModal
-          message="로그아웃 하시겠습니까?"
-          onConfirm={handleConfirmLogout}
-          onCancel={handleCancelLogout}
-        />
-      )}
     </div>
   );
 }
