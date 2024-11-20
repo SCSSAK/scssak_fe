@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import {useRecoilState} from 'recoil';
+import {useSetRecoilState} from 'recoil';
 import {xModalAtom} from '../recoil/atom';
 
 import Profile from '../components/profile/Profile';
@@ -20,7 +20,7 @@ export default function ProfilePage() {
   const navigate = useNavigate();
 
   // 에러 메시지 전역 상태
-  const [xModalState, setXmodalState] = useRecoilState(xModalAtom);
+  const setXmodalState = useSetRecoilState(xModalAtom);
 
   const {user_id} = useParams();
   const loginedUserId = localStorage.getItem('userId');
@@ -156,7 +156,7 @@ export default function ProfilePage() {
         </div>
 
         <Profile data={profileData} />
-        <ProfileArticleList />
+        <ProfileArticleList userId={user_id} />
       </main>
 
       {isModalOpened && (

@@ -7,4 +7,6 @@ export const MAIN_URL = USER_URL + '/main';
 export const PROFILE_URL = USER_URL + '/profile';
 export const ATTEND_URL = USER_URL + '/attend';
 
+export const ARTICLE_URL = '/article';
+
 export const MAIL_URL = '/mail';
