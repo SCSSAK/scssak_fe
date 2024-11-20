@@ -6,6 +6,7 @@ import {xModalAtom} from '../recoil/atom';
 import AttendanceButton from '../components/main/AttendanceButton';
 import TardyList from '../components/main/TardyList';
 import NoticeList from '../components/main/NoticeList';
+import PopularArticleList from '../components/main/PopularArticleList';
 
 import {API_AUTH} from '../apis/apiSettings';
 import {MAIN_URL} from '../apis/apiUrls';
@@ -76,6 +77,7 @@ export default function MainPage() {
 
       <TardyList data={data.absent_list} />
       <NoticeList data={data.notice_list} />
+      <PopularArticleList data={data.popular_article_list} />
     </div>
   );
 }
