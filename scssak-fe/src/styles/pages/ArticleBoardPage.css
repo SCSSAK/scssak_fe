@@ -110,7 +110,9 @@
 
 .write-button {
   position: sticky;
-  bottom: 16px;
+  bottom: 1vh;
+  left: 50%;
+  transform: translate(-50%, 0);
   padding: 12px 24px;
   border-radius: 24px;
   background-color: #0066ff;
