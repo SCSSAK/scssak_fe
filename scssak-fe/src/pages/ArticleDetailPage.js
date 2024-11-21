@@ -215,6 +215,10 @@ const ArticleDetailPage = () => {
     }
   };
 
+  const handleUserClick = userId => {
+    navigate(`/profile/${userId}`);
+  };
+
   if (loading) {
     return <div>로딩 중...</div>;
   }
@@ -265,7 +269,11 @@ const ArticleDetailPage = () => {
           <hr className="divider" />
 
           <div className="article-info">
-            <span className="writer-name">{article.article_user_name}</span>
+            <span
+              className="writer-name"
+              onClick={() => handleUserClick(article.article_user_id)}>
+              {article.article_user_name}
+            </span>
             <span>{article.article_created_at.split('T')[0]}</span>
           </div>
 
@@ -328,18 +336,22 @@ const ArticleDetailPage = () => {
                     {comment.comment_content}
                   </div>
                   <div
-                    className={`show-delete-button ${comment.user_id === userId ? 'show-delete-button' : ''}`}>
+                    className={`${comment.comment_user_id === userId ? 'show-delete-button' : ''}`}>
                     <img
                       src={comment_delete_icon}
                       alt="X"
                       className="delete-button"
                       onClick={() =>
-                        handleCommentDelete(comment.comment_id)
+                        handleCommentDelete(comment.comment_comment_id)
                       }></img>
                   </div>
                 </div>
                 <div className="comment-info">
-                  <div className="comment-user">{comment.user_name}</div>
+                  <div
+                    className="comment-user"
+                    onClick={() => handleUserClick(comment.comment_user_id)}>
+                    {comment.comment_user_name}
+                  </div>
                   <div className="comment-date">
                     {new Date(comment.comment_created_at).toLocaleDateString()}
                     {/* 날짜만 표시 */}

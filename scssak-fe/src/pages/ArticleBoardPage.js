@@ -29,7 +29,6 @@ const ArticleBoardPage = () => {
   const [searchKeyword, setSearchKeyword] = useState(''); // 검색어 상태 관리
   const [searchKeywordLockIn, setSearchKeywordLockIn] = useState(''); // 검색어 검색 버튼 눌렀을때 확정
   const [activeSort, setActiveSort] = useState('latest'); // 기본값은 '최신순'
-  const [isFirstPageRendered, setIsFirstPageRendered] = useState(false); // 상태로 관리
 
   const navigate = useNavigate();
 
@@ -64,17 +63,31 @@ const ArticleBoardPage = () => {
 
       console.log(data);
 
-      // 첫 번째 요청일 때
-      if (page === 1 && articleList.length === 0) {
-        setArticles(data.article_list); // 첫 페이지에는 새로 로드한 데이터로 덮어쓰기
-        console.log('1페이지 추가');
-        console.log(articleList);
-      } else {
-        // 두 번째 요청부터는 기존 데이터에 추가
-        setArticles(prev => [...prev, ...data.article_list]);
-        console.log('2페이지 이상 추가');
-        console.log(articleList);
-      }
+      // // 첫 번째 요청일 때
+      // if (page === 1 && articleList.length === 0) {
+      //   setArticles(data.article_list); // 첫 페이지에는 새로 로드한 데이터로 덮어쓰기
+      //   console.log('1페이지 추가');
+      //   console.log(articleList);
+      // } else {
+      //   // 두 번째 요청부터는 기존 데이터에 추가
+      //   setArticles(prev => [...prev, ...data.article_list]);
+      //   console.log('2페이지 이상 추가');
+      //   console.log(articleList);
+      // }
+
+      // 새로 받은 게시글에서 중복된 article_id를 제거한 후 리스트에 추가하는 로직
+      setArticles(prevArticles => {
+        const existingArticleIds = new Set(
+          prevArticles.map(article => article.article_id),
+        );
+
+        // 중복되지 않은 새 게시글만 필터링
+        const newArticles = data.article_list.filter(
+          article => !existingArticleIds.has(article.article_id),
+        );
+
+        return [...prevArticles, ...newArticles];
+      });
 
       setTotalPages(data.total_page); // 총 페이지 수 갱신
       setIsFetching(false); // 데이터 요청 끝
@@ -85,26 +98,14 @@ const ArticleBoardPage = () => {
   };
 
   useEffect(() => {
-    setIsFirstPageRendered(true); // 첫 페이지 렌더링 이후 상태 변경
-    console.log('페이지 렌더링 완료');
-    console.log(articleList);
-  }, [articleList]);
-
-  useEffect(() => {
     fetchArticles(currentPage); // 컴포넌트 초기 렌더링 시 호출
-    console.log('여기---------------------------');
-    console.log(articleList);
   }, [currentPage]); // 현재 페이지 변경 시 요청
 
   useEffect(() => {
     setTotalPages(1);
     setCurrentPage(1);
+    setArticles([]);
     fetchArticles(currentPage); // 컴포넌트 초기 렌더링 시 호출
-    console.log('이건 찍히면 안되는데????');
-    console.log('이건 찍히면 안되는데????');
-    console.log('이건 찍히면 안되는데????');
-    console.log('이건 찍히면 안되는데????');
-    console.log('이건 찍히면 안되는데????');
   }, [activeType, activeOpenType, activeSort, searchKeywordLockIn]); // 필터 변경 또는 검색 시 재요청
 
   const loadMore = useCallback(() => {
