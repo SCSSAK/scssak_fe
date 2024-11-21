@@ -2,6 +2,7 @@ export {default as imgLogo} from './logo.png';
 export {default as imgLogin} from './img_login.png';
 
 export {default as backgroundImgSea} from './background_sea.png';
+export {default as backgroundImg404} from './background_404.png';
 
 export {default as buttonImgCheck} from './button_check.png';
 

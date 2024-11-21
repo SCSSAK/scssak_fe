@@ -38,6 +38,7 @@ export default function TardyList({data}) {
         return fontSize(data.length);
       })
       .rotate(0)
+      .spiral('rectangular')
       .on('end', end);
 
     layout.start();
