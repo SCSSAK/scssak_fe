@@ -70,7 +70,11 @@ const ArticleList = ({articles, loadMore, isFetching}) => {
             </div>
             <div className="article-info">
               <p className="article-type">{boardType[article.article_type]}</p>
-              <h3 className="title">{article.article_title}</h3>
+              <h3 className="title">
+                {article.article_title.length > 15
+                  ? article.article_title.slice(0, 15) + '...'
+                  : article.article_title}
+              </h3>
               <p className="content">{article.article_content}</p>
               <div className="metadata-stats">
                 <span>
