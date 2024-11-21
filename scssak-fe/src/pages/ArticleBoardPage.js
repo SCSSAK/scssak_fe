@@ -2,8 +2,10 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../styles/pages/ArticleBoardPage.css';
 import ArticleList from '../components/article/ArticleList';
-import Logo from '../assets/images/logo.png';
 import {BASE_URL} from '../router/Routes';
+
+import {useRecoilValue} from 'recoil';
+import {searchBarAtom} from '../recoil/atom';
 
 // 게시글 타입 이미지 import
 import typeAllActive from '../assets/images/article/typeAll_active.png';
@@ -26,9 +28,10 @@ const ArticleBoardPage = () => {
   const [totalPages, setTotalPages] = useState(1); // 기본값 설정
   const [activeType, setActiveType] = useState('typeAll');
   const [activeOpenType, setActiveOpenType] = useState('전체');
-  const [searchKeyword, setSearchKeyword] = useState(''); // 검색어 상태 관리
-  const [searchKeywordLockIn, setSearchKeywordLockIn] = useState(''); // 검색어 검색 버튼 눌렀을때 확정
   const [activeSort, setActiveSort] = useState('latest'); // 기본값은 '최신순'
+
+  // 검색바 전역 상태
+  const searchBarState = useRecoilValue(searchBarAtom);
 
   const navigate = useNavigate();
 
@@ -46,8 +49,10 @@ const ArticleBoardPage = () => {
       } else {
         url = `${BASE_URL}/article?open_type=${openType}&current_page=${page}`;
       }
-      if (searchKeywordLockIn) {
-        url = url.concat(`&keyword=${encodeURIComponent(searchKeywordLockIn)}`);
+      if (searchBarState.searchKeywordLockIn) {
+        url = url.concat(
+          `&keyword=${encodeURIComponent(searchBarState.searchKeywordLockIn)}`,
+        );
       }
       if (activeSort === 'popular') {
         url = url.concat(`&order_type=2`);
@@ -106,7 +111,12 @@ const ArticleBoardPage = () => {
     setCurrentPage(1);
     setArticles([]);
     fetchArticles(currentPage); // 컴포넌트 초기 렌더링 시 호출
-  }, [activeType, activeOpenType, activeSort, searchKeywordLockIn]); // 필터 변경 또는 검색 시 재요청
+  }, [
+    activeType,
+    activeOpenType,
+    activeSort,
+    searchBarState.searchKeywordLockIn,
+  ]); // 필터 변경 또는 검색 시 재요청
 
   const loadMore = useCallback(() => {
     // 페이지가 마지막 페이지에 도달하지 않고, isFetching이 false일 때만 페이지 증가
@@ -116,43 +126,12 @@ const ArticleBoardPage = () => {
     }
   }, [currentPage, totalPages, isFetching]);
 
-  // 입력값을 저장하는 함수
-  const handleInputChange = event => {
-    setSearchKeyword(event.target.value);
-  };
-
-  const handleSearch = () => {
-    setSearchKeywordLockIn(searchKeyword);
-  };
-
   const handleClick = () => {
     navigate('/board/write');
   };
 
   return (
     <div className="board-page">
-      {/* 상단 로고 및 검색창 */}
-      <div className="board-header">
-        <img
-          src={Logo}
-          alt="Logo"
-          className="logo-image"
-          onClick={() => navigate('/main')}
-        />
-        <div className="search-container">
-          <input
-            type="text"
-            className="search-bar"
-            placeholder="키워드로 게시글을 검색해주세요!"
-            maxLength={15} // 입력 길이 제한 추가
-            onChange={handleInputChange} // 검색어 입력 이벤트 처리
-          />
-          <button className="search-button" onClick={handleSearch}>
-            {/* 돋보기 모양을 CSS 배경 이미지로 사용할 수 있습니다. */}
-          </button>
-        </div>
-      </div>
-
       {/* 게시글 타입 선택 버튼 */}
       <div className="type-buttons">
         <img

@@ -29,6 +29,7 @@ import ProfileEditPage from '../pages/ProfileEditPage';
 import NotFoundPage from '../pages/NotFoundPage';
 
 import LayoutWithHeaderAndNav from '../components/layout/LayoutWithHeaderAndNav';
+import LayoutWithSearchHeaderAndNav from '../components/layout/LayoutWithSearchHeaderAndNav';
 import LayoutWithNav from '../components/layout/LayoutWithNav';
 
 export default function AppRouter() {
@@ -50,9 +51,13 @@ export default function AppRouter() {
             <Route path={profileRoute} element={<ProfilePage />} />
           </Route>
 
+          {/* serach header, bottom nav 모두 있는 경우 */}
+          <Route element={<LayoutWithSearchHeaderAndNav />}>
+            <Route path={boardRoute} element={<ArticleBoardPage />} />
+          </Route>
+
           {/* bottom nav만 있는 경우 */}
           <Route element={<LayoutWithNav />}>
-            <Route path={boardRoute} element={<ArticleBoardPage />} />
             <Route
               path={boardRoute + '/:articleId'}
               element={<ArticleDetailPage />}

@@ -20,3 +20,12 @@ export const confirmModalAtom = atom({
     onCancel: () => {},
   },
 });
+
+// searchBar 전역 상태
+export const searchBarAtom = atom({
+  key: 'searchBarAtom',
+  default: {
+    searchKeyword: '', // 검색어 상태 관리
+    searchKeywordLockIn: '', // 검색어 검색 버튼 눌렀을때 확정
+  },
+});
