@@ -1,7 +1,9 @@
 .App {
   margin: 0 auto;
   max-width: 480px; /* 모바일 웹앱에 맞춘 가로폭 */
-  height: 100vh;
+  height: 100dvh;
+
+  overflow-x: hidden;
 
   text-align: center;
   white-space: pre-wrap;
@@ -9,6 +11,7 @@
 
 main {
   overflow: scroll;
+  overflow-wrap: anywhere;
 }
 
 *::-webkit-scrollbar {
@@ -16,9 +19,9 @@ main {
 }
 
 #main-with-header-and-nav {
-  height: 86vh;
+  height: 86dvh;
 }
 
 #main-with-nav {
-  height: 92vh;
+  height: 92dvh;
 }

@@ -1,4 +1,9 @@
-import {iconEmail, iconSns, iconIntroduce} from '../../assets/images/index';
+import {
+  iconEmail,
+  iconSns,
+  iconIntroduce,
+  iconUser,
+} from '../../assets/images/index';
 
 import styles from '../../styles/components/profile/Profile.module.css';
 
@@ -8,7 +13,7 @@ export default function Profile({data}) {
       <div className={styles.containerInfo}>
         <img
           className={styles.imgProfile}
-          src={data.user_img}
+          src={data.user_img ?? iconUser}
           alt="프로필 이미지"
         />
         <div className={styles.containerInfoText}>

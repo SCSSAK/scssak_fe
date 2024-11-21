@@ -36,13 +36,11 @@
 }
 
 .containerArticleItem {
-  height: 3.5rem;
+  min-height: 3.5rem;
+
+  padding-top: 0.5rem;
 
   border-top: 1px solid #d8e0ec;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
 }
 
 .containerArticleText {
@@ -70,12 +68,15 @@
   font-family: 'GmarketSans';
   font-weight: 400;
   font-size: 0.8rem;
+
+  text-align: start;
 }
 
 .containerArticleInfo {
   margin-bottom: 2px;
 
   display: flex;
+  justify-content: end;
   align-items: center;
 
   color: #536177;
