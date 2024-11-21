@@ -243,7 +243,7 @@ hr.divider {
 /* 댓글 입력 섹션 */
 .comment-input-section {
   position: sticky; /* 고정 위치 */
-  bottom: 1vh; /* navbar 바로 위에 위치 */
+  bottom: 0; /* navbar 바로 위에 위치 */
   width: 100%; /* 화면 너비에 맞게 설정 */
   display: flex;
   align-items: center;
