@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useParams} from 'react-router-dom';
-import {BASE_URL} from '../router/Routes';
+import {BASE_URL} from '../apis/apiUrls';
 import '../styles/pages/ArticleDetailPage.css';
 import go_back_arrow from '../assets/images/go_back_arrow.png';
 import heart_active from '../assets/images/article/heart_active.png';
