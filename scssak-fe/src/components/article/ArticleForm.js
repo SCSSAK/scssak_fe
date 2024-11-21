@@ -5,6 +5,7 @@ import go_back_arrow from '../../assets/images/go_back_arrow.png';
 import dropdown_arrow_down from '../../assets/images/dropdown_arrow_down.png';
 import dropdown_arrow_up from '../../assets/images/dropdown_arrow_up.png';
 import picture_button from '../../assets/images/picture_button.png';
+import deleteIcon from '../../assets/images/article/comment_delete_icon.png';
 
 import {useSetRecoilState} from 'recoil';
 import {confirmModalAtom} from '../../recoil/atom';
@@ -228,16 +229,16 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
             <div className="image-preview-container">
               {selectedImages.map((image, index) => (
                 <div key={index} className="image-preview">
+                  <button
+                    onClick={() => handleImageDelete(index)}
+                    className="image-delete-button">
+                    <img src={deleteIcon} alt="삭제" />
+                  </button>
                   <img
                     src={image.url}
                     alt={`selected-${index}`}
                     className="preview-image"
                   />
-                  <button
-                    onClick={() => handleImageDelete(index)}
-                    className="image-delete-button">
-                    삭제
-                  </button>
                 </div>
               ))}
             </div>
