@@ -77,7 +77,14 @@ export default function MainPage() {
 
       <TardyList data={data.absent_list} />
       <NoticeList data={data.notice_list} />
-      <PopularArticleList data={data.popular_article_list} />
+      <PopularArticleList
+        opened={true}
+        data={data.popular_article_list_opened_true}
+      />
+      <PopularArticleList
+        opened={false}
+        data={data.popular_article_list_opened_false}
+      />
     </div>
   );
 }

@@ -28,12 +28,12 @@ export default function PopularArticleList({data}) {
             key={idx}
             className={styles.containerArticle}
             onClick={e => handleClickArticle(article.article_id, e)}>
-            <span className={styles.textArticleType}>
-              {boardTypes[article.article_type]}
-            </span>
-            <span className={styles.textArticleTitle}>
-              {article.article_title}
-            </span>
+            <div className={styles.containerArticleTitle}>
+              <p className={styles.textArticleType}>
+                {boardTypes[article.article_type]}
+              </p>
+              <p className={styles.textArticleTitle}>{article.article_title}</p>
+            </div>
             <div className={styles.containerArticleInfo}>
               <img src={iconComment} alt="댓글 아이콘" />
               <span>{article.article_comment_count}</span>

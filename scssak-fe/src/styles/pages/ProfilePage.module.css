@@ -7,6 +7,15 @@
   margin: 1rem 0;
 }
 
+.iconGoBackArrow {
+  position: absolute;
+  left: 1.5rem;
+  top: 10%;
+
+  width: 1.5rem;
+  object-fit: contain;
+}
+
 .textTitle {
   margin: 0;
   padding-top: 4px;

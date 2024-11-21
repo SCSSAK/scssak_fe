@@ -7,7 +7,7 @@ import {iconSiren} from '../../assets/images';
 import styles from '../../styles/components/main/TardyList.module.css';
 
 export default function TardyList({data}) {
-  const width = 380;
+  const width = 300;
   const height = 300;
 
   // 단어 개수에 따른 기본 폰트 크기 계산
