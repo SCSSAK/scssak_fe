@@ -149,10 +149,12 @@ export default function MailboxPage() {
 
       <MailList data={mailList} />
 
-      <MoveToMailWriteButton
-        receiver_id={receiver_id}
-        receiver_name={receiver_name}
-      />
+      <div className={styles.containerButton}>
+        <MoveToMailWriteButton
+          receiver_id={receiver_id}
+          receiver_name={receiver_name}
+        />
+      </div>
     </div>
   );
 }
