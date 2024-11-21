@@ -265,6 +265,7 @@ export default function ProfileForm({data}) {
       <div className={styles.containerInput}>
         <label htmlFor="자기 소개">자기 소개</label>
         <textarea
+          id="자기 소개"
           placeholder="자기 소개를 입력해주세요 (200자 내외)"
           maxLength={220}
           value={userMessage}

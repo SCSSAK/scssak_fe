@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
-import {xModalAtom} from '../../recoil/atom';
+import {xModalAtom, confirmModalAtom} from '../../recoil/atom';
 
 import {API_AUTH} from '../../apis/apiSettings';
 import {MAIL_URL} from '../../apis/apiUrls';
@@ -16,6 +16,9 @@ export default function MailWriteForm({receiver_id}) {
 
   // 에러 메시지 전역 상태
   const setXModalState = useSetRecoilState(xModalAtom);
+
+  // 모달 전역 상태
+  const setConfirmModalState = useSetRecoilState(confirmModalAtom);
 
   // form 입력값
   const [mailContent, setMailContent] = useState('');
@@ -32,6 +35,14 @@ export default function MailWriteForm({receiver_id}) {
       return;
     }
 
+    setConfirmModalState({
+      isOpened: true,
+      message: '편지를 보내시겠습니까?',
+      onConfirm: handleClickConfirmButton,
+    });
+  };
+
+  const handleClickConfirmButton = () => {
     const data = {
       receiver_id: receiver_id,
       mail_content: mailContent,

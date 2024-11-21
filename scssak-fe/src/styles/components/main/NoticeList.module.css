@@ -44,6 +44,8 @@
 }
 
 .itemNotice {
+  box-sizing: border-box;
+
   width: 95%;
   height: 100%;
 
