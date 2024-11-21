@@ -130,7 +130,7 @@ const ArticleBoardPage = () => {
   };
 
   return (
-    <div className="board-page">
+    <div className="board-total">
       {/* 상단 로고 및 검색창 */}
       <div className="board-header">
         <img
@@ -152,96 +152,97 @@ const ArticleBoardPage = () => {
           </button>
         </div>
       </div>
+      <div className="board-page">
+        {/* 게시글 타입 선택 버튼 */}
+        <div className="type-buttons">
+          <img
+            src={activeType === 'typeAll' ? typeAllActive : typeAllInActive}
+            alt="전체"
+            className={`type-button ${activeType === 'typeAll' ? 'active' : ''}`}
+            onClick={() => setActiveType('typeAll')}
+          />
+          <img
+            src={activeType === 'type1' ? type1Active : type1InActive}
+            alt="자유"
+            className={`type-button ${activeType === 'type1' ? 'active' : ''}`}
+            onClick={() => setActiveType('type1')}
+          />
+          <img
+            src={activeType === 'type2' ? type2Active : type2InActive}
+            alt="꿀팁"
+            className={`type-button ${activeType === 'type2' ? 'active' : ''}`}
+            onClick={() => setActiveType('type2')}
+          />
+          <img
+            src={activeType === 'type3' ? type3Active : type3InActive}
+            alt="질문"
+            className={`type-button ${activeType === 'type3' ? 'active' : ''}`}
+            onClick={() => setActiveType('type3')}
+          />
+          <img
+            src={activeType === 'type4' ? type4Active : type4InActive}
+            alt="칭찬"
+            className={`type-button ${activeType === 'type4' ? 'active' : ''}`}
+            onClick={() => setActiveType('type4')}
+          />
+          <img
+            src={activeType === 'type5' ? type5Active : type5InActive}
+            alt="자랑해요"
+            className={`type-button ${activeType === 'type5' ? 'active' : ''}`}
+            onClick={() => setActiveType('type5')}
+          />
+        </div>
 
-      {/* 게시글 타입 선택 버튼 */}
-      <div className="type-buttons">
-        <img
-          src={activeType === 'typeAll' ? typeAllActive : typeAllInActive}
-          alt="전체"
-          className={`type-button ${activeType === 'typeAll' ? 'active' : ''}`}
-          onClick={() => setActiveType('typeAll')}
+        {/* 게시글 공개 범위 선택 */}
+        <div className="open-type">
+          <span
+            className={`open-type-item ${activeOpenType === '전체' ? 'active' : ''}`}
+            onClick={() => setActiveOpenType('전체')}>
+            전체
+          </span>
+          {' | '}
+          <span
+            className={`open-type-item ${activeOpenType === '동기' ? 'active' : ''}`}
+            onClick={() => setActiveOpenType('동기')}>
+            동기
+          </span>
+        </div>
+
+        {/* 공지 바 */}
+        <div className="notice-bar">
+          <span className="notice-label">공지</span>
+          <span className="notice-message">
+            욕설이나 비방글은 자동 삭제됩니다.
+          </span>
+        </div>
+
+        {/* 최신순/좋아요순 정렬 선택 */}
+        <div className="sort-buttons">
+          <span
+            className={`sort-button ${activeSort === 'latest' ? 'active' : ''}`}
+            onClick={() => setActiveSort('latest')}>
+            최신 순
+          </span>
+          {' | '}
+          <span
+            className={`sort-button ${activeSort === 'popular' ? 'active' : ''}`}
+            onClick={() => setActiveSort('popular')}>
+            좋아요 순
+          </span>
+        </div>
+
+        {/* 게시글 목록 */}
+        <ArticleList
+          articles={articleList}
+          loadMore={loadMore}
+          isFetching={isFetching}
         />
-        <img
-          src={activeType === 'type1' ? type1Active : type1InActive}
-          alt="자유"
-          className={`type-button ${activeType === 'type1' ? 'active' : ''}`}
-          onClick={() => setActiveType('type1')}
-        />
-        <img
-          src={activeType === 'type2' ? type2Active : type2InActive}
-          alt="꿀팁"
-          className={`type-button ${activeType === 'type2' ? 'active' : ''}`}
-          onClick={() => setActiveType('type2')}
-        />
-        <img
-          src={activeType === 'type3' ? type3Active : type3InActive}
-          alt="질문"
-          className={`type-button ${activeType === 'type3' ? 'active' : ''}`}
-          onClick={() => setActiveType('type3')}
-        />
-        <img
-          src={activeType === 'type4' ? type4Active : type4InActive}
-          alt="칭찬"
-          className={`type-button ${activeType === 'type4' ? 'active' : ''}`}
-          onClick={() => setActiveType('type4')}
-        />
-        <img
-          src={activeType === 'type5' ? type5Active : type5InActive}
-          alt="자랑해요"
-          className={`type-button ${activeType === 'type5' ? 'active' : ''}`}
-          onClick={() => setActiveType('type5')}
-        />
+
+        {/* 하단 글쓰기 버튼 */}
+        <button className="write-button" onClick={handleClick}>
+          글쓰기
+        </button>
       </div>
-
-      {/* 게시글 공개 범위 선택 */}
-      <div className="open-type">
-        <span
-          className={`open-type-item ${activeOpenType === '전체' ? 'active' : ''}`}
-          onClick={() => setActiveOpenType('전체')}>
-          전체
-        </span>
-        {' | '}
-        <span
-          className={`open-type-item ${activeOpenType === '동기' ? 'active' : ''}`}
-          onClick={() => setActiveOpenType('동기')}>
-          동기
-        </span>
-      </div>
-
-      {/* 공지 바 */}
-      <div className="notice-bar">
-        <span className="notice-label">공지</span>
-        <span className="notice-message">
-          욕설이나 비방글은 자동 삭제됩니다.
-        </span>
-      </div>
-
-      {/* 최신순/좋아요순 정렬 선택 */}
-      <div className="sort-buttons">
-        <span
-          className={`sort-button ${activeSort === 'latest' ? 'active' : ''}`}
-          onClick={() => setActiveSort('latest')}>
-          최신 순
-        </span>
-        {' | '}
-        <span
-          className={`sort-button ${activeSort === 'popular' ? 'active' : ''}`}
-          onClick={() => setActiveSort('popular')}>
-          좋아요 순
-        </span>
-      </div>
-
-      {/* 게시글 목록 */}
-      <ArticleList
-        articles={articleList}
-        loadMore={loadMore}
-        isFetching={isFetching}
-      />
-
-      {/* 하단 글쓰기 버튼 */}
-      <button className="write-button" onClick={handleClick}>
-        글쓰기
-      </button>
     </div>
   );
 };
