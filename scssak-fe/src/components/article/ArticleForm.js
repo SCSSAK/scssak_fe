@@ -17,6 +17,14 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
   let initialContent = '';
   let showImageUpload = true; // 이미지 업로드 버튼을 보여줄지 여부
 
+  const boards = [
+    '자유 게시판',
+    '꿀팁 게시판',
+    '질문 게시판',
+    '칭찬 게시판',
+    '자랑해요 게시판',
+  ];
+
   const navigate = useNavigate(); // useNavigate 훅 선언
 
   const handleGoBack = () => {
@@ -24,9 +32,11 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
   };
 
   if (initialData) {
+    console.log('수정 페이지에서 받은 데이터');
+    console.log(initialData);
     isEditMode = true;
-    initialBoard = initialData.board;
-    initialVisibility = initialData.visibility;
+    initialBoard = boards[initialData.article_type - 1];
+    initialVisibility = initialData.article_is_open ? '전체' : '동기';
     initialTitle = initialData.article_title;
     initialContent = initialData.article_content;
     showImageUpload = false;
@@ -39,13 +49,6 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
   const [content, setContent] = useState(initialContent);
   const [selectedImages, setSelectedImages] = useState([]); // 여러 이미지 첨부용
 
-  const boards = [
-    '자유 게시판',
-    '꿀팁 게시판',
-    '질문 게시판',
-    '칭찬 게시판',
-    '자랑해요 게시판',
-  ];
   const boardRef = useRef(null);
 
   const handleBoardSelect = board => {
