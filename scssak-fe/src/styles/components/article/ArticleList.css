@@ -1,7 +1,7 @@
 .article-list {
   overflow-y: auto;
   /* min-height: 100%; */
-  height: calc(92dvh - 262px); /* 동적 높이 */
+  height: calc(92dvh - 232px); /* 동적 높이 */
 }
 
 .articles {
