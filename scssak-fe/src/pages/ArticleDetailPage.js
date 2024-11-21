@@ -6,6 +6,7 @@ import '../styles/pages/ArticleDetailPage.css';
 import go_back_arrow from '../assets/images/go_back_arrow.png';
 import heart_active from '../assets/images/article/heart_active.png';
 import like_button from '../assets/images/article/like_button.png'; // 좋아요 버튼
+import like_button_activated from '../assets/images/article/like_button_activated.png'; // 좋아요 버튼(꽉 찬 하트)
 import edit_button from '../assets/images/article/edit_button.png'; // 수정 버튼
 import delete_button from '../assets/images/article/delete_button.png'; // 삭제 버튼
 import comment_icon from '../assets/images/article/comment_icon.png'; // 댓글 아이콘
@@ -317,7 +318,7 @@ const ArticleDetailPage = () => {
             </div>
             <div className="like-button">
               <img
-                src={like_button}
+                src={isLiked ? like_button_activated : like_button}
                 alt="좋아요 버튼"
                 className="like-button-img"
                 onClick={handleLikeClick}
