@@ -5,6 +5,7 @@
   background-color: #fff; /* 배경색을 흰색으로 설정 */
   color: #6b6b6b; /* 기본 글자 색상 */
   text-align: left; /* 텍스트 왼쪽 정렬 */
+  height: 100%;
 }
 
 /* 구획 0: Header (뒤로 가기, 게시판, 수정/삭제 버튼) */
@@ -188,6 +189,7 @@ hr.divider {
 
 /* 구획 6: 댓글들 */
 .comments-section {
+  min-height: 40vh;
   margin-bottom: 16px;
   padding-bottom: 60px; /* 댓글 입력창이 고정되면서 댓글 리스트가 가리지 않도록 여유 공간 추가 */
 }
@@ -245,8 +247,8 @@ hr.divider {
 
 /* 댓글 입력 섹션 */
 .comment-input-section {
-  position: fixed; /* 고정 위치 */
-  bottom: 8vh; /* navbar 바로 위에 위치 */
+  position: sticky; /* 고정 위치 */
+  bottom: 1vh; /* navbar 바로 위에 위치 */
   width: 100%; /* 화면 너비에 맞게 설정 */
   display: flex;
   align-items: center;

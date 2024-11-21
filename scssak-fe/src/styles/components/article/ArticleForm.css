@@ -46,6 +46,8 @@
   border-radius: 20px;
   cursor: pointer;
   font-size: medium;
+  display: flex;
+  align-items: center;
 }
 
 .form {
