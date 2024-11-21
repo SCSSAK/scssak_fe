@@ -33,15 +33,18 @@
 
   position: relative;
 
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #040520;
 }
 
 .textArticleType {
   color: #3d5fe7;
+  font-weight: 400;
 }
 
 .textArticleType:after {
-  color: black;
+  color: #040520;
   content: '|';
   margin-left: 0.5rem;
   margin-right: 0.5rem;

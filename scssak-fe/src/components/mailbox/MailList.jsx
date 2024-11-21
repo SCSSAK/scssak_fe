@@ -1,6 +1,6 @@
 import {useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
-import {xModalAtom} from '../../recoil/atom';
+import {xModalAtom, confirmModalAtom} from '../../recoil/atom';
 
 import {API_AUTH} from '../../apis/apiSettings';
 import {MAIL_URL} from '../../apis/apiUrls';
@@ -18,9 +18,21 @@ export default function MailList({data}) {
   // 에러 메시지 전역 상태
   const setXModalState = useSetRecoilState(xModalAtom);
 
+  // 모달 전역 상태
+  const setConfirmModalState = useSetRecoilState(confirmModalAtom);
+
   const loginedUserId = localStorage.getItem('userId');
 
+  // 편지 보내기 버튼 클릭 처리
   const handleClickDeleteMailButton = (mail_id, idx) => {
+    setConfirmModalState({
+      isOpened: true,
+      message: '편지를 삭제하시겠습니까?',
+      onConfirm: () => handleClickConfirmButton(mail_id, idx),
+    });
+  };
+
+  const handleClickConfirmButton = (mail_id, idx) => {
     API_AUTH.delete(MAIL_URL + '/' + mail_id)
       .then(r => {
         setXModalState({

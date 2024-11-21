@@ -1,6 +1,9 @@
 .container {
-  height: 78vh;
+  flex: 1;
+  width: 100%;
+
   overflow: scroll;
+  background-color: #f2f9ff;
 }
 
 .containerMail {

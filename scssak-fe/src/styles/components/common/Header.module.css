@@ -1,5 +1,5 @@
 .container {
-  height: 6vh;
+  height: 7dvh;
 
   display: flex;
   justify-content: start;
@@ -10,4 +10,40 @@
   width: 4rem;
   padding: 0.5rem;
   object-fit: contain;
+}
+
+.containerSearch {
+  height: 70%;
+  width: 100%;
+  padding: 1dvh 1.5dvh;
+  margin: 1dvh;
+  box-sizing: border-box;
+
+  position: relative;
+
+  border: 1px solid #3c95e0;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputSearch {
+  width: 100%;
+  padding: 0 1dvh;
+
+  border: none;
+
+  color: #3d5fe7;
+}
+
+.imgSearch {
+  width: 3dvh;
+  object-fit: contain;
+
+  border: none;
+
+  background-color: transparent;
+  cursor: pointer;
 }
