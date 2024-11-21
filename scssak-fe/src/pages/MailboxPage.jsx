@@ -9,7 +9,7 @@ import MoveToMailWriteButton from '../components/mailbox/MoveToMailWriteButton';
 import {API_AUTH} from '../apis/apiSettings';
 import {MAIL_URL} from '../apis/apiUrls';
 
-import {loginRoute} from '../router/Routes';
+import {loginRoute, mailboxRootRoute} from '../router/Routes';
 
 import go_back_arrow from '../assets/images/go_back_arrow.png';
 import styles from '../styles/pages/MailboxPage.module.css';
@@ -51,7 +51,7 @@ export default function MailboxPage() {
             loadMore();
           }
         },
-        {threshold: 0.9}, // 요소가 거의 다 보였을 때 트리거
+        {threshold: 1}, // 요소가 거의 다 보였을 때 트리거
       );
     }
   }, [isFetching, loadMore]);
@@ -132,7 +132,7 @@ export default function MailboxPage() {
   };
 
   const handleClickGoBackButton = () => {
-    navigate(-1);
+    navigate(mailboxRootRoute);
   };
 
   return (

@@ -21,6 +21,12 @@ export default function LoginForm() {
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
 
+  const handlePushEnter = e => {
+    if (e.code === 'Enter' || e.key === 'Enter') {
+      handleClickLoginButton();
+    }
+  };
+
   // 로그인 버튼 클릭 처리
   const handleClickLoginButton = async () => {
     const data = {
@@ -84,6 +90,7 @@ export default function LoginForm() {
         onChange={e => {
           setPwd(e.target.value);
         }}
+        onKeyDown={e => handlePushEnter(e)}
       />
 
       <button className={styles.loginButton} onClick={handleClickLoginButton}>
