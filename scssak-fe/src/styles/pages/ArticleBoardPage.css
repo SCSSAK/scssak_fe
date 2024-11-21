@@ -15,15 +15,16 @@
   gap: 8px;
   margin-bottom: 20px;
   background-color: white;
-  padding: 8px 16px;
+  padding: 8px 16px 8px 0px;
   margin-left: -8px;
   margin-right: -8px;
   margin-top: -8px; /* 패딩에 따른 위치 조정 */
 }
 
 .logo-image {
-  width: 60px;
-  height: auto;
+  width: 4rem;
+  padding: 0.5rem;
+  object-fit: contain;
 }
 
 /* 검색창 스타일 */

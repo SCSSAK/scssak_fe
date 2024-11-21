@@ -342,7 +342,7 @@ const ArticleDetailPage = () => {
                       alt="X"
                       className="delete-button"
                       onClick={() =>
-                        handleCommentDelete(comment.comment_comment_id)
+                        handleCommentDelete(comment.comment_id)
                       }></img>
                   </div>
                 </div>
