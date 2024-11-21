@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Outlet} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
 
@@ -20,7 +20,8 @@ import ArticleBoardPage from '../pages/ArticleBoardPage';
 import ArticleWritePage from '../pages/ArticleWritePage';
 import ArticleEditPage from '../pages/ArticleEditPage';
 import ArticleDetailPage from '../pages/ArticleDetailPage';
-import MainPage from '../pages/MainPage';
+import StudentMainPage from '../pages/StudentMainPage';
+import GraduateMainPage from '../pages/GraduateMainPage';
 import MailboxListPage from '../pages/MailboxListPage';
 import MailboxPage from '../pages/MailboxPage';
 import MailWritePage from '../pages/MailWritePage';
@@ -43,9 +44,18 @@ export default function AppRouter() {
 
         {/* 비로그인 시 접근 제한 */}
         <Route element={<ProtectedRoute />}>
+          <Route
+            path={mainRoute}
+            element={
+              localStorage.getItem('user_is_student') ? (
+                <LayoutWithHeaderAndNav children={<StudentMainPage />} />
+              ) : (
+                <LayoutWithNav children={<GraduateMainPage />} />
+              )
+            }
+          />
           {/* logo header, bottom nav 모두 있는 경우 */}
           <Route element={<LayoutWithHeaderAndNav />}>
-            <Route path={mainRoute} element={<MainPage />} />
             <Route path={mailboxRootRoute} element={<MailboxListPage />} />
             <Route path={mailboxRoute} element={<MailboxPage />} />
             <Route path={profileRoute} element={<ProfilePage />} />

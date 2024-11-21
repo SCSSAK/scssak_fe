@@ -1,13 +1,11 @@
 import {useNavigate} from 'react-router-dom';
 
-import {API_AUTH} from '../../apis/apiSettings';
-
 import {iconFire, iconComment, iconHeart} from '../../assets/images';
 import {boardTypes} from '../../assets/Strings';
 
 import styles from '../../styles/components/main/PopularArticleList.module.css';
 
-export default function PopularArticleList({data}) {
+export default function PopularArticleList({opened, data}) {
   // page 이동
   const navigate = useNavigate();
 
@@ -20,7 +18,9 @@ export default function PopularArticleList({data}) {
   return (
     <div className={styles.container}>
       <img className={styles.imgFire} src={iconFire} alt="" />
-      <span className={styles.textTitle}>실시간 인기글</span>
+      <span className={opened ? styles.textTitleRed : styles.textTitleBlue}>
+        {opened ? '실시간 전체 인기글' : '실시간 동기 인기글'}
+      </span>
 
       {data?.map((article, idx) => {
         return (

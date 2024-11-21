@@ -3,6 +3,7 @@ export {default as imgLogin} from './img_login.png';
 
 export {default as backgroundImgSea} from './background_sea.png';
 export {default as backgroundImg404} from './background_404.png';
+export {default as backgroundImgGraduateMain} from './background_graduate_main.png';
 
 export {default as buttonImgCheck} from './button_check.png';
 
@@ -19,6 +20,11 @@ export {default as iconDelete} from './icon/icon_delete.png';
 export {default as iconFire} from './icon/icon_fire.png';
 export {default as iconUser} from './icon/icon_user.png';
 export {default as iconSearch} from './icon/icon_search.png';
+export {default as iconChat} from './icon/icon_chat.png';
+export {default as iconMegaphone} from './icon/icon_megaphone.png';
+export {default as iconQuestion} from './icon/icon_question.png';
+export {default as iconHearts} from './icon/icon_hearts.png';
+export {default as iconArrowRight} from './icon/icon_arrow_right.png';
 
 export {default as imgMailbox01} from './mailbox/mailbox_01.png';
 export {default as imgMailbox02} from './mailbox/mailbox_02.png';

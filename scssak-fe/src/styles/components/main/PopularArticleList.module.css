@@ -15,8 +15,15 @@
   padding-right: 0.5rem;
 }
 
-.textTitle {
+.textTitleRed {
   color: #ff0909;
+  font-weight: 400;
+
+  margin-top: 0.25rem;
+}
+
+.textTitleBlue {
+  color: #3d5fe7;
   font-weight: 400;
 
   margin-top: 0.25rem;
