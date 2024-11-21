@@ -58,13 +58,8 @@
   cursor: pointer;
 }
 
-.edit-button:hover,
-.delete-button:hover {
-  background-color: #005bb5;
-}
-
 /* 구획 2: 작성자, 작성일 */
-.article-info {
+.article-content-container .article-info {
   font-size: 12px;
   background-color: #f4fbfe; /* 하늘색 배경 */
   padding: 8px;
@@ -74,12 +69,12 @@
   text-align: left; /* 텍스트 왼쪽 정렬 */
 }
 
-.article-info span {
+.article-content-container .article-info span {
   margin: 4px 6px;
   color: #9a9a9a;
 }
 
-.article-info .writer-name {
+.article-content-container .article-info .writer-name {
   font-size: 18px;
   color: rgb(101, 101, 101);
 }

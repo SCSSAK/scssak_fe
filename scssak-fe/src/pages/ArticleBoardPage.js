@@ -133,7 +133,12 @@ const ArticleBoardPage = () => {
     <div className="board-page">
       {/* 상단 로고 및 검색창 */}
       <div className="board-header">
-        <img src={Logo} alt="Logo" className="logo-image" />
+        <img
+          src={Logo}
+          alt="Logo"
+          className="logo-image"
+          onClick={() => navigate('/main')}
+        />
         <div className="search-container">
           <input
             type="text"

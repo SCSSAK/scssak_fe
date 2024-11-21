@@ -1,14 +1,19 @@
 import React from 'react';
 import ArticleForm from '../components/article/ArticleForm';
 import {BASE_URL} from '../router/Routes';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {useSetRecoilState} from 'recoil';
+import {xModalAtom} from '../recoil/atom';
 
 // article은 board, visibility, title, content 네가지 들어있는 형태로 받기
 const ArticleEditPage = () => {
   const location = useLocation();
   const article = location.state?.article; // 전달받은 article 데이터
   const articleId = location.state?.articleId; // 전달받은 article 데이터
-  console.log(article);
+  const navigate = useNavigate(); // useNavigate 훅 선언
+
+  // 에러 메시지 전역 상태
+  const setXModalState = useSetRecoilState(xModalAtom);
 
   const handleSubmit = async requestData => {
     try {
@@ -26,16 +31,40 @@ const ArticleEditPage = () => {
 
       if (response.ok) {
         console.log('게시글 수정 성공');
-        // 성공 시 추가 처리 (예: 페이지 이동 등)
-      } else if (response.status === 400) {
-        console.error('잘못된 요청: 제목 또는 내용이 비어 있습니다.');
-      } else if (response.status === 401) {
-        console.error('로그인되지 않았습니다.');
+        navigate(`/board/${articleId}`);
       } else {
-        console.error('서버 에러가 발생했습니다.');
+        const status = response.status;
+        switch (status) {
+          // 에러 처리 (400, 비유효 요청)
+          case 400:
+            setXModalState({
+              isOpened: true,
+              message: '게시판, 공개범위, 제목, 내용을\n모두 입력해주세요.',
+            });
+            break;
+
+          // 에러 처리 (401, 비로그인)
+          case 401:
+            setXModalState({
+              isOpened: true,
+              message: '로그인이 필요합니다.',
+            });
+            break;
+
+          // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
+          default:
+            setXModalState({
+              isOpened: true,
+              message: '서버와 통신 중 오류가 발생했습니다.',
+            });
+            break;
+        }
       }
     } catch (error) {
-      console.error('API 요청 중 오류 발생:', error);
+      setXModalState({
+        isOpened: true,
+        message: 'API 요청 중 오류 발생:' + error,
+      });
     }
   };
 

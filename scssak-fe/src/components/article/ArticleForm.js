@@ -32,8 +32,6 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
   };
 
   if (initialData) {
-    console.log('수정 페이지에서 받은 데이터');
-    console.log(initialData);
     isEditMode = true;
     initialBoard = boards[initialData.article_type - 1];
     initialVisibility = initialData.article_is_open ? '전체' : '동기';

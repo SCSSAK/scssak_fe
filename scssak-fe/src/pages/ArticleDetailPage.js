@@ -183,18 +183,17 @@ const ArticleDetailPage = () => {
   };
 
   const handleCommentDelete = commentId => {
-    setSelectedCommentId(commentId); // 삭제할 댓글 번호 지정
     setConfirmModalState({
       isOpened: true,
       message: '댓글을 삭제하시겠습니까?',
-      onConfirm: handleConfirmCommentDelete,
+      onConfirm: () => handleConfirmCommentDelete(commentId),
     });
   };
 
-  const handleConfirmCommentDelete = async () => {
+  const handleConfirmCommentDelete = async commentId => {
     try {
       const auth = `Bearer ${localStorage.getItem('access_token')}`;
-      const url = BASE_URL + `/comment/${articleId}/${selectedCommentId}`;
+      const url = BASE_URL + `/comment/${articleId}/${commentId}`;
 
       const response = await fetch(url, {
         method: 'DELETE',
