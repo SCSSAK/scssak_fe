@@ -17,14 +17,14 @@
 }
 
 .imgProfile {
-  width: 8rem;
-  height: 8rem;
+  width: 30%;
+  aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: 50%;
 }
 
 .containerInfoText {
-  max-width: 15rem;
+  width: 50%;
 
   text-align: start;
 }

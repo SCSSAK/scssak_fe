@@ -11,6 +11,7 @@ import {PROFILE_URL, LOGOUT_URL} from '../apis/apiUrls';
 
 import {loginRoute, profileEditRoute} from '../router/Routes';
 
+import go_back_arrow from '../assets/images/go_back_arrow.png';
 import {iconMenu, iconSetting} from '../assets/images';
 import styles from '../styles/pages/ProfilePage.module.css';
 
@@ -115,10 +116,23 @@ export default function ProfilePage() {
       });
   };
 
+  const handleClickGoBackButton = () => {
+    navigate(-1);
+  };
+
   return (
     <div className={styles.container} onClick={handleClickProfilePage}>
       <main>
         <div className={styles.containerTitle}>
+          {!isUserIdSame && (
+            <img
+              className={styles.iconGoBackArrow}
+              src={go_back_arrow}
+              alt="뒤로 가기 버튼"
+              onClick={handleClickGoBackButton}
+            />
+          )}
+
           <p className={styles.textTitle}>프로필</p>
           {isUserIdSame && (
             <div className={styles.containerTitleIcon}>

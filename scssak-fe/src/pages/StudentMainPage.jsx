@@ -13,9 +13,9 @@ import {MAIN_URL} from '../apis/apiUrls';
 
 import {loginRoute} from '../router/Routes';
 
-import styles from '../styles/pages/MainPage.module.css';
+import styles from '../styles/pages/StudentMainPage.module.css';
 
-export default function MainPage() {
+export default function StudentMainPage() {
   // page 이동
   const navigate = useNavigate();
 
@@ -28,6 +28,8 @@ export default function MainPage() {
     tardy_penalty: 0,
     absent_list: [],
     notice_list: [],
+    popular_article_list_opened_true: [],
+    popular_article_list_opened_false: [],
   });
 
   // main api 호출
@@ -77,7 +79,14 @@ export default function MainPage() {
 
       <TardyList data={data.absent_list} />
       <NoticeList data={data.notice_list} />
-      <PopularArticleList data={data.popular_article_list} />
+      <PopularArticleList
+        opened={true}
+        data={data.popular_article_list_opened_true}
+      />
+      <PopularArticleList
+        opened={false}
+        data={data.popular_article_list_opened_false}
+      />
     </div>
   );
 }

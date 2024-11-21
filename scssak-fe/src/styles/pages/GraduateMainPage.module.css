@@ -1,0 +1,120 @@
+.container {
+  background-color: #f2f9ff;
+}
+
+.containerInfo {
+  padding: 1rem 1rem 1rem 2rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.containerInfoText {
+  text-align: start;
+}
+
+.containerInfoText > img {
+  width: 4rem;
+  object-fit: contain;
+  padding-top: 1rem;
+  padding-bottom: 1.5rem;
+}
+
+.textBlue {
+  margin: 0;
+
+  text-align: start;
+  font-family: 'YeongdeokSea';
+  color: #3c96e0;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.containerInfo > img {
+  width: 6rem;
+  object-fit: contain;
+}
+
+.containerBackground {
+  padding: 3rem 0.75rem;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.containerBoards {
+  margin-bottom: 1rem;
+
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1rem;
+}
+
+.containerBoard {
+  padding: 1rem;
+
+  display: flex;
+  justify-content: space-between;
+
+  background-color: #f2f9ff;
+  border-radius: 10px;
+
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.containerBoard > img {
+  width: 25%;
+  object-fit: contain;
+}
+
+.containerBoardText {
+  text-align: end;
+}
+
+.containerBoardText > p {
+  margin: 0;
+}
+
+.textBoardTitle {
+  padding-bottom: 0.25rem;
+}
+
+.textBoardContent {
+  font-size: 0.75rem;
+  font-weight: 300;
+}
+
+.containerTips {
+  padding: 1.25rem 0.75rem;
+
+  background-color: rgba(61, 95, 231, 0.8);
+  border-radius: 12px;
+
+  color: #ffffff;
+
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  align-items: center;
+}
+
+.containerTipsText {
+  padding-top: 0.05rem;
+
+  flex: 1;
+
+  text-align: start;
+  font-size: 0.75rem;
+  font-weight: 300;
+}
+
+.containerTipsTitle {
+  padding-top: 0.09rem;
+  font-size: 0.9rem;
+}
+
+.containerTips > img {
+  width: 0.45rem;
+  object-fit: contain;
+}

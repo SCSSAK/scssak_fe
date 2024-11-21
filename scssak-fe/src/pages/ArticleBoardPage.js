@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import '../styles/pages/ArticleBoardPage.css';
 import ArticleList from '../components/article/ArticleList';
 import {BASE_URL} from '../router/Routes';
@@ -22,11 +22,15 @@ import type4InActive from '../assets/images/article/type4_inactive.png';
 import type5InActive from '../assets/images/article/type5_inactive.png';
 
 const ArticleBoardPage = () => {
+  const {state} = useLocation();
+
   const [articleList, setArticles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isFetching, setIsFetching] = useState(false);
   const [totalPages, setTotalPages] = useState(1); // 기본값 설정
-  const [activeType, setActiveType] = useState('typeAll');
+  const [activeType, setActiveType] = useState(
+    state.boardType ? 'type' + state.boardType : 'typeAll',
+  );
   const [activeOpenType, setActiveOpenType] = useState('전체');
   const [activeSort, setActiveSort] = useState('latest'); // 기본값은 '최신순'
 

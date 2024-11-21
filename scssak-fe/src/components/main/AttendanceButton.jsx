@@ -1,3 +1,4 @@
+import {useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
 import {xModalAtom} from '../../recoil/atom';
 
@@ -8,16 +9,22 @@ import {buttonImgCheck} from '../../assets/images';
 import styles from '../../styles/components/main/AttendanceButton.module.css';
 
 export default function AttendanceButton() {
+  // page 이동
+  const navigate = useNavigate();
+
   // 에러 메시지 전역 상태
   const setXModalState = useSetRecoilState(xModalAtom);
 
+  const refresh = () => navigate(0, {replace: true});
+
   // 출석 버튼 클릭 처리
   const handleClickAttendanceButton = async () => {
-    API_AUTH.post(ATTEND_URL)
+    await API_AUTH.post(ATTEND_URL)
       .then(r => {
         setXModalState({
           isOpened: true,
           message: '성공적으로 출석되었습니다.',
+          onClose: refresh,
         });
       })
       .catch(e => {
@@ -29,6 +36,7 @@ export default function AttendanceButton() {
             setXModalState({
               isOpened: true,
               message: '재학생이 아니거나,\n이미 출석되어 있습니다.',
+              onClose: refresh,
             });
             break;
 
@@ -37,6 +45,7 @@ export default function AttendanceButton() {
             setXModalState({
               isOpened: true,
               message: '로그인이 필요합니다.',
+              onClose: refresh,
             });
             break;
 
@@ -45,6 +54,7 @@ export default function AttendanceButton() {
             setXModalState({
               isOpened: true,
               message: '서버와 통신 중 오류가 발생했습니다.',
+              onClose: refresh,
             });
             break;
         }

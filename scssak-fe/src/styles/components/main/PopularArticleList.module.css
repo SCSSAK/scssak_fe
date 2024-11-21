@@ -15,8 +15,15 @@
   padding-right: 0.5rem;
 }
 
-.textTitle {
+.textTitleRed {
   color: #ff0909;
+  font-weight: 400;
+
+  margin-top: 0.25rem;
+}
+
+.textTitleBlue {
+  color: #3d5fe7;
   font-weight: 400;
 
   margin-top: 0.25rem;
@@ -34,20 +41,39 @@
   position: relative;
 
   font-size: 0.8rem;
-  font-weight: 300;
-  color: #040520;
+}
+
+.containerArticleTitle {
+  width: 100%;
+
+  display: flex;
+  justify-content: start;
+}
+
+.containerArticleTitle > p {
+  margin: 0;
 }
 
 .textArticleType {
   color: #3d5fe7;
-  font-weight: 400;
 }
 
-.textArticleType:after {
+.textArticleTitle:before {
   color: #040520;
   content: '|';
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+
+.textArticleTitle {
+  width: 60%;
+
+  font-weight: 300;
+  color: #040520;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .containerArticleInfo {
