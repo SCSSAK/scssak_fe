@@ -2,7 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 import '../styles/pages/ArticleBoardPage.css';
 import ArticleList from '../components/article/ArticleList';
-import {BASE_URL} from '../router/Routes';
+import {BASE_URL} from '../apis/apiUrls';
 
 import {useRecoilValue} from 'recoil';
 import {searchBarAtom} from '../recoil/atom';
@@ -29,7 +29,7 @@ const ArticleBoardPage = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [totalPages, setTotalPages] = useState(1); // 기본값 설정
   const [activeType, setActiveType] = useState(
-    state.boardType ? 'type' + state.boardType : 'typeAll',
+    state?.boardType ? 'type' + state.boardType : 'typeAll',
   );
   const [activeOpenType, setActiveOpenType] = useState('전체');
   const [activeSort, setActiveSort] = useState('latest'); // 기본값은 '최신순'

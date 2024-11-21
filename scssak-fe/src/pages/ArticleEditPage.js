@@ -1,6 +1,6 @@
 import React from 'react';
 import ArticleForm from '../components/article/ArticleForm';
-import {BASE_URL} from '../router/Routes';
+import {BASE_URL} from '../apis/apiUrls';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
 import {xModalAtom} from '../recoil/atom';
