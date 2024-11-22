@@ -8,6 +8,8 @@ import {PROFILE_URL} from '../../apis/apiUrls';
 
 import {profileRootRoute} from '../../router/Routes';
 
+import {iconUser} from '../../assets/images';
+
 import styles from '../../styles/components/profileEdit/ProfileForm.module.css';
 
 export default function ProfileForm({data}) {
@@ -227,7 +229,11 @@ export default function ProfileForm({data}) {
   return (
     <div>
       <div className={styles.containerProfileImg}>
-        <img className={styles.imgProfile} src={userImgURL} alt="프로필 사진" />
+        <img
+          className={styles.imgProfile}
+          src={userImgURL?.length > 0 ? userImgURL : iconUser}
+          alt="프로필 사진"
+        />
         <button
           className={styles.buttonChangeImg}
           onClick={handleClickImgUploadButton}>
