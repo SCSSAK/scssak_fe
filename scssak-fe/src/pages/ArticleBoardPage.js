@@ -131,7 +131,12 @@ const ArticleBoardPage = () => {
   }, [currentPage, totalPages, isFetching]);
 
   const handleClick = () => {
-    navigate('/board/write');
+    const articleType =
+      activeType === 'typeAll' ? '' : activeType.replace('type', '');
+    const openType = activeOpenType === '전체' ? 1 : 2;
+    navigate('/board/write', {
+      state: {articleType: articleType, openType: openType},
+    });
   };
 
   return (

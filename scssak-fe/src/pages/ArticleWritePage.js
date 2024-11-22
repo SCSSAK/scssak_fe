@@ -1,12 +1,14 @@
 import React from 'react';
 import ArticleForm from '../components/article/ArticleForm';
 import {BASE_URL} from '../apis/apiUrls';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
 import {xModalAtom} from '../recoil/atom';
 
 const ArticleWritePage = () => {
   const navigate = useNavigate(); // useNavigate 훅 선언
+  const location = useLocation();
+  const {articleType, openType} = location.state || {}; // state가 없는 경우 대비
 
   // 에러 메시지 전역 상태
   const setXModalState = useSetRecoilState(xModalAtom);
@@ -68,6 +70,8 @@ const ArticleWritePage = () => {
       isEditMode={false}
       onSubmit={handleSubmit}
       initialData={null}
+      articleType={articleType}
+      openType={openType}
     />
   );
 };
