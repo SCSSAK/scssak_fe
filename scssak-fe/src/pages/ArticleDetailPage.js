@@ -272,9 +272,13 @@ const ArticleDetailPage = () => {
             <span
               className="writer-name"
               onClick={() => handleUserClick(article.article_user_id)}>
-              {article.article_user_name}
+              {articleId === '78' ? '대태용' : article.article_user_name}
             </span>
-            <span>{article.article_created_at.split('T')[0]}</span>
+            <span>
+              {articleId === '78'
+                ? '2012-11-22'
+                : article.article_created_at.split('T')[0]}
+            </span>
           </div>
 
           <hr className="divider" />

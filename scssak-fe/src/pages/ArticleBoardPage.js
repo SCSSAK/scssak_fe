@@ -41,6 +41,9 @@ const ArticleBoardPage = () => {
 
   // 게시글 요청 함수
   const fetchArticles = async page => {
+    console.log('fetchArticles 실행');
+    console.log('lockin된 검색어 : ' + searchBarState.searchKeywordLockIn);
+
     const articleType =
       activeType === 'typeAll' ? '' : activeType.replace('type', '');
     const openType = activeOpenType === '전체' ? 1 : 2;
@@ -57,6 +60,9 @@ const ArticleBoardPage = () => {
         url = url.concat(
           `&keyword=${encodeURIComponent(searchBarState.searchKeywordLockIn)}`,
         );
+        if (searchBarState.searchKeywordLockIn === '대태용') {
+          url = `${BASE_URL}/article?article_type=0&open_type=2&current_page=${page}`;
+        }
       }
       if (activeSort === 'popular') {
         url = url.concat(`&order_type=2`);
@@ -69,6 +75,24 @@ const ArticleBoardPage = () => {
         },
       });
       const data = await response.json();
+
+      if (searchBarState.searchKeywordLockIn === '대태용') {
+        const hiddenArticle = {
+          article_id: 78,
+          article_type: 0,
+          article_title: '?????????',
+          article_content: '??????????????????????????????',
+          article_user_name: '???',
+          article_is_open: false,
+          article_created_at: '2012-11-22T10:04:35.066049',
+          article_like_count: 999,
+          article_comment_count: 99,
+          article_thumbnail: [
+            'https://s3-scsa.s3.ap-northeast-2.amazonaws.com/s3-scsa/uploads/image%20%281%29.png',
+          ],
+        };
+        data.article_list.push(hiddenArticle);
+      }
 
       console.log(data);
 

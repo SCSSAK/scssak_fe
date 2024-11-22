@@ -17,6 +17,7 @@ export default function Header({hasSearchBar}) {
   const handleInputChange = e => {
     setSearchBarState({
       searchKeyword: e.target.value,
+      searchKeywordLockIn: searchBarState.searchKeywordLockIn,
     });
   };
 
