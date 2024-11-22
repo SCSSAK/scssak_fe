@@ -64,7 +64,7 @@ export default function ProfilePage() {
           default:
             setXModalState({
               isOpened: true,
-              message: '서버와 통신 중 오류가 발생했습니다.',
+              message: '서버와 통신 중\n오류가 발생했습니다.',
             });
             break;
         }
@@ -111,7 +111,7 @@ export default function ProfilePage() {
         // 에러 처리 (예: 네트워크 문제 또는 서버 에러)
         setXModalState({
           isOpened: true,
-          message: '서버와 통신 중 오류가 발생했습니다.',
+          message: '서버와 통신 중\n오류가 발생했습니다.',
         });
       });
   };
