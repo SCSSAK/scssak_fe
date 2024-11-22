@@ -1,6 +1,7 @@
-import {BrowserRouter, Routes, Route, Outlet} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
+import MainRoute from './MainRoute';
 
 import {
   loginRoute,
@@ -20,8 +21,6 @@ import ArticleBoardPage from '../pages/ArticleBoardPage';
 import ArticleWritePage from '../pages/ArticleWritePage';
 import ArticleEditPage from '../pages/ArticleEditPage';
 import ArticleDetailPage from '../pages/ArticleDetailPage';
-import StudentMainPage from '../pages/StudentMainPage';
-import GraduateMainPage from '../pages/GraduateMainPage';
 import MailboxListPage from '../pages/MailboxListPage';
 import MailboxPage from '../pages/MailboxPage';
 import MailWritePage from '../pages/MailWritePage';
@@ -37,6 +36,9 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* 루트 경로 main으로 연결 */}
+        <Route exact path="/" element={<Navigate to={mainRoute} replace />} />
+
         {/* 로그인 시 접근 제한 */}
         <Route element={<PublicRoute />}>
           <Route path={loginRoute} element={<LoginPage />} />
@@ -44,16 +46,7 @@ export default function AppRouter() {
 
         {/* 비로그인 시 접근 제한 */}
         <Route element={<ProtectedRoute />}>
-          <Route
-            path={mainRoute}
-            element={
-              localStorage.getItem('user_is_student') === 'true' ? (
-                <LayoutWithHeaderAndNav children={<StudentMainPage />} />
-              ) : (
-                <LayoutWithNav children={<GraduateMainPage />} />
-              )
-            }
-          />
+          <Route path={mainRoute} element={<MainRoute />} />
           {/* logo header, bottom nav 모두 있는 경우 */}
           <Route element={<LayoutWithHeaderAndNav />}>
             <Route path={mailboxRootRoute} element={<MailboxListPage />} />

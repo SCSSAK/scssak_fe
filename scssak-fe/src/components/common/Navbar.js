@@ -16,6 +16,9 @@ import {
   profileRootRoute,
 } from '../../router/Routes';
 
+import {useSetRecoilState} from 'recoil';
+import {searchBarAtom} from '../../recoil/atom';
+
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,17 +47,25 @@ const Navbar = () => {
     },
   ];
 
+  const setSearchBarState = useSetRecoilState(searchBarAtom);
+
   return (
     <nav className="navbar">
       {menuList.map((menu, idx) => (
         <div
           key={idx}
           className="nav-item"
-          onClick={() => navigate(menu.route)}>
+          onClick={() => {
+            setSearchBarState({
+              searchKeyword: '',
+              searchKeywordLockIn: '',
+            });
+            navigate(menu.route);
+          }}>
           <img
             src={menu.src}
             alt={menu.alt}
-            className={location.pathname.startsWith(menu.to) ? 'active' : ''}
+            className={location.pathname === menu.to ? 'active' : ''}
           />
         </div>
       ))}

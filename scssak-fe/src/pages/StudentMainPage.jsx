@@ -71,7 +71,7 @@ export default function StudentMainPage() {
           총 {data.user_tardy_count}일 지각해서
         </p>
         <p className={styles.textTardy}>
-          {data.user_tardy_count * data.tardy_penalty}원 기부했습니다💸
+          {data.tardy_penalty}원 기부했습니다💸
         </p>
 
         <AttendanceButton />

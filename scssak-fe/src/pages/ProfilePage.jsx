@@ -69,7 +69,7 @@ export default function ProfilePage() {
             break;
         }
       });
-  }, []);
+  }, [user_id]);
 
   // 메뉴 창이 띄워져있는가?
   const [isMenuOpened, setIsMenuOpened] = useState(false);
