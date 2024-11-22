@@ -27,6 +27,13 @@
   min-height: 120px; /* 카드 높이 설정 (필요에 따라 조정) */
 }
 
+.article-info .content {
+  display: -webkit-box; /* flexbox 형식의 블록 컨테이너 */
+  -webkit-box-orient: vertical; /* 수직 방향으로 배치 */
+  -webkit-line-clamp: 2; /* 최대 2줄까지만 표시 */
+  overflow: hidden; /* 넘치는 텍스트는 숨기기 */
+}
+
 .thumbnail {
   width: 120px;
   height: 90px;

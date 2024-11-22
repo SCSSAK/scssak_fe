@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../../styles/components/article/ArticleForm.css';
 import go_back_arrow from '../../assets/images/go_back_arrow.png';
@@ -10,7 +10,13 @@ import deleteIcon from '../../assets/images/article/comment_delete_icon.png';
 import {useSetRecoilState} from 'recoil';
 import {confirmModalAtom} from '../../recoil/atom';
 
-const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
+const ArticleForm = ({
+  isEditMode,
+  onSubmit,
+  initialData,
+  articleType,
+  openType,
+}) => {
   let initialBoard = '';
   let initialVisibility = '전체';
   let initialTitle = '';
@@ -48,6 +54,16 @@ const ArticleForm = ({isEditMode, onSubmit, initialData}) => {
   const [selectedImages, setSelectedImages] = useState([]); // 여러 이미지 첨부용
 
   const boardRef = useRef(null);
+
+  useEffect(() => {
+    if (articleType) {
+      setSelectedBoard(boards[articleType - 1]);
+    }
+
+    if (openType) {
+      setVisibility(openType === 1 ? '전체' : '동기');
+    }
+  }, []); // 빈 배열을 넣으면 최초 렌더링 시에만 실행됨
 
   const handleBoardSelect = board => {
     setSelectedBoard(board);
