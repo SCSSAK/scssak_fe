@@ -13,7 +13,7 @@ export default function Profile({data}) {
       <div className={styles.containerInfo}>
         <img
           className={styles.imgProfile}
-          src={data.user_img ?? iconUser}
+          src={data.user_img?.length > 0 ? data.user_img : iconUser}
           alt="프로필 이미지"
         />
         <div className={styles.containerInfoText}>
@@ -22,10 +22,16 @@ export default function Profile({data}) {
             <span className={styles.textName}>{data.user_name}</span>
           </div>
 
-          <p className={styles.textCompany}>{data.user_company}</p>
+          <p className={styles.textCompany}>
+            {data.user_company?.length > 0 ? data.user_company : '-'}
+          </p>
 
-          <span className={styles.textDepartment}>{data.user_department}</span>
-          <span className={styles.textPosition}>{data.user_position}</span>
+          <span className={styles.textDepartment}>
+            {data.user_department?.length > 0 ? data.user_department : '-'}
+          </span>
+          <span className={styles.textPosition}>
+            {data.user_position?.length > 0 ? data.user_position : '-'}
+          </span>
 
           <p className={styles.textContactTitle}>CONTACT</p>
 
@@ -35,7 +41,9 @@ export default function Profile({data}) {
               src={iconEmail}
               alt="이메일 아이콘"
             />
-            <span className={styles.textContact}>{data.user_email}</span>
+            <span className={styles.textContact}>
+              {data.user_email?.length > 0 ? data.user_email : '-'}
+            </span>
           </div>
           <div className={styles.containerContact}>
             <img
@@ -43,7 +51,9 @@ export default function Profile({data}) {
               src={iconSns}
               alt="SNS 아이콘"
             />
-            <span className={styles.textContact}>{data.user_sns}</span>
+            <span className={styles.textContact}>
+              {data.user_sns?.length > 0 ? data.user_sns : '-'}
+            </span>
           </div>
         </div>
       </div>
