@@ -8,6 +8,8 @@ import {PROFILE_URL} from '../../apis/apiUrls';
 
 import {profileRootRoute} from '../../router/Routes';
 
+import {iconUser} from '../../assets/images';
+
 import styles from '../../styles/components/profileEdit/ProfileForm.module.css';
 
 export default function ProfileForm({data}) {
@@ -217,7 +219,7 @@ export default function ProfileForm({data}) {
           default:
             setXModalState({
               isOpened: true,
-              message: '서버와 통신 중 오류가 발생했습니다.',
+              message: '서버와 통신 중\n오류가 발생했습니다.',
             });
             break;
         }
@@ -227,7 +229,11 @@ export default function ProfileForm({data}) {
   return (
     <div>
       <div className={styles.containerProfileImg}>
-        <img className={styles.imgProfile} src={userImgURL} alt="프로필 사진" />
+        <img
+          className={styles.imgProfile}
+          src={userImgURL?.length > 0 ? userImgURL : iconUser}
+          alt="프로필 사진"
+        />
         <button
           className={styles.buttonChangeImg}
           onClick={handleClickImgUploadButton}>

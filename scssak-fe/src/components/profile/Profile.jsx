@@ -8,6 +8,15 @@ import {
 import styles from '../../styles/components/profile/Profile.module.css';
 
 export default function Profile({data}) {
+  const handleCopyClipBoard = async text => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('클립보드에 링크가 복사되었습니다.');
+    } catch (e) {
+      alert('복사에 실패하였습니다');
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.containerInfo}>
@@ -41,7 +50,12 @@ export default function Profile({data}) {
               src={iconEmail}
               alt="이메일 아이콘"
             />
-            <span className={styles.textContact}>
+            <span
+              className={styles.textContact}
+              onclick={
+                data.user_email?.length > 0 ??
+                handleCopyClipBoard(data.user_email)
+              }>
               {data.user_email?.length > 0 ? data.user_email : '-'}
             </span>
           </div>

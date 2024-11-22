@@ -49,11 +49,20 @@ export default function AttendanceButton() {
             });
             break;
 
+          // 에러 처리 (403, 올바르지 않은 IP에서 접근)
+          case 403:
+            setXModalState({
+              isOpened: true,
+              message: '강의장 Wifi를 연결 후\n출석해주세요.',
+              onClose: refresh,
+            });
+            break;
+
           // 에러 처리 (500, 네트워크 문제 또는 서버 에러)
           default:
             setXModalState({
               isOpened: true,
-              message: '서버와 통신 중 오류가 발생했습니다.',
+              message: '서버와 통신 중\n오류가 발생했습니다.',
               onClose: refresh,
             });
             break;

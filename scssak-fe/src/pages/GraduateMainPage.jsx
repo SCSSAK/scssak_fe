@@ -86,7 +86,7 @@ export default function GraduateMainPage() {
           default:
             setXModalState({
               isOpened: true,
-              message: '서버와 통신 중 오류가 발생했습니다.',
+              message: '서버와 통신 중\n오류가 발생했습니다.',
             });
             break;
         }

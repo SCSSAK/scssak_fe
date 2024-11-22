@@ -15,7 +15,7 @@ export default function ProtectedRoute() {
   useEffect(() => {
     // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
     // state를 통해 이전 위치 정보를 전달하여 로그인 후 원래 가려던 페이지로 이동
-    if (!isAuthenticated) {
+    if (!isAuthenticated && location.state) {
       setXModalState({
         isOpened: true,
         message: '로그인이 필요합니다.',
