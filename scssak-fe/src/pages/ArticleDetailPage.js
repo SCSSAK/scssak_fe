@@ -290,7 +290,11 @@ const ArticleDetailPage = () => {
               ))
             ) : (
               <img
-                src={default_image}
+                src={
+                  articleId === '5'
+                    ? 'https://s3-scsa.s3.ap-northeast-2.amazonaws.com/s3-scsa/uploads/image%20%281%29.png'
+                    : default_image
+                }
                 alt="기본 이미지"
                 className="default-image"
               />
