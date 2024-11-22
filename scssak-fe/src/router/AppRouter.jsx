@@ -47,7 +47,7 @@ export default function AppRouter() {
           <Route
             path={mainRoute}
             element={
-              localStorage.getItem('user_is_student') ? (
+              localStorage.getItem('user_is_student') === 'true' ? (
                 <LayoutWithHeaderAndNav children={<StudentMainPage />} />
               ) : (
                 <LayoutWithNav children={<GraduateMainPage />} />
