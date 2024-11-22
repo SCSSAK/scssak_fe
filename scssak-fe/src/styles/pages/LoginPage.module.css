@@ -29,25 +29,25 @@
 
 .textBlue {
   color: #3d5fe7;
-  font-size: 1.4rem;
+  font-size: 3dvh;
 }
 
 .textGray {
   padding-top: 0.5dvh;
 
   color: #83aaca;
-  font-size: 1.25rem;
+  font-size: 2.5dvh;
 }
 
 .textBlack {
   padding-top: 3dvh;
 
   color: #040520;
-  font-size: 1.5rem;
+  font-size: 3.5dvh;
 }
 
 .textCopyright {
-  position: absolute;
+  position: fixed;
   bottom: 1dvh;
   width: 100%;
   color: #ffffff;
